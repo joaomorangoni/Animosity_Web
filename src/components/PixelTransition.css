@@ -1,5 +1,5 @@
 .pixelated-image-card {
-  background-color: #222;
+  background-color: #27374D;
   color: var(--color-primary, #fff);
   border-radius: 15px;
   border: 2px solid #fff;
@@ -26,6 +26,7 @@
 
 .pixelated-image-card__active {
   display: none;
+  background-color: #27374D;
 }
 
 .pixelated-image-card__pixels {

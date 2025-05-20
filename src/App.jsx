@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './components/Navbar.jsx';
 import Banner from "./components/Banner.jsx";
 import Historia from "./components/Historia.jsx";
+import Objetivos from "./components/Objetivos.jsx";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Navbar/>
       <Banner />
       <Historia/>
+      <Objetivos/>
       
     </>
 

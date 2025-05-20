@@ -17,7 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu'; // ícone do menu
 import { motion } from 'framer-motion';
 import { useTheme } from '@mui/material/styles';
 
-const links = ['Início', 'História', 'Sobre'];
+const links = ['Início', 'História', 'Sobre', 'Downloads'];
 
 const wordVariants = {
   hidden: { opacity: 0, y: -20 },
