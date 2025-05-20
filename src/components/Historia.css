@@ -1,0 +1,33 @@
+.historia-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 60px 10%;
+  gap: 40px;
+  flex-wrap: wrap; /* garante responsividade no mobile */
+}
+
+.historia-texto {
+  flex: 1;
+  min-width: 280px;
+  color: #fff;
+}
+
+.esquerda {
+  text-align: left;
+}
+
+.direita {
+  text-align: right;
+}
+
+.historia-texto h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #ffd700; /* dourado */
+}
+
+.historia-texto p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
