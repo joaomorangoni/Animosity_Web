@@ -8,7 +8,7 @@ const Banner = () => {
       <Particles className="particles-background" />
       <div className="banner-content">
         <img
-          src="/sua-imagem.jpg"
+          src="./public/img/ProtagonistGif.gif"
           alt="Imagem à esquerda"
           className="banner-image"
         />

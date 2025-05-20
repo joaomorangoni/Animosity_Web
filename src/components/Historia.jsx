@@ -15,7 +15,7 @@ const Historia = () => {
         <PixelTransition
   firstContent={
     <img
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg"
+      src="./public/img/ProtagonistPNG.png"
       alt="default pixel transition content, a cat!"
       style={{ width: "100%", height: "100%", objectFit: "cover" }}
     />
@@ -30,7 +30,7 @@ const Historia = () => {
         backgroundColor: "#111"
       }}
     >
-      <p style={{ fontWeight: 900, fontSize: "3rem", color: "#ffffff" }}>Meow!</p>
+      <p style={{ fontWeight: 900, fontSize: "3rem", color: "#ffffff" }}>O Herói.</p>
     </div>
   }
   gridSize={12}
