@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './objetivos.css';
 import { Target, Star, Users } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
 
 const goals = [
   {
@@ -30,14 +31,52 @@ export default function CompanyGoals() {
         </p>
         <div className="goals-grid">
           {goals.map((goal, index) => (
-            <div key={index} className="goal-card">
-              {goal.icon}
-              <h3 className="goal-title">{goal.title}</h3>
-              <p className="goal-description">{goal.description}</p>
-            </div>
+            <GoalCard key={index} goal={goal} index={index} />
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function GoalCard({ goal, index }) {
+  const ref = useRef(null);
+  // Sem once:true para detectar múltiplas entradas/saídas
+  const isInView = useInView(ref, { amount: 0.3, once: false });
+
+  // Variantes para entrada (fade + slide up) e saída (fade + slide down)
+  const variants = {
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 0.8, 
+        ease: "easeOut", 
+        delay: index * 0.3, // delay crescente na entrada
+      } 
+    },
+    hidden: { 
+      opacity: 0, 
+      y: 20, 
+      transition: { 
+        duration: 0.8, 
+        ease: "easeIn", 
+        delay: (goals.length - 1 - index) * 0.3, // delay invertido na saída para manter ordem
+      } 
+    }
+  };
+
+  return (
+    <motion.div
+      className="goal-card"
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={variants}
+    >
+      {goal.icon}
+      <h3 className="goal-title">{goal.title}</h3>
+      <p className="goal-description">{goal.description}</p>
+    </motion.div>
   );
 }

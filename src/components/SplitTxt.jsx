@@ -1,91 +1,38 @@
-import { useSprings, animated } from '@react-spring/web';
-import { useEffect, useRef, useState } from 'react';
-import './splittxt.css';
+import React from "react";
+import { motion } from "framer-motion";
+import "./splittxt.css";
 
-const SplitText = ({
-  text = '',
-  className = '',
-  delay = 100,
-  animationFrom = { opacity: 0, transform: 'translate3d(0,40px,0)' },
-  animationTo = { opacity: 1, transform: 'translate3d(0,0,0)' },
-  easing = 'easeOutCubic',
-  threshold = 0.1,
-  rootMargin = '-100px',
-  textAlign = 'center',
-  onLetterAnimationComplete,
-}) => {
-  const words = text.split(' ').map(word => word.split(''));
+const splitText = (text) => {
+  return text.split("").map((char, index) => (
+    <motion.span
+      key={index}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.04, duration: 0.3 }}
+      className="split-letter"
+    >
+      {char === " " ? "\u00A0" : char}
+    </motion.span>
+  ));
+};
 
-  const letters = words.flat();
-  const [inView, setInView] = useState(false);
-  const ref = useRef();
-  const animatedCount = useRef(0);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.unobserve(ref.current);
-        }
-      },
-      { threshold, rootMargin }
-    );
-
-    observer.observe(ref.current);
-
-    return () => observer.disconnect();
-  }, [threshold, rootMargin]);
-
-  const springs = useSprings(
-    letters.length,
-    letters.map((_, i) => ({
-      from: animationFrom,
-      to: inView
-        ? async (next) => {
-          await next(animationTo);
-          animatedCount.current += 1;
-          if (animatedCount.current === letters.length && onLetterAnimationComplete) {
-            onLetterAnimationComplete();
-          }
-        }
-        : animationFrom,
-      delay: i * delay,
-      config: { easing },
-    }))
-  );
+const SplitTitle = () => {
+  const titulo = "ANIMOSITY";
+  const subtitulo = "Explorando emoções.";
 
   return (
-    <p
-      ref={ref}
-      className={`split-parent ${className}`}
-      style={{ textAlign, overflow: 'hidden', display: 'inline', whiteSpace: 'normal', wordWrap: 'break-word' }}
-    >
-      {words.map((word, wordIndex) => (
-        <span key={wordIndex} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
-          {word.map((letter, letterIndex) => {
-            const index = words
-              .slice(0, wordIndex)
-              .reduce((acc, w) => acc + w.length, 0) + letterIndex;
-
-            return (
-              <animated.span
-                key={index}
-                style={{
-                  ...springs[index],
-                  display: 'inline-block',
-                  willChange: 'transform, opacity',
-                }}
-              >
-                {letter}
-              </animated.span>
-            );
-          })}
-          <span className='text' style={{ display: 'inline-block', width: '0.3em' }}>&nbsp;</span>
-        </span>
-      ))}
-    </p>
+    <div className="split-title-container">
+      <h1 className="titulo">{splitText(titulo)}</h1>
+      <motion.h3
+        className="subtitulo"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: titulo.length * 0.04 + 0.3, duration: 0.6 }}
+      >
+        {subtitulo}
+      </motion.h3>
+    </div>
   );
 };
 
-export default SplitText;
+export default SplitTitle;

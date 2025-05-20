@@ -59,6 +59,76 @@
     font-size: 1rem;
     color: #9DB2BF;
   }
+  .goal-card {
+  position: relative;
+  background: #526D82;
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.goal-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(255, 255, 255, 0.3);
+}
+
+/* Faixa fina lateral esquerda */
+.goal-card::before {
+  content: "";
+  position: absolute;
+  top: 100%;  /* inicia fora do card, embaixo */
+  left: 0;
+  width: 4px;
+  height: 60%;
+  background: linear-gradient(to top, rgba(255,255,255,0.7), rgba(255,255,255,0));
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Faixa fina lateral direita */
+.goal-card::after {
+  content: "";
+  position: absolute;
+  top: 100%;  /* inicia fora do card, embaixo */
+  right: 0;
+  width: 4px;
+  height: 60%;
+  background: linear-gradient(to top, rgba(255,255,255,0.7), rgba(255,255,255,0));
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Ativa a animação no hover */
+.goal-card:hover::before,
+.goal-card:hover::after {
+  opacity: 1;
+  animation: shimmer-up 2s linear infinite;
+}
+
+/* Animação que faz a faixa subir da base ao topo */
+@keyframes shimmer-up {
+  0% {
+    top: 100%;
+    opacity: 1;
+  }
+  50% {
+    top: 20%;
+    opacity: 0.6;
+  }
+  100% {
+    top: 0%;
+    opacity: 0;
+  }
+}
+
   
   /* Responsividade */
   @media (min-width: 640px) {

@@ -3,6 +3,7 @@ import Particles from "./BackgroundParticles";
 import "./Banner.css";
 import BlurText from "./Blurtxt";
 import SplitText from "./SplitTxt";
+import { motion } from 'framer-motion';
 
 const handleAnimationComplete = () => {
   console.log('Animation completed!');
@@ -18,8 +19,9 @@ const Banner = () => {
         <img
           src="./public/img/ProtagonistGif.gif"
           alt="Imagem à esquerda"
-          className="banner-image"
+          className="banner-image pixel-fade"
         />
+
          <div className="banner-text">
     <SplitText
       text="Animosity"
@@ -33,19 +35,15 @@ const Banner = () => {
       onLetterAnimationComplete={handleAnimationComplete}
     />
 
-    <BlurText
-      text="Explorando emoções"
-      delay={150}
-      animateBy="words"
-      direction="top"
-      onAnimationComplete={handleAnimationComplete}
-      className="text-2xl mb-8"
-    />
-          <button class="ui-btn">
-          <span>
-            Saiba Mais
-          </span>
-        </button>
+   
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}                  // começa invisível e abaixo
+          animate={{ opacity: 1, y: 0 }}                   // aparece suavemente
+          transition={{ duration: 0.8, ease: "easeInOut" }} // tempo da animação
+          className="btn-3d"
+        >
+          Saiba mais
+        </motion.button>
         </div>
       </div>
     </div>

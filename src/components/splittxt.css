@@ -1,12 +1,21 @@
-.text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* ou center dependendo do layout desejado */
-    justify-content: center;
-    font-size: 3rem;         /* Tamanho grande para título */
-    font-weight: bold;       /* Deixa em negrito */
-    color: white;            /* Cor branca para contraste */
-    text-align: right;       /* Alinha à direita (pode mudar para center ou left se quiser) */
-    margin-bottom: 1rem;     /* Espaçamento abaixo do título */
-    line-height: 1.2;        /* Altura da linha ajustada */
-  }
+.split-title-container {
+  text-align: center;
+  color: #fff;
+}
+
+.titulo {
+  font-size: 4rem;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+  margin-bottom: 2px;
+  display: inline-block;
+}
+
+.subtitulo {
+  font-size: 1.5rem;
+  color: #DDE6ED; /* dourado vibrante */
+}
+
+.split-letter {
+  display: inline-block;
+}
