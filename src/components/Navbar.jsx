@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -17,7 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu'; // ícone do menu
 import { motion } from 'framer-motion';
 import { useTheme } from '@mui/material/styles';
 
-const links = ['Início', 'História', 'Sobre', 'Downloads'];
+const links = [ 'Início','Sobre','Login'];
 
 const wordVariants = {
   hidden: { opacity: 0, y: -20 },

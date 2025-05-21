@@ -67,6 +67,7 @@
 /* Container que centraliza o botão */
 /* Updated 3D Button Styles */
 .banner-text .btn-3d {
+  background-color: black;
   color: white;
   border: none;
   border-radius: 12px;
@@ -74,7 +75,7 @@
   font-size: 1.25rem;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 8px #363537;
+  box-shadow: 0 8px #111112;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
