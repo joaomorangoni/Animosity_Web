@@ -15,3 +15,5 @@ If you are developing a production application, we recommend using TypeScript wi
 
 //PALETA DE CORES: https://colorhunt.co/palette/27374d526d829db2bfdde6ed
 
+// component de música: https://ui.aceternity.com/components/expandable-card
+
