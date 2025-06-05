@@ -14,7 +14,7 @@ function App() {
     <>
       <Navbar/>
       <Banner />
-      <Historia/>
+ 
       <Gallery />
       <Objetivos/>
        <div style={{ padding: '2rem' }}>
