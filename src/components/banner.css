@@ -1,15 +1,17 @@
+/* Banner ocupa toda a tela visível sem scroll */
 .banner {
-  width: 100%;
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
   background-color: black;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; /* cuidado para não cortar conteúdo */
   z-index: 0;
-  padding: 40px 0;
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
 
@@ -27,19 +29,18 @@
   width: 100%;
   max-width: 1300px;
   height: 100%;
-  position: relative;
-  z-index: 1;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 0 40px;
   box-sizing: border-box;
   gap: 40px;
+  position: relative;
+  z-index: 1;
 }
 
 .banner-image {
   flex: 0 0 auto;
-  gap: 20px;
 }
 
 .banner-image img {
@@ -50,7 +51,6 @@
 }
 
 .banner-text {
-  color: rgb(255, 255, 255);
   max-width: 600px;
 }
 
@@ -64,8 +64,7 @@
   line-height: 1.5;
   margin-bottom: 1.5rem;
 }
-/* Container que centraliza o botão */
-/* Updated 3D Button Styles */
+
 .banner-text .btn-3d {
   background-color: black;
   color: white;
@@ -80,8 +79,8 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-top: 2rem;
-  display: inline-block; /* For proper alignment */
-  margin-left: 100px;
+  display: inline-block;
+  margin-left: 90px;
 }
 
 .banner-text .btn-3d:hover {
@@ -94,67 +93,74 @@
   box-shadow: 0 2px #282729;
 }
 
-/* Responsive adjustments */
+/* Responsivo: tablet */
 @media (max-width: 992px) {
+  .banner-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+    padding: 40px 20px;
+  }
+
+  .banner-image img {
+    width: 280px;
+  }
+
+  .banner-text {
+    max-width: 100%;
+  }
+
   .banner-text .btn-3d {
     padding: 0.8rem 2.5rem;
     font-size: 1.1rem;
     box-shadow: 0 6px #363537;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
+/* Responsivo: mobile */
 @media (max-width: 576px) {
+  .banner-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .banner-image img {
+    width: 220px;
+    margin: 0 auto;
+  }
+
+  .banner-text {
+    display: block !important;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .banner-text h1 {
+    font-size: 2.2rem;
+  }
+
+  .banner-text p {
+    font-size: 1rem;
+  }
+
   .banner-text .btn-3d {
     padding: 0.7rem 2rem;
     font-size: 1rem;
     box-shadow: 0 5px #363537;
     margin-top: 1.5rem;
-    display: block; /* Center on mobile */
+    display: block;
     margin-left: auto;
     margin-right: auto;
-    width: fit-content;
   }
-  
+
   .banner-text .btn-3d:active {
     transform: translateY(4px);
     box-shadow: 0 1px #282729;
-  }
-}
-
-
-
-/* Responsive adjustments */
-@media (max-width: 992px) {
-  .banner-content {
-    flex-direction: column;
-    text-align: center;
-    gap: 40px;
-    padding: 40px 20px;
-  }
-  
-  .banner-text {
-    max-width: 100%;
-  }
-  
-  .banner-text p, .ui-btn {
-    margin-left: 0;
-  }
-  
-  .banner-image img {
-    margin-bottom: 0;
-  }
-}
-
-@media (max-width: 576px) {
-  .banner-text h1 {
-    font-size: 2.2rem;
-  }
-  
-  .banner-text p {
-    font-size: 1.1rem;
-  }
-  
-  .banner-image img {
-    width: 250px;
   }
 }

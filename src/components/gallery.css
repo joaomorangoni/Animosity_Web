@@ -1,17 +1,31 @@
-
 .section {
   display: flex;
   align-items: center;
   margin-bottom: 40px;
   gap: 20px;
+  max-width: 1080px;  /* limite max largura */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px; /* espaçamento lateral para telas menores */
 }
 
+/* Para controlar a direção das seções com imagem à direita ou esquerda */
 .image-right {
   flex-direction: row;
+  width: 100%;
+  padding: 5%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .image-left {
   flex-direction: row-reverse;
+  width: 100%;
+  padding: 2%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .text {
@@ -22,11 +36,11 @@
 .text h2 {
   font-size: 2rem;
   margin-bottom: 15px;
-  color: #333;
+  color: #9DB2BF;
 }
 
 .text p {
-  font-size: 1.2rem; /* Aumenta o tamanho da fonte do texto */
+  font-size: 1.2rem;
   line-height: 1.6;
   color: #555;
 }
@@ -41,18 +55,41 @@
   border-radius: 8px;
 }
 
-@media (max-width: 768px) {
+/* Responsividade */
+@media (max-width: 992px) {
   .section {
-    flex-direction: column;
+    max-width: 90%;
   }
+  .text h2 {
+    font-size: 1.75rem;
+  }
+  .text p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section,
   .image-right,
   .image-left {
-    flex-direction: column;
+    flex-direction: column !important; /* força coluna em todos */
+    width: 100%;
+    padding: 10px;
+  }
+  .text {
+    padding: 10px 0;
+    text-align: center;
   }
   .text h2 {
     font-size: 1.5rem;
   }
   .text p {
     font-size: 1rem;
+  }
+  .image {
+    width: 100%;
+  }
+  .image img {
+    border-radius: 12px;
   }
 }

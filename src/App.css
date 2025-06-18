@@ -2,5 +2,6 @@ html, body {
   margin: 0;
   padding: 0;
   background-color: #222831;
-  width: 100%;
+ overflow-x: hidden;
+
 }
