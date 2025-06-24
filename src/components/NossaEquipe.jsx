@@ -16,7 +16,7 @@ const membros = [
   {
     nome: "João Pedro Morangoni",
     funcao: "Game Dev",
-    imagem: "./public/img/",
+    imagem: "./public/img/moranguinho.jpg",
     descricao: "Oi, sou o João, tenho 17 anos e programei o jogo!.",
     github: "https://github.com/morangoni",
     linkedin: "https://linkedin.com/in/morangoni",
@@ -58,24 +58,17 @@ const membros = [
 const NossaEquipe = () => {
   const [modalAberto, setModalAberto] = useState(false);
   const [membroSelecionado, setMembroSelecionado] = useState(null);
-  const [fechandoModal, setFechandoModal] = useState(false);
   const [indexAtual, setIndexAtual] = useState(0);
-  const isMobile = useMediaQuery("(max-width:768px)");
   const { ref, inView } = useInView({ triggerOnce: false, threshold: 0.1 });
+  const isMobile = useMediaQuery("(max-width:768px)");
 
   const abrirModal = (membro) => {
     setMembroSelecionado(membro);
     setModalAberto(true);
-    setFechandoModal(false);
   };
 
   const fecharModal = () => {
-    setFechandoModal(true);
-    setTimeout(() => {
-      setModalAberto(false);
-      setMembroSelecionado(null);
-      setFechandoModal(false);
-    }, 700); // Duração da animação de saída
+    setModalAberto(false);
   };
 
   const proximo = () => {
@@ -88,16 +81,11 @@ const NossaEquipe = () => {
 
   return (
     <Box ref={ref} sx={{ color: "#fff", textAlign: "center", mt: 4 }}>
-      <Typography variant="h4" mb={4}>
-        Nossa Equipe
-      </Typography>
-
       {isMobile ? (
-        <Box position="relative" display="flex" alignItems="center" justifyContent="center">
+        <Box display="flex" alignItems="center" justifyContent="center">
           <IconButton onClick={anterior} sx={{ color: "#fff" }}>
             <ArrowLeft />
           </IconButton>
-
           <AnimatePresence mode="wait">
             {inView && (
               <motion.div
@@ -105,32 +93,56 @@ const NossaEquipe = () => {
                 initial={{ opacity: 0, x: 100 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
+                transition={{ duration: 0.6 }}
                 onClick={() => abrirModal(membros[indexAtual])}
                 whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 0 20px rgba(255,255,255,0.2)",
+                  boxShadow: "0 0 30px rgba(255, 255, 255, 0.4)",
+                  backgroundColor: "#5c7b9b",
                 }}
                 style={{
                   background: "#526D82",
                   padding: "2rem",
                   borderRadius: "1rem",
                   cursor: "pointer",
-                  maxWidth: "90vw",
-                  margin: "0 1rem",
+                  maxWidth: "80vw",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
-                <Avatar
-                  src={membros[indexAtual].imagem}
-                  alt={membros[indexAtual].nome}
-                  sx={{
-                    width: 100,
-                    height: 100,
-                    margin: "0 auto",
-                    mb: 2,
-                    border: "2px solid #fff",
-                  }}
-                />
+                <motion.div style={{ position: "relative" }}>
+                  <motion.div
+                    whileHover={{ rotate: [0, 5, -5, 5, -5, 0] }}
+                    transition={{ duration: 0.8 }}
+                  >
+                    <Avatar
+                      src={membros[indexAtual].imagem}
+                      alt={membros[indexAtual].nome}
+                      sx={{
+                        width: 100,
+                        height: 100,
+                        margin: "0 auto",
+                        mb: 2,
+                        border: "2px solid #fff",
+                      }}
+                    />
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      color: "#fff",
+                      fontWeight: "bold",
+                      fontSize: "0.9rem",
+                      pointerEvents: "none",
+                    }}
+                  >
+                    Clique aqui
+                  </motion.div>
+                </motion.div>
                 <Typography variant="h6">{membros[indexAtual].nome}</Typography>
                 <Typography variant="body2" color="#9DB2BF">
                   {membros[indexAtual].funcao}
@@ -138,7 +150,6 @@ const NossaEquipe = () => {
               </motion.div>
             )}
           </AnimatePresence>
-
           <IconButton onClick={proximo} sx={{ color: "#fff" }}>
             <ArrowRight />
           </IconButton>
@@ -146,25 +157,31 @@ const NossaEquipe = () => {
       ) : (
         <Box display="flex" justifyContent="center" gap={3} flexWrap="wrap">
           {membros.map((membro, index) => (
-            <AnimatePresence key={index}>
-              {inView && (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              exit={{ opacity: 0, y: 50 }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+              onClick={() => abrirModal(membro)}
+              whileHover={{
+                boxShadow: "0 0 30px rgba(255, 255, 255, 0.4)",
+                backgroundColor: "#5c7b9b",
+              }}
+              style={{
+                background: "#526D82",
+                padding: "2rem",
+                borderRadius: "1rem",
+                cursor: "pointer",
+                maxWidth: "300px",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <motion.div style={{ position: "relative" }}>
                 <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 50 }}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 0 20px rgba(255,255,255,0.2)",
-                  }}
-                  onClick={() => abrirModal(membro)}
-                  style={{
-                    background: "#526D82",
-                    padding: "2rem",
-                    borderRadius: "1rem",
-                    cursor: "pointer",
-                    maxWidth: "300px",
-                  }}
+                  whileHover={{ rotate: [0, 5, -5, 5, -5, 0] }}
+                  transition={{ duration: 0.8 }}
                 >
                   <Avatar
                     src={membro.imagem}
@@ -177,32 +194,43 @@ const NossaEquipe = () => {
                       border: "2px solid #fff",
                     }}
                   />
-                  <Typography variant="h6">{membro.nome}</Typography>
-                  <Typography variant="body2" color="#9DB2BF">
-                    {membro.funcao}
-                  </Typography>
                 </motion.div>
-              )}
-            </AnimatePresence>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    color: "#fff",
+                    fontWeight: "bold",
+                    fontSize: "0.9rem",
+                    pointerEvents: "none",
+                  }}
+                >
+                  Clique aqui
+                </motion.div>
+              </motion.div>
+              <Typography variant="h6">{membro.nome}</Typography>
+              <Typography variant="body2" color="#9DB2BF">
+                {membro.funcao}
+              </Typography>
+            </motion.div>
           ))}
         </Box>
       )}
 
       <Modal open={modalAberto} onClose={fecharModal}>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          height="100vh"
-        >
+        <Box display="flex" alignItems="center" justifyContent="center" height="100vh">
           <AnimatePresence>
             {membroSelecionado && (
               <motion.div
                 key="modal"
-                initial={{ opacity: 0, scale: 0.3, rotate: -30 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                exit={{ opacity: 0, scale: 0.3, rotate: 60 }}
-                transition={{ duration: 0.7, ease: "easeInOut" }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scaleY: 0.02 }}
+                transition={{ duration: 0.6 }}
                 style={{
                   background: "#526D82",
                   color: "#27374D",
@@ -211,7 +239,7 @@ const NossaEquipe = () => {
                   maxWidth: "500px",
                   width: "90%",
                   position: "relative",
-                  boxShadow: "0 0 40px rgba(0,0,0,0.4)",
+                  overflow: "hidden",
                 }}
               >
                 <IconButton
@@ -220,16 +248,17 @@ const NossaEquipe = () => {
                     position: "absolute",
                     top: 10,
                     right: 10,
-                    color: "#27374D",
+                    color: "#9DB2BF",
                   }}
                 >
                   <X />
                 </IconButton>
 
                 <motion.div
-                  initial={{ y: -50, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.3 }}
+                  initial={{ y: -200, opacity: 0 }}
+                  animate={{ y: [ -200, 20, -10, 0 ], opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.8 }}
                 >
                   <Avatar
                     src={membroSelecionado.imagem}
@@ -244,30 +273,31 @@ const NossaEquipe = () => {
                   />
                 </motion.div>
 
-                <Typography variant="h6" align="center">
-                  {membroSelecionado.nome}
-                </Typography>
-                <Typography variant="subtitle2" align="center" color="#526D82">
-                  {membroSelecionado.funcao}
-                </Typography>
-                <Typography mt={2} align="center">
-                  {membroSelecionado.descricao}
-                </Typography>
-
-                <Box
-                  mt={3}
-                  display="flex"
-                  justifyContent="center"
-                  gap={2}
-                  sx={{ color: "#9DB2BF" }}
+                <motion.div
+                  initial={{ y: 100, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6 }}
                 >
-                  <Link href={membroSelecionado.github} target="_blank" underline="none">
-                    <Github />
-                  </Link>
-                  <Link href={membroSelecionado.linkedin} target="_blank" underline="none">
-                    <Linkedin />
-                  </Link>
-                </Box>
+                  <Typography variant="h6" align="center">
+                    {membroSelecionado.nome}
+                  </Typography>
+                  <Typography variant="subtitle2" align="center" color="#9DB2BF">
+                    {membroSelecionado.funcao}
+                  </Typography>
+                  <Typography mt={2} align="center">
+                    {membroSelecionado.descricao}
+                  </Typography>
+
+                  <Box mt={3} display="flex" justifyContent="center" gap={2}>
+                    <Link href={membroSelecionado.github} target="_blank" underline="none" color="#9DB2BF">
+                      <Github />
+                    </Link>
+                    <Link href={membroSelecionado.linkedin} target="_blank" underline="none" color="#9DB2BF">
+                      <Linkedin />
+                    </Link>
+                  </Box>
+                </motion.div>
               </motion.div>
             )}
           </AnimatePresence>

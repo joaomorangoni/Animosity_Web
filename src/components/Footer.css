@@ -1,0 +1,58 @@
+.footer {
+    background: #27374D;
+    padding: 2rem 1rem;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .footer::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+    animation: shine 8s linear infinite;
+  }
+  
+  @keyframes shine {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .footer-content {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .footer-title {
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    color: #9DB2BF;
+  }
+  
+  .footer-subtitle {
+    color: #9DB2BF;
+    margin-bottom: 1rem;
+  }
+  
+  .footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .footer-icon {
+    color: #9DB2BF;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .footer-icon:hover {
+    transform: scale(1.2);
+    color: #fff;
+  }
+  

@@ -7,6 +7,7 @@ import Objetivos from "./components/Objetivos.jsx";
 import SplitTitle from "./components/SplitTxt.jsx";
 import NossaEquipe from './components/NossaEquipe';
 import Gallery from './components/Gallery.jsx';
+import Footer from './components/Footer.jsx';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <p style={{ textAlign: 'center', color:'#9DB2BF' }}>Conheça os magicos por traz do truque</p>
       <NossaEquipe />
     </div>
+    <Footer/>
       
     </>
 

@@ -24,7 +24,7 @@ const Banner = () => {
 
          <div className="banner-text">
     <SplitText
-      text="Animosity"
+      text="Animosidade"
       className="txt"
       delay={150}
       animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}

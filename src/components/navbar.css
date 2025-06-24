@@ -1,0 +1,125 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 0.7rem 1.5rem;
+    backdrop-filter: blur(12px);
+    background: rgba(18, 18, 30, 0.6);
+    z-index: 1000;
+  }
+  
+  .navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-logo {
+    font-weight: 900;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .navbar-link {
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-link:hover {
+    color: #7ec8e3;
+    text-shadow: 0 0 10px rgba(126,200,227,0.6);
+  }
+  
+  .hamburger {
+    width: 30px;
+    height: 22px;
+    position: relative;
+    display: none;
+    cursor: pointer;
+  }
+  
+  .hamburger span {
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.4s ease;
+  }
+  
+  .hamburger span:nth-child(1) { top: 0; }
+  .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+  .hamburger span:nth-child(3) { bottom: 0; }
+  
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+    top: 50%;
+  }
+  
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+    bottom: 50%;
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70%;
+    max-width: 260px;
+    height: 100vh;
+    background: rgba(18, 18, 30, 0.85);
+    backdrop-filter: blur(20px);
+    padding: 2rem 1.5rem;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.6);
+    z-index: 1100;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .sidebar-header {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .close-btn {
+    color: #fff;
+  }
+  
+  .sidebar-link {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-align: right;
+    transition: color 0.3s ease;
+  }
+  
+  .sidebar-link:hover {
+    color: #7ec8e3;
+    text-shadow: 0 0 10px rgba(126,200,227,0.6);
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-links {
+      display: none;
+    }
+    .hamburger {
+      display: block;
+    }
+  }
+  

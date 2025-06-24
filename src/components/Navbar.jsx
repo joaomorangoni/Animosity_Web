@@ -1,138 +1,133 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Box,
-  IconButton,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  useMediaQuery
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu'; // ícone do menu
-import { motion } from 'framer-motion';
-import { useTheme } from '@mui/material/styles';
+import React, { useState } from "react";
+import { Box, IconButton, Link, Typography, useMediaQuery } from "@mui/material";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
-const links = [ 'Início','Sobre','Login'];
+const links = [
+  { label: "Início", href: "#inicio" },
+  { label: "Sobre", href: "#sobre" },
+  { label: "Equipe", href: "#equipe" },
+  { label: "Login", href: "#contato" },
+];
 
-const wordVariants = {
-  hidden: { opacity: 0, y: -20 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.2 }
-  })
-};
+const Navbar = () => {
+  const [sidebarAberta, setSidebarAberta] = useState(false);
+  const isMobile = useMediaQuery("(max-width:768px)");
 
-function Navbar() {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const toggleSidebar = () => setSidebarAberta(!sidebarAberta);
 
   return (
-    <>
-      <AppBar
-        position="fixed"
-        elevation={0}
-        top={0}
-        display="flex"
+    <Box sx={{ position: "fixed", top: 0, width: "100%", zIndex: 100 }}>
+      <Box
+        component={motion.div}
+        initial={{ y: -60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         sx={{
-          backgroundColor: 'transparent',
-          backdropFilter: 'blur(8px)',
-          boxShadow: 'none',
+          backdropFilter: "blur(10px)",
+          background: "rgba(18, 18, 30, 0.5)",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          p: 2,
         }}
       >
-        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          {/* Título com animação palavra por palavra */}
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {'Animosity'.split('').map((letter, i) => (
-              <motion.span
-                key={i}
-                custom={i}
-                initial="hidden"
-                animate="visible"
-                variants={wordVariants}
-                style={{
-                  fontSize: '1.5rem',
-                  fontWeight: 'bold',
-                  color: 'white',
-                  marginRight: '2px',
+        <Typography sx={{ color: "#fff", fontWeight: "bold", letterSpacing: 2 }}>
+          ANIMOSIDADE
+        </Typography>
+
+        {!isMobile && (
+          <Box display="flex" gap={3}>
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                underline="none"
+                sx={{
+                  color: "#fff",
+                  fontSize: "1.1rem",
+                  transition: "0.3s",
+                  "&:hover": { color: "#7ec8e3" },
                 }}
               >
-                {letter}
-              </motion.span>
+                {link.label}
+              </Link>
             ))}
           </Box>
+        )}
 
-          {/* Navegação: Links no desktop, menu no mobile */}
-          {isMobile ? (
-            <>
-              <IconButton
-                edge="end"
-                color="inherit"
-                onClick={() => setDrawerOpen(true)}
-              >
-                <MenuIcon />
+        {isMobile && (
+          <IconButton onClick={toggleSidebar} sx={{ color: "#fff" }}>
+            <Menu />
+          </IconButton>
+        )}
+      </Box>
+
+      <AnimatePresence>
+        {sidebarAberta && isMobile && (
+          <motion.div
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            style={{
+              position: "fixed",
+              top: 0,
+              right: 0,
+              height: "100vh",
+              width: "70vw",
+              maxWidth: "300px",
+              backdropFilter: "blur(20px)",
+              background: "rgba(18, 18, 30, 0.7)",
+              boxShadow: "-5px 0 20px rgba(0,0,0,0.4)",
+              padding: "2rem",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <motion.div
+              initial={{ rotate: -180, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 180, opacity: 0 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              style={{ position: "absolute", top: 20, right: 20 }}
+            >
+              <IconButton onClick={toggleSidebar} sx={{ color: "#fff" }}>
+                <X size={32} />
               </IconButton>
-              <Drawer
-                anchor="right"
-                open={drawerOpen}
-                onClose={() => setDrawerOpen(false)}
-              >
-                <Box
-                  sx={{ width: 200 }}
-                  role="presentation"
-                  onClick={() => setDrawerOpen(false)}
-                  onKeyDown={() => setDrawerOpen(false)}
-                >
-                  <List>
-                    {links.map((text) => (
-                      <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                          <ListItemText primary={text} />
-                        </ListItemButton>
-                      </ListItem>
-                    ))}
-                  </List>
-                </Box>
-              </Drawer>
-            </>
-          ) : (
-            <Box sx={{ display: 'flex', gap: 2 }}>
-              {links.map((text, index) => (
-                <motion.div
-                  key={text}
-                  whileHover={{ scale: 1.1, color: 'white' }}
-                  transition={{ type: 'spring', stiffness: 300 }}
-                >
-                  <Button
-                    color="inherit"
-                    sx={{
-                      fontWeight: 500,
-                      transition: '0.3s',
-                      '&:hover': {
-                        color: 'white',
-                      }
-                    }}
-                  >
-                    {text}
-                  </Button>
-                </motion.div>
-              ))}
-            </Box>
-          )}
-        </Toolbar>
-      </AppBar>
+            </motion.div>
 
-    
-    </>
+            {links.map((link, i) => (
+              <motion.div
+                key={link.href}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 50 }}
+                transition={{ delay: 0.1 * i }}
+              >
+                <Link
+                  href={link.href}
+                  underline="none"
+                  sx={{
+                    color: "#fff",
+                    fontSize: "1.5rem",
+                    mb: 2,
+                    transition: "0.3s",
+                    "&:hover": { color: "#7ec8e3" },
+                  }}
+                  onClick={toggleSidebar}
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </Box>
   );
-}
+};
 
 export default Navbar;
