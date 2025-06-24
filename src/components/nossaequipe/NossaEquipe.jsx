@@ -32,7 +32,7 @@ const membros = [
   {
     nome: "Bryan Almeida",
     funcao: "Artista e animador de pixel-art",
-    imagem: "/assets/bryan.jpg",
+    imagem: "./public/img/braia.jpeg",
     descricao: "Eai! Sou o Bryan e fiz as pixel-arts do jogo, desde cenários até o maior vilão!.",
     github: "https://github.com/bryanalmeida",
     linkedin: "https://linkedin.com/in/bryanalmeida",

@@ -1,8 +1,8 @@
 import React from "react";
-import Particles from "./BackgroundParticles";
+import Particles from "../acessorios/BackgroundParticles";
 import "./Banner.css";
-import BlurText from "./Blurtxt";
-import SplitText from "./SplitTxt";
+
+import SplitText from "../acessorios/SplitTxt";
 import { motion } from 'framer-motion';
 
 const handleAnimationComplete = () => {

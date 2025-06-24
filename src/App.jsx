@@ -1,13 +1,13 @@
 import * as React from 'react';
 import './App.css';
-import Navbar from './components/Navbar.jsx';
-import Banner from "./components/Banner.jsx";
-import Historia from "./components/Historia.jsx";
-import Objetivos from "./components/Objetivos.jsx";
-import SplitTitle from "./components/SplitTxt.jsx";
-import NossaEquipe from './components/NossaEquipe';
-import Gallery from './components/Gallery.jsx';
-import Footer from './components/Footer.jsx';
+import Navbar from './components/navbar/Navbar.jsx';
+import Banner from "./components/banner/Banner.jsx";
+
+import Objetivos from "./components/objetivos/Objetivos.jsx";
+;
+import NossaEquipe from './components/nossaequipe/NossaEquipe';
+import Gallery from './components/gallery/Gallery.jsx';
+import Footer from './components/footer/Footer.jsx';
 
 
 function App() {
