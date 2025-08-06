@@ -8,7 +8,7 @@ const links = [
   { label: "Início", href: "#home" },
   { label: "Sobre", href: "#sobre" },
   { label: "Equipe", href: "#equipe" },
-  { label: "Contato", href: "#contato" },
+  { label: "Contato", href: "/contact" },
 ];
 
 const Navbar = () => {
