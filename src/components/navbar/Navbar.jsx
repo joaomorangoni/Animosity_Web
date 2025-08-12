@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Box, IconButton, Link, Typography, useMediaQuery } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import LoginModal from "../login/LoginModal";
 
 const links = [
   { label: "Início", href: "#home" },
@@ -13,14 +12,9 @@ const links = [
 
 const Navbar = () => {
   const [sidebarAberta, setSidebarAberta] = useState(false);
-  const [modalLoginAberto, setModalLoginAberto] = useState(false);
   const isMobile = useMediaQuery("(max-width:768px)");
 
   const toggleSidebar = () => setSidebarAberta(!sidebarAberta);
-  const abrirLogin = () => {
-    setModalLoginAberto(true);
-    if (isMobile) setSidebarAberta(false);
-  };
 
   return (
     <>
@@ -61,7 +55,7 @@ const Navbar = () => {
                 </Link>
               ))}
               <Link
-                onClick={abrirLogin}
+                href="/login"
                 underline="none"
                 sx={{
                   color: "#fff",
@@ -149,7 +143,7 @@ const Navbar = () => {
                 transition={{ delay: 0.1 * links.length }}
               >
                 <Link
-                  onClick={abrirLogin}
+                  href="/login"
                   underline="none"
                   sx={{
                     color: "#fff",
@@ -158,6 +152,7 @@ const Navbar = () => {
                     cursor: "pointer",
                     "&:hover": { color: "#7ec8e3" },
                   }}
+                  onClick={toggleSidebar}
                 >
                   Login
                 </Link>
@@ -166,8 +161,6 @@ const Navbar = () => {
           )}
         </AnimatePresence>
       </Box>
-
-      <LoginModal open={modalLoginAberto} onClose={() => setModalLoginAberto(false)} />
     </>
   );
 };
