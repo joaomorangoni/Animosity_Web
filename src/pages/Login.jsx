@@ -1,202 +1,114 @@
-import React, { useState } from "react";
-import { Box, Button, TextField, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FcGoogle } from "react-icons/fc";
 
-export default function LoginRegister() {
-  const [showRegister, setShowRegister] = useState(false);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+import SteamIcon from "../../public/img/steam.svg";
+import PS4Icon from "../../public/img/PS4.svg";
+import XboxIcon from "../../public/img/Xbox.svg";
+import NintendoIcon from "../../public/img/Nintendo.svg";
 
-  // Variantes para o container branco (área do formulário)
-  const containerVariants = {
-    login: {
-      width: isMobile ? "90vw" : "40vw",
-      transition: { duration: 0.8, ease: "easeInOut" },
-    },
-    register: {
-      width: isMobile ? "90vw" : "55vw",
-      transition: { duration: 0.8, ease: "easeInOut" },
-    },
-  };
+import "./Login.css";
 
-  // Variantes para os formulários (opacidade + escala)
-  const formVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: "easeInOut" } },
-    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.6, ease: "easeInOut" } },
-  };
+export default function Login() {
+  const canvasRef = useRef(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let stars = [];
+    let w, h;
+
+    const resize = () => {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w;
+      canvas.height = h;
+      stars = Array.from({ length: 150 }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        z: Math.random() * 2 + 1,
+      }));
+    };
+
+    const animate = () => {
+      ctx.fillStyle = "#000";
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = "#9DB2BF";
+      stars.forEach(s => {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.z, 0, Math.PI * 2);
+        ctx.fill();
+        s.y += s.z;
+        if (s.y > h) s.y = 0;
+      });
+      requestAnimationFrame(animate);
+    };
+
+    window.addEventListener("resize", resize);
+    resize();
+    animate();
+
+    return () => window.removeEventListener("resize", resize);
+  }, []);
 
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        bgcolor: "#0a192f",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        overflow: "hidden",
-        p: 0,
-      }}
-    >
-      {/* Fundo azul escuro do lado direito (metade da tela) */}
-      {!isMobile && (
-        <Box
-          sx={{
-            position: "fixed",
-            right: 0,
-            top: 0,
-            height: "100vh",
-            width: "50vw",
-            bgcolor: "#112240",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "#64ffda",
-            fontWeight: "700",
-            fontSize: "2rem",
-            userSelect: "none",
-            cursor: "pointer",
-          }}
-          onClick={() => setShowRegister(!showRegister)}
-          role="button"
-          tabIndex={0}
-          onKeyPress={(e) => { if(e.key === 'Enter') setShowRegister(!showRegister) }}
-        >
-          {showRegister ? "← Voltar ao Login" : "Registrar →"}
-        </Box>
-      )}
+    <div className="login-container">
+      <canvas ref={canvasRef} className="stars-canvas" />
 
-      {/* Container branco do formulário */}
-      <motion.div
-        variants={containerVariants}
-        animate={showRegister ? "register" : "login"}
-        initial={false}
-        style={{
-          backgroundColor: "#fff",
-          borderRadius: 16,
-          boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
-          position: "relative",
-          zIndex: 10,
-          width: isMobile ? "90vw" : "40vw",
-          minHeight: "70vh",
-          display: "flex",
-          flexDirection: "column",
-          padding: "3rem 2.5rem",
-          overflow: "hidden",
-        }}
-      >
-        <AnimatePresence exitBeforeEnter initial={false}>
-          {!showRegister ? (
-            <motion.form
-              key="login"
-              variants={formVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert("Login enviado!");
-              }}
-              style={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}
-            >
-              <Typography variant="h4" sx={{ mb: 4, color: "#0a192f", fontWeight: 700 }}>
-                Login
-              </Typography>
-              <TextField
-                label="Email"
-                type="email"
-                variant="outlined"
-                required
-                fullWidth
-                sx={{ mb: 3 }}
-              />
-              <TextField
-                label="Senha"
-                type="password"
-                variant="outlined"
-                required
-                fullWidth
-                sx={{ mb: 4 }}
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                  py: 1.8,
-                  fontWeight: 700,
-                  fontSize: "1.1rem",
-                  backgroundColor: "#0a192f",
-                  "&:hover": { backgroundColor: "#112240" },
-                  borderRadius: "8px",
-                }}
-              >
-                Entrar
-              </Button>
-            </motion.form>
-          ) : (
-            <motion.form
-              key="register"
-              variants={formVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert("Registro enviado!");
-              }}
-              style={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}
-            >
-              <Typography variant="h4" sx={{ mb: 4, color: "#0a192f", fontWeight: 700 }}>
-                Registrar
-              </Typography>
-              <TextField
-                label="Nome Completo"
-                variant="outlined"
-                required
-                fullWidth
-                sx={{ mb: 3 }}
-              />
-              <TextField
-                label="Email"
-                type="email"
-                variant="outlined"
-                required
-                fullWidth
-                sx={{ mb: 3 }}
-              />
-              <TextField
-                label="Senha"
-                type="password"
-                variant="outlined"
-                required
-                fullWidth
-                sx={{ mb: 3 }}
-              />
-              <TextField
-                label="Confirmar Senha"
-                type="password"
-                variant="outlined"
-                required
-                fullWidth
-                sx={{ mb: 4 }}
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                color="success"
-                sx={{
-                  py: 1.8,
-                  fontWeight: 700,
-                  fontSize: "1.1rem",
-                  borderRadius: "8px",
-                }}
-              >
-                Registrar
-              </Button>
-            </motion.form>
-          )}
-        </AnimatePresence>
+      <div className="logo-left">
+        <img src="/logo.png" alt="Logo" className="logo-image" />
+        <h2 className="logo-text">Animosidade</h2>
+      </div>
+
+      <motion.div className="login-box">
+        <h1 className="login-title">Instale já!</h1>
+        <p className="login-subtitle">Inscreva-se hoje</p>
+
+        <div className="login-buttons">
+          <button className="btn-google"><FcGoogle /> Google</button>
+          <button className="btn-steam"><img src={SteamIcon} className="icon-img" /> Steam</button>
+          <button className="btn-ps4"><img src={PS4Icon} className="icon-img" /> PSN</button>
+          <button className="btn-xbox"><img src={XboxIcon} className="icon-img" /> Xbox</button>
+          <button className="btn-nintendo"><img src={NintendoIcon} className="icon-img" /> Nintendo</button>
+        </div>
+
+        <div className="divider"><span>OU</span></div>
+
+        <button className="btn-create" onClick={() => setModalOpen(true)}>Entrar</button>
       </motion.div>
-    </Box>
+
+      <AnimatePresence>
+        {modalOpen && (
+          <motion.div className="modal-backdrop"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          >
+            <motion.div className="modal-content"
+              initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.8, opacity: 0 }}
+            >
+              <h2 className="modal-title">Login</h2>
+
+              <div className="modal-buttons">
+                <button className="btn-google"><FcGoogle /> Google</button>
+                <button className="btn-steam"><img src={SteamIcon} className="icon-img" /> Steam</button>
+                <button className="btn-ps4"><img src={PS4Icon} className="icon-img" /> PS4</button>
+                <button className="btn-xbox"><img src={XboxIcon} className="icon-img" /> Xbox</button>
+                <button className="btn-nintendo"><img src={NintendoIcon} className="icon-img" /> Nintendo</button>
+              </div>
+
+              <div className="modal-divider"><span>OU</span></div>
+
+              <input type="email" placeholder="Email" className="input-field" />
+              <input type="password" placeholder="Senha" className="input-field" />
+              <button className="btn-create">Entrar</button>
+
+              <p className="login-footer">
+                <span className="login-link" onClick={() => setModalOpen(false)}>Fechar ✖</span>
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
