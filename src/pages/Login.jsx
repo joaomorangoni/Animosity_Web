@@ -7,6 +7,7 @@ import PS4Icon from "../../public/img/PS4.svg";
 import XboxIcon from "../../public/img/Xbox.svg";
 import NintendoIcon from "../../public/img/Nintendo.svg";
 
+
 import "./Login.css";
 
 export default function Login() {
@@ -35,7 +36,7 @@ export default function Login() {
       ctx.fillStyle = "#000";
       ctx.fillRect(0, 0, w, h);
       ctx.fillStyle = "#9DB2BF";
-      stars.forEach(s => {
+      stars.forEach((s) => {
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.z, 0, Math.PI * 2);
         ctx.fill();
@@ -61,39 +62,56 @@ export default function Login() {
         <h2 className="logo-text">Animosidade</h2>
       </div>
 
-      <motion.div className="login-box">
+      {/* Animação do formulário */}
+      <motion.div
+        className="login-box"
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <h1 className="login-title">Instale já!</h1>
         <p className="login-subtitle">Inscreva-se hoje</p>
+        <input type="email" placeholder="Email" className="input-field" />
+              <input type="password" placeholder="Senha" className="input-field" />
+              <button className="btn-create">registrar</button>
 
-        <div className="login-buttons">
-          <button className="btn-google"><FcGoogle /> Google</button>
-          <button className="btn-steam"><img src={SteamIcon} className="icon-img" /> Steam</button>
-          <button className="btn-ps4"><img src={PS4Icon} className="icon-img" /> PSN</button>
-          <button className="btn-xbox"><img src={XboxIcon} className="icon-img" /> Xbox</button>
-          <button className="btn-nintendo"><img src={NintendoIcon} className="icon-img" /> Nintendo</button>
-        </div>
-
+        
         <div className="divider"><span>OU</span></div>
 
         <button className="btn-create" onClick={() => setModalOpen(true)}>Entrar</button>
+        
+              {/* Botão Voltar */}
+              <button
+                className="btn-back"
+                onClick={() => (window.location.href = "/")}
+              >
+                Voltar
+              </button>
       </motion.div>
 
       <AnimatePresence>
         {modalOpen && (
-          <motion.div className="modal-backdrop"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          <motion.div
+            className="modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={(e) => e.target.classList.contains("modal-backdrop") && setModalOpen(false)}
           >
-            <motion.div className="modal-content"
-              initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.8, opacity: 0 }}
+            <motion.div
+              className="modal-content"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
             >
               <h2 className="modal-title">Login</h2>
 
               <div className="modal-buttons">
                 <button className="btn-google"><FcGoogle /> Google</button>
-                <button className="btn-steam"><img src={SteamIcon} className="icon-img" /> Steam</button>
-                <button className="btn-ps4"><img src={PS4Icon} className="icon-img" /> PS4</button>
-                <button className="btn-xbox"><img src={XboxIcon} className="icon-img" /> Xbox</button>
-                <button className="btn-nintendo"><img src={NintendoIcon} className="icon-img" /> Nintendo</button>
+                <button className="btn-steam"><img src={SteamIcon} className="icon-img" alt="Steam" /> Steam</button>
+                <button className="btn-ps4"><img src={PS4Icon} className="icon-img" alt="PS4" /> PS4</button>
+                <button className="btn-xbox"><img src={XboxIcon} className="icon-img" alt="Xbox" /> Xbox</button>
+                <button className="btn-nintendo"><img src={NintendoIcon} className="icon-img" alt="Nintendo" /> Nintendo</button>
               </div>
 
               <div className="modal-divider"><span>OU</span></div>
@@ -101,6 +119,7 @@ export default function Login() {
               <input type="email" placeholder="Email" className="input-field" />
               <input type="password" placeholder="Senha" className="input-field" />
               <button className="btn-create">Entrar</button>
+
 
               <p className="login-footer">
                 <span className="login-link" onClick={() => setModalOpen(false)}>Fechar ✖</span>

@@ -47,7 +47,7 @@
   /* Caixa do formulário */
   .login-box {
     position: absolute;
-    top: 10%;
+    top: 15%;
     right: 5%;
     transform: translateY(0);
     z-index: 10;
@@ -218,6 +218,46 @@
     outline: none;
   }
   .input-field::placeholder { color: #aaa; }
+
+
+  /* Botões do modal com animação fluida */
+.modal-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal-buttons button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 15px rgba(255,255,255,0.4);
+}
+
+/* Botão voltar */
+.btn-back {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  color: #9DB2BF;
+  border: 1px solid #526D82;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-back:hover {
+  background: #27374D;
+  color: #fff;
+}
+
   
   /* Animações */
   @keyframes fadeIn { from { opacity:0; transform: translateY(-50%) scale(0.9); } to { opacity:1; transform: translateY(-50%) scale(1); } }
