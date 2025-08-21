@@ -52,6 +52,8 @@ const Navbar = () => {
                   width: "120px",
                   height: "50px",
                   objectFit: "contain",
+                  right: "0",
+                
                 }}
                 initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
@@ -65,7 +67,7 @@ const Navbar = () => {
                 alt="Logo estático"
                 style={{
                   width: "120px",
-                  height: "50px",
+                  height: "40px",
                   objectFit: "contain",
                 }}
                 initial={{ opacity: 0 }}
@@ -104,16 +106,10 @@ const Navbar = () => {
               sx={{
                 color: "#fff",
                 fontSize: "1.1rem",
-                fontWeight: "bold",
-                px: 2,
-                py: 0.5,
-                border: "1px solid #7ec8e3",
-                borderRadius: "8px",
                 transition: "all 0.3s ease",
                 "&:hover": {
-                  background: "#7ec8e3",
-                  color: "#12121e",
-                  boxShadow: "0 0 12px rgba(126,200,227,0.8)",
+                  color: "#7ec8e3",
+                  textShadow: "0 0 8px rgba(126,200,227,0.6)",
                 },
               }}
             >
