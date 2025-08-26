@@ -58,8 +58,7 @@ export default function Login() {
       <canvas ref={canvasRef} className="stars-canvas" />
 
       <div className="logo-left">
-        <img src="/logo.png" alt="Logo" className="logo-image" />
-        <h2 className="logo-text">Animosidade</h2>
+        <img src="../../public/img/logoimg.png" alt="Logo" className="logo-image" />
       </div>
 
       {/* Animação do formulário */}
