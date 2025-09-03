@@ -1,0 +1,16 @@
+.page-dev {
+    background: linear-gradient(180deg, #5f7882, #3f5970); /* fundo similar ao das imagens */
+    min-height: 100vh;
+    padding-top: 8px;
+    padding-bottom: 110px; /* espaço para navbar fixa */
+    box-sizing: border-box;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color: #e6eef8;
+  }
+  
+  /* ajuste global para centralizar o conteúdo principal */
+  .page-dev > * {
+    display: block;
+    box-sizing: border-box;
+  }
+  
