@@ -1,31 +1,34 @@
 import React from "react";
 import { Menu, Home, LogOut } from "lucide-react";
-import { motion } from "framer-motion";
 import "./NavbarDev.css";
 
-/**
- * NavbarDev: navbar fixa inferior.
- * onMenuClick é passado de PageDev para abrir o sidebar.
- */
-export default function NavbarDev({ onMenuClick }) {
+export default function NavbarDev() {
   return (
-    <motion.nav className="navbar-dev" initial={{ y: 80 }} animate={{ y: 0 }} transition={{ duration: 0.6 }}>
-      <button className="nav-icon" onClick={onMenuClick} aria-label="abrir menu">
-        <Menu className="icon" />
+    <nav className="navbar-dev">
+      <button className="menu-btn-dev">
+        <Menu size={28} />
       </button>
+      <div className="navbar-icons-dev">
+        <Home size={28} />
+        <LogOut size={28} />
+      </div>
+    </nav>
+  );
+}
+import React from "react";
+import { Menu, Home, LogOut } from "lucide-react";
+import "../../styles/NavbarDev.css";
 
-      <button
-        className="nav-icon"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        aria-label="home"
-        title="Ir para o topo"
-      >
-        <Home className="icon" />
+export default function NavbarDev() {
+  return (
+    <nav className="navbar-dev">
+      <button className="menu-btn-dev">
+        <Menu size={28} />
       </button>
-
-      <button className="nav-icon" onClick={() => (window.location.href = "/login")} aria-label="logout" title="Logout">
-        <LogOut className="icon" />
-      </button>
-    </motion.nav>
+      <div className="navbar-icons-dev">
+        <Home size={28} />
+        <LogOut size={28} />
+      </div>
+    </nav>
   );
 }
