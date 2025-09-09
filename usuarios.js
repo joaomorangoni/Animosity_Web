@@ -1,8 +1,16 @@
 import express from 'express';
 import fs from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
 
 const router = express.Router();
-const DB_FILE = './usuarios.json';
+
+// Pega o caminho absoluto do diretório deste arquivo
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Garante que o JSON fique na mesma pasta que usuarios.js
+const DB_FILE = resolve(__dirname, 'usuarios.json');
 
 // Funções auxiliares
 function lerArquivo(caminho) {

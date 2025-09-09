@@ -60,7 +60,7 @@ export default function Login() {
   // ⬅️ NOVO: funções para cadastro e login
   const handleCadastro = async () => {
     try {
-      const resposta = await fetch("http://localhost:3000/cadastro", {
+      const resposta = await fetch("http://localhost:5000/cadastro", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha }),
@@ -75,7 +75,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const resposta = await fetch("http://localhost:3000/login", {
+      const resposta = await fetch("http://localhost:5000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha }),
