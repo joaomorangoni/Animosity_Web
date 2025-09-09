@@ -25,52 +25,44 @@ import {
 } from "lucide-react";
 import "./PageDev.css";
 
-/* ------------------------------
-   Dados mock (substitua pelo backend)
---------------------------------- */
-const installsData = [
-  { label: "1 mes", valor: 100 },
-  { label: "3 meses", valor: 250 },
-  { label: "6 meses", valor: 420 },
-  { label: "9 meses", valor: 800 },
-  { label: "1 ano", valor: 1000 },
-];
-
-const reviewsData = [
-  { label: "3 meses", ruins: 4, boas: 5 },
-  { label: "6 meses", ruins: 6, boas: 15 },
-  { label: "9 meses", ruins: 10, boas: 26 },
-];
-
-const FALLBACK_FEEDBACKS = [
-  { id: 1, user: "Betaspirit6969", text: "jogo muito bom! melhor que hollow knigh" },
-  { id: 2, user: "Takinho_veryCrazy", text: "Gostei mais do jogo do que gosto da minha ex!" },
-  { id: 3, user: "Bundowiski_171", text: "Não gostei, hollow knight é mais tesudo" },
-];
-
 export default function PageDev() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [functionsOpen, setFunctionsOpen] = useState(false);
 
+  // --- ESTADOS DINÂMICOS VINDOS DO BACKEND ---
+  const [installsData, setInstallsData] = useState([]);
+  const [reviewsData, setReviewsData] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
+
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(() => new Set());
-  const [editing, setEditing] = useState(null); // {id, user, text}
+  const [editing, setEditing] = useState(null);
 
-  // Carrega feedbacks do backend
+  // 🔹 Carregar dados do backend (avaliacao.js expõe esses endpoints)
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch("http://localhost:5000/feedbacks");
-        if (!res.ok) throw new Error("HTTP");
-        const data = await res.json();
-        setFeedbacks(Array.isArray(data) ? data : FALLBACK_FEEDBACKS);
-      } catch {
-        setFeedbacks(FALLBACK_FEEDBACKS);
+        // Instalações
+        const resInstalls = await fetch("http://localhost:5000/avaliacao/instalacoes");
+        const installs = await resInstalls.json();
+        setInstallsData(installs);
+
+        // Avaliações
+        const resReviews = await fetch("http://localhost:5000/avaliacao/avaliacoes");
+        const reviews = await resReviews.json();
+        setReviewsData(reviews);
+
+        // Feedbacks
+        const resFeedbacks = await fetch("http://localhost:5000/avaliacao/feedbacks");
+        const feedbacks = await resFeedbacks.json();
+        setFeedbacks(feedbacks);
+      } catch (err) {
+        console.error("Erro ao buscar dados:", err);
       }
     })();
   }, []);
 
+  // 🔹 Filtro de busca para feedbacks
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return feedbacks;
@@ -96,22 +88,35 @@ export default function PageDev() {
 
   async function saveEdit() {
     if (!editing) return;
-    // Chamada real (exemplo):
-    // await fetch(`http://localhost:5000/feedbacks/${editing.id}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(editing) });
-    setFeedbacks((arr) => arr.map((f) => (f.id === editing.id ? editing : f)));
-    setEditing(null);
+    try {
+      await fetch(`http://localhost:5000/avaliacao/feedbacks/${editing.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(editing),
+      });
+      setFeedbacks((arr) => arr.map((f) => (f.id === editing.id ? editing : f)));
+      setEditing(null);
+    } catch (err) {
+      console.error("Erro ao salvar feedback:", err);
+    }
   }
 
   async function deleteSelected() {
     const ids = [...selected];
-    // Chamada real (exemplo):
-    // await fetch(`http://localhost:5000/feedbacks/bulk-delete`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ ids }) });
-    setFeedbacks((arr) => arr.filter((f) => !selected.has(f.id)));
-    setSelected(new Set());
+    try {
+      await fetch("http://localhost:5000/avaliacao/feedbacks/bulk-delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids }),
+      });
+      setFeedbacks((arr) => arr.filter((f) => !selected.has(f.id)));
+      setSelected(new Set());
+    } catch (err) {
+      console.error("Erro ao deletar feedbacks:", err);
+    }
   }
 
   function highlightSelected() {
-    // Apenas visual: marca com uma estrela no início do texto
     const ids = new Set(selected);
     setFeedbacks((arr) =>
       arr.map((f) =>
@@ -124,7 +129,9 @@ export default function PageDev() {
 
   function exportCSV() {
     const rows = [["id", "user", "text"], ...feedbacks.map((f) => [f.id, f.user, f.text])];
-    const csv = rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(",")).join("\n");
+    const csv = rows
+      .map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(","))
+      .join("\n");
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -166,7 +173,7 @@ export default function PageDev() {
         </>
       )}
 
-      {/* BANNER – 35% da tela */}
+      {/* BANNER */}
       <section className="banner">
         <div className="banner-inner">
           <h1 className="title">
@@ -176,7 +183,7 @@ export default function PageDev() {
         </div>
       </section>
 
-      {/* CONTEÚDO – grid fixo com 3 colunas */}
+      {/* CONTEÚDO */}
       <main className="content">
         <div className="content-inner">
           {/* Instalações */}

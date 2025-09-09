@@ -7,12 +7,16 @@ import PS4Icon from "../../public/img/PS4.svg";
 import XboxIcon from "../../public/img/Xbox.svg";
 import NintendoIcon from "../../public/img/Nintendo.svg";
 
-
 import "./Login.css";
 
 export default function Login() {
   const canvasRef = useRef(null);
   const [modalOpen, setModalOpen] = useState(false);
+
+  // ⬅️ NOVO: estados para email, senha e mensagem
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [mensagem, setMensagem] = useState("");
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -53,6 +57,44 @@ export default function Login() {
     return () => window.removeEventListener("resize", resize);
   }, []);
 
+  // ⬅️ NOVO: funções para cadastro e login
+  const handleCadastro = async () => {
+    try {
+      const resposta = await fetch("http://localhost:3000/cadastro", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha }),
+      });
+
+      const dados = await resposta.json();
+      setMensagem(dados.mensagem);
+    } catch (err) {
+      setMensagem("Erro ao cadastrar.");
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      const resposta = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha }),
+      });
+
+      const dados = await resposta.json();
+
+      if (resposta.ok) {
+        setMensagem("Login realizado com sucesso!");
+        localStorage.setItem("usuario", email); // ⬅️ NOVO exemplo
+        setModalOpen(false);
+      } else {
+        setMensagem(dados.mensagem);
+      }
+    } catch (err) {
+      setMensagem("Erro ao logar.");
+    }
+  };
+
   return (
     <div className="login-container">
       <canvas ref={canvasRef} className="stars-canvas" />
@@ -70,22 +112,42 @@ export default function Login() {
       >
         <h1 className="login-title">Instale já!</h1>
         <p className="login-subtitle">Inscreva-se hoje</p>
-        <input type="email" placeholder="Email" className="input-field" />
-              <input type="password" placeholder="Senha" className="input-field" />
-              <button className="btn-create">registrar</button>
 
-        
+        {/* ⬅️ ALTERADO: inputs controlados */}
+        <input 
+          type="email" 
+          placeholder="Email" 
+          className="input-field"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input 
+          type="password" 
+          placeholder="Senha" 
+          className="input-field"
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
+        />
+
+        {/* ⬅️ ALTERADO: botão chama cadastro */}
+        <button className="btn-create" onClick={handleCadastro}>
+          Registrar
+        </button>
+
         <div className="divider"><span>OU</span></div>
 
         <button className="btn-create" onClick={() => setModalOpen(true)}>Entrar</button>
         
-              {/* Botão Voltar */}
-              <button
-                className="btn-back"
-                onClick={() => (window.location.href = "/")}
-              >
-                Voltar
-              </button>
+        {/* Botão Voltar */}
+        <button
+          className="btn-back"
+          onClick={() => (window.location.href = "/")}
+        >
+          Voltar
+        </button>
+
+        {/* ⬅️ NOVO: mensagem de feedback */}
+        {mensagem && <p className="login-message">{mensagem}</p>}
       </motion.div>
 
       <AnimatePresence>
@@ -115,10 +177,29 @@ export default function Login() {
 
               <div className="modal-divider"><span>OU</span></div>
 
-              <input type="email" placeholder="Email" className="input-field" />
-              <input type="password" placeholder="Senha" className="input-field" />
-              <button className="btn-create">Entrar</button>
+              {/* ⬅️ ALTERADO: inputs controlados */}
+              <input 
+                type="email" 
+                placeholder="Email" 
+                className="input-field"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <input 
+                type="password" 
+                placeholder="Senha" 
+                className="input-field"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+              />
 
+              {/* ⬅️ ALTERADO: botão chama login */}
+              <button className="btn-create" onClick={handleLogin}>
+                Entrar
+              </button>
+
+              {/* feedback dentro do modal */}
+              {mensagem && <p className="login-message">{mensagem}</p>}
 
               <p className="login-footer">
                 <span className="login-link" onClick={() => setModalOpen(false)}>Fechar ✖</span>

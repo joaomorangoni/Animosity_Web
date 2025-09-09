@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Pencil,
@@ -6,13 +6,14 @@ import {
   SendHorizontal,
   UserRound,
   X,
-  Camera,
-  Lock
+  Camera
 } from "lucide-react";
 import "./ProfilePage.css";
 
 export default function ProfilePage() {
   const [feedback, setFeedback] = useState("");
+  const [estrelas, setEstrelas] = useState(0); // ⭐ novo estado para estrelas
+  const [feedbacks, setFeedbacks] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [profile, setProfile] = useState({
     nome: "Username",
@@ -21,10 +22,45 @@ export default function ProfilePage() {
     senha: ""
   });
 
-  const handleSubmit = (e) => {
+  // Buscar avaliações da API
+  useEffect(() => {
+    fetch("http://localhost:5000/avaliacoes")
+      .then((res) => res.json())
+      .then((data) => setFeedbacks(data))
+      .catch((err) => console.error("Erro ao carregar avaliações:", err));
+  }, []);
+
+  // Enviar avaliação para API
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Feedback enviado!\n\n${feedback}`);
-    setFeedback("");
+
+    if (estrelas < 1) {
+      alert("Selecione ao menos 1 estrela!");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/avaliacao", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nome: profile.nome,
+          estrelas,
+          texto: feedback
+        })
+      });
+
+      const novo = await res.json();
+      if (res.ok) {
+        setFeedbacks((prev) => [...prev, novo.avaliacao]);
+        setFeedback("");
+        setEstrelas(0); // ⭐ resetar estrelas após envio
+      } else {
+        alert(novo.mensagem || "Erro ao enviar feedback.");
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+    }
   };
 
   const handleModalToggle = () => setShowModal(!showModal);
@@ -107,6 +143,23 @@ export default function ProfilePage() {
           >
             <h3>Deixe um feedback!</h3>
             <form onSubmit={handleSubmit} className="feedbackForm">
+              {/* ⭐ input de estrelas */}
+              <div className="stars-input">
+                {[1, 2, 3, 4, 5].map((num) => (
+                  <span
+                    key={num}
+                    onClick={() => setEstrelas(num)}
+                    style={{
+                      cursor: "pointer",
+                      fontSize: "20px",
+                      color: num <= estrelas ? "#FFD700" : "#ccc"
+                    }}
+                  >
+                    ★
+                  </span>
+                ))}
+              </div>
+
               <textarea
                 placeholder="Escreva seu feedback..."
                 value={feedback}
@@ -131,6 +184,22 @@ export default function ProfilePage() {
                 )}
               </AnimatePresence>
             </form>
+
+            {/* Lista de avaliações */}
+            <div className="feedbackList">
+              {feedbacks.map((fb) => (
+                <div key={fb.id} className="feedbackItem">
+                  <strong>{fb.nome}</strong> —{" "}
+                  {Array.from({ length: fb.estrelas }, (_, i) => (
+                    <span key={i} style={{ color: "#FFD700" }}>★</span>
+                  ))}
+                  {Array.from({ length: 5 - fb.estrelas }, (_, i) => (
+                    <span key={i} style={{ color: "#ccc" }}>★</span>
+                  ))}
+                  <p>{fb.texto}</p>
+                </div>
+              ))}
+            </div>
           </motion.section>
 
           {/* DIREITA — BAIXE AGORA */}
