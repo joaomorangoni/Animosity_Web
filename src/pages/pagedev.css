@@ -1,6 +1,6 @@
 :root{
   --nav:#1f3240;
-  --banner:#4e6879;
+  --hero:#4e6879;
   --content:#112531;
   --card:#294354;
   --card-soft:#37596c;
@@ -61,14 +61,14 @@ body{margin:0;background:var(--content);color:var(--text);font-family:Inter,syst
 
 /* LAYOUT */
 .dev-container{min-height:100vh;display:flex;flex-direction:column}
-.banner{
+.hero{
   margin-top:64px;
   height:35vh; min-height:240px;
-  background:var(--banner);
+  background:var(--hero);
   display:flex; align-items:center; justify-content:center;
   box-shadow:inset 0 -8px 24px rgba(0,0,0,.25);
 }
-.banner-inner{width:min(1400px,92vw);padding-inline:12px}
+.hero-inner{width:min(1400px,92vw);padding-inline:12px}
 .title{
   margin:0; text-align:center; font-size:clamp(36px,5.2vw,76px);
   font-weight:800; letter-spacing:.5px; color:#fff;

@@ -169,8 +169,8 @@ export default function PageDev() {
       )}
 
       {/* BANNER */}
-      <section className="banner">
-        <div className="banner-inner">
+      <section className="hero">
+        <div className="hero-inner">
           <h1 className="title">
             Animosi<span className="ty">Ty</span>
             <span className="dev-badge">DEV</span>

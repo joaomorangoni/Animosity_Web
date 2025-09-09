@@ -1,28 +1,35 @@
-import { useEffect, useRef, useState } from "react";
+// src/components/Login.jsx
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
-
-import SteamIcon from "../../public/img/steam.svg";
-import PS4Icon from "../../public/img/PS4.svg";
-import XboxIcon from "../../public/img/Xbox.svg";
-import NintendoIcon from "../../public/img/Nintendo.svg";
-
 import "./Login.css";
+
+/**
+ * Componente de login robusto:
+ * - mantém animação em canvas
+ * - usa window.location.href para navegar (não depende de useNavigate/Router)
+ * - usa imagens via /img/... (coloque seus arquivos em public/img/)
+ */
 
 export default function Login() {
   const canvasRef = useRef(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  // ⬅️ NOVO: estados para email, senha e mensagem
+  // campos do formulário
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [mensagem, setMensagem] = useState("");
+  const [loading, setLoading] = useState(false);
 
+  // animação de estrelas (canvas)
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext("2d");
     let stars = [];
-    let w, h;
+    let w = window.innerWidth;
+    let h = window.innerHeight;
+    let rafId = null;
 
     const resize = () => {
       w = window.innerWidth;
@@ -47,33 +54,47 @@ export default function Login() {
         s.y += s.z;
         if (s.y > h) s.y = 0;
       });
-      requestAnimationFrame(animate);
+      rafId = requestAnimationFrame(animate);
     };
 
-    window.addEventListener("resize", resize);
     resize();
     animate();
+    window.addEventListener("resize", resize);
 
-    return () => window.removeEventListener("resize", resize);
+    return () => {
+      window.removeEventListener("resize", resize);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
-  // ⬅️ NOVO: funções para cadastro e login
+  // função de cadastro (mantida como exemplo)
   const handleCadastro = async () => {
+    setLoading(true);
     try {
       const resposta = await fetch("http://localhost:5000/cadastro", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha }),
       });
-
       const dados = await resposta.json();
-      setMensagem(dados.mensagem);
+      setMensagem(dados.mensagem || (resposta.ok ? "Cadastro realizado!" : "Erro no cadastro"));
+      // opcional: redirecionar após cadastro bem-sucedido
+      if (resposta.ok) {
+        // navegação segura (sempre funciona)
+        window.location.href = "/contact";
+      }
     } catch (err) {
+      console.error("Erro no cadastro:", err);
       setMensagem("Erro ao cadastrar.");
+    } finally {
+      setLoading(false);
     }
   };
 
+  // função de login: redireciona para /contact em caso de sucesso
   const handleLogin = async () => {
+    setLoading(true);
+    setMensagem("");
     try {
       const resposta = await fetch("http://localhost:5000/login", {
         method: "POST",
@@ -81,29 +102,43 @@ export default function Login() {
         body: JSON.stringify({ email, senha }),
       });
 
-      const dados = await resposta.json();
+      // tenta parsear resposta JSON (pode falhar se backend não retornar JSON)
+      let dados = {};
+      try {
+        dados = await resposta.json();
+      } catch (e) {
+        // ignore parsing error
+      }
 
       if (resposta.ok) {
         setMensagem("Login realizado com sucesso!");
-        localStorage.setItem("usuario", email); // ⬅️ NOVO exemplo
+        localStorage.setItem("usuario", email);
         setModalOpen(false);
+
+        // Redirecionamento: window.location.href é compatível mesmo sem Router ativo
+        window.location.href = "/contact";
       } else {
-        setMensagem(dados.mensagem);
+        setMensagem(dados.mensagem || "Credenciais inválidas.");
       }
     } catch (err) {
+      console.error("Erro ao logar:", err);
       setMensagem("Erro ao logar.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="login-container">
+      {/* canvas de fundo */}
       <canvas ref={canvasRef} className="stars-canvas" />
 
+      {/* logo (coloque logoimg.png dentro de public/img/) */}
       <div className="logo-left">
-        <img src="../../public/img/logoimg.png" alt="Logo" className="logo-image" />
+        <img src="/img/logoimg.png" alt="Logo" className="logo-image" onError={(e)=>{e.currentTarget.style.display='none'}} />
       </div>
 
-      {/* Animação do formulário */}
+      {/* formulário principal */}
       <motion.div
         className="login-box"
         initial={{ opacity: 0, x: 100 }}
@@ -113,43 +148,40 @@ export default function Login() {
         <h1 className="login-title">Instale já!</h1>
         <p className="login-subtitle">Inscreva-se hoje</p>
 
-        {/* ⬅️ ALTERADO: inputs controlados */}
-        <input 
-          type="email" 
-          placeholder="Email" 
+        <input
+          type="email"
+          placeholder="Email"
           className="input-field"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <input 
-          type="password" 
-          placeholder="Senha" 
+
+        <input
+          type="password"
+          placeholder="Senha"
           className="input-field"
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
         />
 
-        {/* ⬅️ ALTERADO: botão chama cadastro */}
-        <button className="btn-create" onClick={handleCadastro}>
-          Registrar
+        <button className="btn-create" onClick={handleCadastro} disabled={loading}>
+          {loading ? "Aguarde..." : "Registrar"}
         </button>
 
         <div className="divider"><span>OU</span></div>
 
-        <button className="btn-create" onClick={() => setModalOpen(true)}>Entrar</button>
-        
-        {/* Botão Voltar */}
-        <button
-          className="btn-back"
-          onClick={() => (window.location.href = "/")}
-        >
+        <button className="btn-create" onClick={() => setModalOpen(true)}>
+          Entrar
+        </button>
+
+        <button className="btn-back" onClick={() => (window.location.href = "/")}>
           Voltar
         </button>
 
-        {/* ⬅️ NOVO: mensagem de feedback */}
         {mensagem && <p className="login-message">{mensagem}</p>}
       </motion.div>
 
+      {/* Modal de login */}
       <AnimatePresence>
         {modalOpen && (
           <motion.div
@@ -169,36 +201,43 @@ export default function Login() {
 
               <div className="modal-buttons">
                 <button className="btn-google"><FcGoogle /> Google</button>
-                <button className="btn-steam"><img src={SteamIcon} className="icon-img" alt="Steam" /> Steam</button>
-                <button className="btn-ps4"><img src={PS4Icon} className="icon-img" alt="PS4" /> PS4</button>
-                <button className="btn-xbox"><img src={XboxIcon} className="icon-img" alt="Xbox" /> Xbox</button>
-                <button className="btn-nintendo"><img src={NintendoIcon} className="icon-img" alt="Nintendo" /> Nintendo</button>
+
+                {/* imagens via public/img/ (coloque os arquivos lá) */}
+                <button className="btn-steam">
+                  <img src="/img/steam.svg" className="icon-img" alt="Steam" onError={(e)=>{e.currentTarget.style.display='none'}} /> Steam
+                </button>
+                <button className="btn-ps4">
+                  <img src="/img/PS4.svg" className="icon-img" alt="PS4" onError={(e)=>{e.currentTarget.style.display='none'}} /> PS4
+                </button>
+                <button className="btn-xbox">
+                  <img src="/img/Xbox.svg" className="icon-img" alt="Xbox" onError={(e)=>{e.currentTarget.style.display='none'}} /> Xbox
+                </button>
+                <button className="btn-nintendo">
+                  <img src="/img/Nintendo.svg" className="icon-img" alt="Nintendo" onError={(e)=>{e.currentTarget.style.display='none'}} /> Nintendo
+                </button>
               </div>
 
               <div className="modal-divider"><span>OU</span></div>
 
-              {/* ⬅️ ALTERADO: inputs controlados */}
-              <input 
-                type="email" 
-                placeholder="Email" 
+              <input
+                type="email"
+                placeholder="Email"
                 className="input-field"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <input 
-                type="password" 
-                placeholder="Senha" 
+              <input
+                type="password"
+                placeholder="Senha"
                 className="input-field"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
               />
 
-              {/* ⬅️ ALTERADO: botão chama login */}
-              <button className="btn-create" onClick={handleLogin}>
-                Entrar
+              <button className="btn-create" onClick={handleLogin} disabled={loading}>
+                {loading ? "Entrando..." : "Entrar"}
               </button>
 
-              {/* feedback dentro do modal */}
               {mensagem && <p className="login-message">{mensagem}</p>}
 
               <p className="login-footer">
