@@ -4,5 +4,17 @@
     "nome": "Daniel",
     "estrelas": 5,
     "texto": "Jogo incrível!"
+  },
+  {
+    "id": 2,
+    "nome": "Juninho",
+    "estrelas": 5,
+    "texto": "Jogo incrível!"
+  },
+  {
+    "id": 3,
+    "nome": "Joao",
+    "estrelas": 5,
+    "texto": "EU ADORO ANIMOSIDADEe"
   }
 ]

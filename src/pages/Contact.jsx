@@ -23,45 +23,47 @@ export default function ProfilePage() {
   });
 
   // Buscar avaliações da API
-  useEffect(() => {
-    fetch("http://localhost:5000/avaliacoes")
-      .then((res) => res.json())
-      .then((data) => setFeedbacks(data))
-      .catch((err) => console.error("Erro ao carregar avaliações:", err));
-  }, []);
+  // Buscar avaliações da API
+useEffect(() => {
+      fetch("http://localhost:5000/avaliacoes")
+     .then((res) => res.json())
+     .then((data) => setFeedbacks(data))
+     .catch((err) => console.error("Erro ao carregar avaliações:", err));
+}, []);
 
-  // Enviar avaliação para API
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+// Enviar avaliação para API
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (estrelas < 1) {
-      alert("Selecione ao menos 1 estrela!");
-      return;
-    }
+  if (estrelas < 1) {
+    alert("Selecione ao menos 1 estrela!");
+    return;
+  }
 
-    try {
-      const res = await fetch("http://localhost:5000/avaliacao", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          nome: profile.nome,
-          estrelas,
-          texto: feedback
-        })
-      });
+  try {
+    const res = await fetch("http://localhost:5000/avaliacoes", {
+       method: "POST",
+       headers: { "Content-Type": "application/json" },
+       body: JSON.stringify({
+         nome: profile.nome,
+         estrelas,
+         texto: feedback
+       })
+     });
 
-      const novo = await res.json();
-      if (res.ok) {
-        setFeedbacks((prev) => [...prev, novo.avaliacao]);
-        setFeedback("");
-        setEstrelas(0); // ⭐ resetar estrelas após envio
-      } else {
-        alert(novo.mensagem || "Erro ao enviar feedback.");
-      }
-    } catch (error) {
-      console.error("Erro:", error);
-    }
-  };
+     const novo = await res.json();
+     if (res.ok) {
+       setFeedbacks((prev) => [...prev, novo.avaliacao]); 
+       setFeedback("");
+       setEstrelas(0);
+     } else {
+       alert(novo.mensagem || "Erro ao enviar feedback.");
+     }
+  } catch (error) {
+    console.error("Erro:", error);
+  }
+};
+
 
   const handleModalToggle = () => setShowModal(!showModal);
 
