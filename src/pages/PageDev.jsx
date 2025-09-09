@@ -28,6 +28,7 @@ import "./PageDev.css";
 export default function PageDev() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [functionsOpen, setFunctionsOpen] = useState(false);
+  const [updateModal, setUpdateModal] = useState(false);
 
   // --- ESTADOS DINÂMICOS VINDOS DO BACKEND ---
   const [installsData, setInstallsData] = useState([]);
@@ -38,31 +39,25 @@ export default function PageDev() {
   const [selected, setSelected] = useState(() => new Set());
   const [editing, setEditing] = useState(null);
 
-  // 🔹 Carregar dados do backend (avaliacao.js expõe esses endpoints)
+  // 🔹 Carregar dados do backend
   useEffect(() => {
     (async () => {
       try {
-        // Instalações
         const resInstalls = await fetch("http://localhost:5000/avaliacao/instalacoes");
-        const installs = await resInstalls.json();
-        setInstallsData(installs);
+        setInstallsData(await resInstalls.json());
 
-        // Avaliações
         const resReviews = await fetch("http://localhost:5000/avaliacao/avaliacoes");
-        const reviews = await resReviews.json();
-        setReviewsData(reviews);
+        setReviewsData(await resReviews.json());
 
-        // Feedbacks
         const resFeedbacks = await fetch("http://localhost:5000/avaliacao/feedbacks");
-        const feedbacks = await resFeedbacks.json();
-        setFeedbacks(feedbacks);
+        setFeedbacks(await resFeedbacks.json());
       } catch (err) {
         console.error("Erro ao buscar dados:", err);
       }
     })();
   }, []);
 
-  // 🔹 Filtro de busca para feedbacks
+  // 🔹 Filtro de feedbacks
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return feedbacks;
@@ -164,7 +159,7 @@ export default function PageDev() {
               <X size={28} />
             </button>
             <ul className="side-items">
-              <li className="side-item">Adicionar Atualização</li>
+              <li className="side-item" onClick={() => setUpdateModal(true)}>Adicionar Atualização</li>
               <li className="side-item" onClick={() => setFunctionsOpen(true)}>Funções</li>
               <li className="side-item">Configurações</li>
             </ul>
@@ -188,15 +183,15 @@ export default function PageDev() {
         <div className="content-inner">
           {/* Instalações */}
           <div className="card">
-            <div className="card-title">instalações</div>
+            <div className="card-title">Instalações</div>
             <div className="chart-box">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={installsData} margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
+                <LineChart data={installsData}>
                   <CartesianGrid strokeDasharray="4 4" />
                   <XAxis dataKey="label" />
                   <YAxis />
                   <Tooltip />
-                  <Line type="monotone" dataKey="valor" dot strokeWidth={2} />
+                  <Line type="monotone" dataKey="valor" stroke="#3b82f6" strokeWidth={2} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -204,12 +199,15 @@ export default function PageDev() {
 
           {/* Feedbacks */}
           <div className="card">
-            <div className="card-title">feedbacks</div>
+            <div className="card-title">Feedbacks</div>
             <div className="feedback-list">
               {feedbacks.map((f) => (
                 <div key={f.id} className="feedback-item">
                   <div className="feedback-bubble">
-                    <span className="user">{f.user}:</span> {f.text}
+                    <span className="user">
+                      {f.user} {Array(f.stars || 3).fill("⭐").join("")}:
+                    </span>{" "}
+                    {f.text}
                   </div>
                 </div>
               ))}
@@ -221,14 +219,14 @@ export default function PageDev() {
             <div className="card-title">Avaliações</div>
             <div className="chart-box">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={reviewsData} margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
+                <BarChart data={reviewsData}>
                   <CartesianGrid strokeDasharray="4 4" />
                   <XAxis dataKey="label" />
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="ruins" name="Ruins" />
-                  <Bar dataKey="boas" name="Boas" />
+                  <Bar dataKey="ruins" fill="#ef4444" name="Ruins" />
+                  <Bar dataKey="boas" fill="#3b82f6" name="Boas" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -321,6 +319,37 @@ export default function PageDev() {
                 ) : (
                   <div className="empty">Selecione um feedback para editar.</div>
                 )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL ADICIONAR ATUALIZAÇÃO */}
+      {updateModal && (
+        <div className="modal-backdrop" onClick={() => setUpdateModal(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div className="functions-header">
+              <h2>Adicionar Atualização</h2>
+              <button className="icon-btn" onClick={() => setUpdateModal(false)}>
+                <X />
+              </button>
+            </div>
+            <div className="functions-body">
+              <div className="editor-pane">
+                <div className="field">
+                  <label>Título</label>
+                  <input placeholder="Digite o título da atualização..." />
+                </div>
+                <div className="field">
+                  <label>Descrição</label>
+                  <textarea rows={6} placeholder="Descrição da atualização..." />
+                </div>
+                <div className="editor-actions">
+                  <button className="tool-btn primary" onClick={() => alert("Salvar atualização (implementar backend)")}>
+                    <Save size={16} /> Salvar
+                  </button>
+                </div>
               </div>
             </div>
           </div>
