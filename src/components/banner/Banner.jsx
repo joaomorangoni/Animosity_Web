@@ -1,50 +1,43 @@
 import React from "react";
 import Particles from "../acessorios/BackgroundParticles";
 import "./Banner.css";
-
-import SplitText from "../acessorios/SplitTxt";
-import { motion } from 'framer-motion';
-
-const handleAnimationComplete = () => {
-  console.log('Animation completed!');
-};
-
-
+import { motion } from "framer-motion";
 
 const Banner = () => {
+  const scrollToSobre = () => {
+    const section = document.getElementById("sobre");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="banner">
+      {/* Fundo de partículas */}
       <Particles className="particles-background" />
-      <div className="banner-content">
-        <img
-          src="./public/img/ProtagonistGif.gif"
-          alt="Imagem à esquerda"
-          className="banner-image pixel-fade"
+
+      {/* Conteúdo centralizado */}
+      <div className="banner-center">
+        {/* Logo central com fade in */}
+        <motion.img
+          src="../../public/img/logoimg.png"
+          alt="Logo"
+          className="banner-logo"
+          initial={{ opacity: 0 }}      // começa invisível
+          animate={{ opacity: 1 }}      // termina totalmente visível
+          transition={{ duration: 1 }}  // duração da animação
         />
 
-         <div className="banner-text">
-    <SplitText
-      text="Animosidade"
-      className="txt"
-      delay={150}
-      animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
-      animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
-      easing="easeOutCubic"
-      threshold={0.2}
-      rootMargin="-50px"
-      onLetterAnimationComplete={handleAnimationComplete}
-    />
-
-   
+        {/* Botão */}
         <motion.button
-          initial={{ opacity: 0, y: 20 }}                  // começa invisível e abaixo
-          animate={{ opacity: 1, y: 0 }}                   // aparece suavemente
-          transition={{ duration: 0.8, ease: "easeInOut" }} // tempo da animação
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeInOut", delay: 0.5 }}
           className="btn-3d"
+          onClick={scrollToSobre}
         >
           Saiba mais
         </motion.button>
-        </div>
       </div>
     </div>
   );

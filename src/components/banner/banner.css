@@ -1,4 +1,4 @@
-/* Banner ocupa toda a tela visível sem scroll */
+/* Banner ocupa toda a tela */
 .banner {
   width: 100vw;
   height: 100vh;
@@ -8,13 +8,14 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden; /* cuidado para não cortar conteúdo */
+  overflow: hidden;
   z-index: 0;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
+/* Fundo de partículas */
 .particles-background {
   position: absolute;
   top: 0;
@@ -25,141 +26,110 @@
   z-index: 0;
 }
 
-.banner-content {
-  width: 100%;
-  max-width: 1300px;
-  height: 100%;
+/* Conteúdo central */
+.banner-center {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  box-sizing: border-box;
-  gap: 40px;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  width: 100%;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
-.banner-image {
-  flex: 0 0 auto;
+/* Logo central */
+.banner-logo {
+  width: 620px;
+  max-width: 80%;
+  margin-bottom: 2rem;
 }
 
-.banner-image img {
-  width: 320px;
-  max-width: 100%;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
-}
-
-.banner-text {
-  max-width: 600px;
-}
-
-.banner-text h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  margin-bottom: 0.5rem;
-}
-
-.banner-text p {
-  font-size: clamp(1rem, 2vw, 1.5rem);
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
-}
-
-.banner-text .btn-3d {
-  background-color: black;
-  color: white;
+/* Botão 3D */
+/* Botão moderno com gradiente e brilho */
+.btn-3d {
+  background: #526D82;                /* azul acinzentado */
+  color: #fff;                        /* texto branco */
   border: none;
-  border-radius: 12px;
-  padding: 1rem 3rem;
-  font-size: 1.25rem;
-  font-weight: 700;
+  border-radius: 12px;                /* cantos arredondados */
+  padding: 0.9rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 8px #111112;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 2rem;
+  letter-spacing: 1.5px;
   display: inline-block;
-  margin-left: 90px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* sombra suave */
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.banner-text .btn-3d:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px #363537;
+/* efeito glow suave ao passar o mouse */
+.btn-3d:hover {
+  background: #5c7b9b; /* tom mais claro */
+  box-shadow: 0 0 20px rgba(92, 123, 155, 0.7);
+  transform: translateY(-2px) scale(1.02);
 }
 
-.banner-text .btn-3d:active {
-  transform: translateY(6px);
-  box-shadow: 0 2px #282729;
+/* efeito ao clicar */
+.btn-3d:active {
+  transform: translateY(2px) scale(0.97);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* detalhe animado de brilho diagonal */
+.btn-3d::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transform: rotate(25deg) translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.btn-3d:hover::after {
+  transform: rotate(25deg) translateX(100%);
 }
 
 /* Responsivo: tablet */
 @media (max-width: 992px) {
-  .banner-content {
-    flex-direction: column;
-    text-align: center;
-    gap: 30px;
-    padding: 40px 20px;
+  .banner-logo {
+    width: 200px;
   }
 
-  .banner-image img {
-    width: 280px;
-  }
-
-  .banner-text {
-    max-width: 100%;
-  }
-
-  .banner-text .btn-3d {
+  .btn-3d {
     padding: 0.8rem 2.5rem;
     font-size: 1.1rem;
     box-shadow: 0 6px #363537;
-    margin-left: auto;
-    margin-right: auto;
   }
 }
 
+
 /* Responsivo: mobile */
 @media (max-width: 576px) {
-  .banner-content {
-    flex-direction: column;
-    text-align: center;
-    gap: 20px;
-    padding: 20px;
+  .banner-logo {
+    width: 360px;
+
   }
 
-  .banner-image img {
-    width: 220px;
-    margin: 0 auto;
-  }
-
-  .banner-text {
-    display: block !important;
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    padding: 0 15px;
-  }
-
-  .banner-text h1 {
-    font-size: 2.2rem;
-  }
-
-  .banner-text p {
-    font-size: 1rem;
-  }
-
-  .banner-text .btn-3d {
+  .btn-3d {
     padding: 0.7rem 2rem;
     font-size: 1rem;
     box-shadow: 0 5px #363537;
-    margin-top: 1.5rem;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 1px;
   }
 
-  .banner-text .btn-3d:active {
+  .btn-3d:active {
     transform: translateY(4px);
     box-shadow: 0 1px #282729;
   }
