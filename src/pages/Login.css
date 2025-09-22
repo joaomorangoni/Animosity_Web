@@ -63,6 +63,7 @@
 .login-input {
   width: 100%;
   padding: 12px;
+  border-radius: 24px;
   margin: 8px 0;
   border: 1px solid #444;
   outline: none;
@@ -227,12 +228,12 @@
 
 /* Botão de login no modal */
 .modal-content button {
-  background: #ffd700;
+  background: ##3BACB6;
   color: #0b0c10;
 }
 
 .modal-content button:hover {
-  background: #ffea00;
+  background: #3BACB6;
 }
 
 /* Fechar modal */
@@ -243,7 +244,7 @@
 }
 
 .modal-content button:last-child:hover {
-  background: #fff;
+  background: #3BACB6;
   color: #0b0c10;
 }
 
