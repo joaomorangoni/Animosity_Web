@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "node server.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -45,5 +46,13 @@
   "main": "cadastro.js",
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joaomorangoni/Animosity_Web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joaomorangoni/Animosity_Web/issues"
+  },
+  "homepage": "https://github.com/joaomorangoni/Animosity_Web#readme"
 }

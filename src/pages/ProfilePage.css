@@ -78,7 +78,7 @@ body{ margin: 0; background: var(--bg); color: var(--text); font-family: Inter, 
 /* ======= Avatar central ======= */
 .avatarWrap{
   position: absolute;
-  top: -56px; left: 50%;
+  top: -164px; left: 50%;
   transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center;
 }
@@ -99,7 +99,7 @@ body{ margin: 0; background: var(--bg); color: var(--text); font-family: Inter, 
   background: #0f1720; color: #fff; border: 2px solid #fff;
 }
 .hello{
-  margin: 10px 0 0;
+  margin: 2px 0 0;
   font-weight: 700; letter-spacing: .5px;
   color: #8fa5bb;
 }
