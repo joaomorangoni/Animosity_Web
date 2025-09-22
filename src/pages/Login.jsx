@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
+import { FaSpinner, FaCheckCircle } from "react-icons/fa";
 import "./Login.css";
 
 export default function Login() {
@@ -12,8 +13,10 @@ export default function Login() {
   const [senha, setSenha] = useState("");
   const [mensagem, setMensagem] = useState("");
   const [loading, setLoading] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
+  const [errorModal, setErrorModal] = useState("");
 
-  // canvas de estrelas
+  // fundo com estrelas brancas
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -38,7 +41,7 @@ export default function Login() {
     const animate = () => {
       ctx.fillStyle = "#000";
       ctx.fillRect(0, 0, w, h);
-      ctx.fillStyle = "#B3E8E5";
+      ctx.fillStyle = "#fff";
       stars.forEach((s) => {
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.z, 0, Math.PI * 2);
@@ -63,7 +66,7 @@ export default function Login() {
     setLoading(true);
     setMensagem("");
     if (!email || !senha) {
-      setMensagem("Preencha email e senha.");
+      setErrorModal("Preencha email e senha.");
       setLoading(false);
       return;
     }
@@ -80,14 +83,13 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        localStorage.setItem("user", JSON.stringify(data.usuario));
-        window.location.href = "/contact";
+        setSuccessModal(true);
       } else {
-        setMensagem(data.mensagem || "Erro no cadastro.");
+        setErrorModal(data.mensagem || "Erro no cadastro.");
       }
     } catch (err) {
       console.error(err);
-      setMensagem("Erro ao cadastrar.");
+      setErrorModal("Erro ao cadastrar.");
     } finally {
       setLoading(false);
     }
@@ -126,31 +128,132 @@ export default function Login() {
       <canvas ref={canvasRef} className="stars-canvas" />
       <div className="login-box">
         <h1>Bem-vindo!</h1>
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
-        <button onClick={handleCadastro} disabled={loading}>{loading ? "Aguarde..." : "Registrar"}</button>
+        <input
+          type="email"
+          className="login-input"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          className="login-input"
+          placeholder="Senha"
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
+        />
+        <button onClick={handleCadastro} disabled={loading}>
+          {loading ? <FaSpinner className="spin" /> : "Registrar"}
+        </button>
         <button onClick={() => setModalOpen(true)}>Entrar</button>
 
         {mensagem && <p className="login-message">{mensagem}</p>}
       </div>
 
+      {/* Modal de Login */}
       <AnimatePresence>
         {modalOpen && (
-          <motion.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            onClick={(e) => e.target.classList.contains("modal-backdrop") && setModalOpen(false)}>
-            <motion.div className="modal-content" initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.8, opacity: 0 }}>
+          <motion.div
+            className="modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={(e) =>
+              e.target.classList.contains("modal-backdrop") &&
+              setModalOpen(false)
+            }
+          >
+            <motion.div
+              className="modal-content"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+            >
               <h2>Login</h2>
               <div className="social-login">
-                <button><FcGoogle /> Google</button>
+                <button>
+                  <FcGoogle /> Google
+                </button>
                 <button>Steam</button>
                 <button>PSN</button>
                 <button>Nintendo</button>
               </div>
-              <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-              <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
-              <button onClick={handleLogin} disabled={loading}>{loading ? "Entrando..." : "Entrar"}</button>
+              <input
+                type="email"
+                className="login-input"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <input
+                type="password"
+                className="login-input"
+                placeholder="Senha"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+              />
+              <button onClick={handleLogin} disabled={loading}>
+                {loading ? <FaSpinner className="spin" /> : "Entrar"}
+              </button>
               {mensagem && <p>{mensagem}</p>}
               <button onClick={() => setModalOpen(false)}>Fechar</button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Modal de Sucesso */}
+      <AnimatePresence>
+        {successModal && (
+          <motion.div
+            className="modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="modal-content success"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+            >
+              <div className="icon-container">
+                <FaCheckCircle className="icon success-icon" />
+              </div>
+              <h2>Registrado com sucesso!</h2>
+              <button
+                onClick={() => {
+                  setSuccessModal(false);
+                  window.location.reload();
+                }}
+              >
+                OK
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Modal de Erro */}
+      <AnimatePresence>
+        {errorModal && (
+          <motion.div
+            className="modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="modal-content error"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+            >
+              <div className="icon-container">
+                <span style={{ fontSize: "60px", color: "orange" }}>⚠️</span>
+              </div>
+              <h2>{errorModal}</h2>
+              <button onClick={() => setErrorModal("")}>Fechar</button>
             </motion.div>
           </motion.div>
         )}

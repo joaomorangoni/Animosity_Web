@@ -28,7 +28,6 @@
   width: 100%;
   height: 100%;
   z-index: 0;
- 
 }
 
 /* Card de login */
@@ -61,24 +60,37 @@
 }
 
 /* Inputs */
-.login-box input {
+.login-input {
   width: 100%;
-  padding: 12px 15px;
-  border: none;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #444;
   outline: none;
-  font-size: 14px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #1c1c1c;
   color: #fff;
-  transition: all 0.3s ease;
+  font-size: 16px;
+  transition: border 0.3s;
 }
 
-.login-box input::placeholder {
-  color: #ddd;
+.login-input::placeholder {
+  color: #aaa;
 }
 
-.login-box input:focus {
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+.login-input:focus {
+  border-color: #4cafef;
+  box-shadow: none; /* remove brilho */
+  outline: none;
+}
+
+/* Animação de loading */
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Botões principais */
@@ -94,7 +106,7 @@
 
 /* Botão registrar */
 .login-box button:nth-of-type(1) {
-  background: #B3E8E5 ;;
+  background: #B3E8E5;
   color: #0b0c10;
 }
 
@@ -201,13 +213,16 @@
 
 /* Inputs e botão dentro modal */
 .modal-content input {
-  background: rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  border: 1px solid #444;
+  background: #1c1c1c;
   color: #fff;
+  padding: 12px;
 }
 
 .modal-content input:focus {
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  border-color: #4cafef;
+  box-shadow: none;
 }
 
 /* Botão de login no modal */
@@ -230,4 +245,35 @@
 .modal-content button:last-child:hover {
   background: #fff;
   color: #0b0c10;
+}
+
+/* Diferencia modal de sucesso e erro */
+.modal-content.success {
+  text-align: center;
+  border: 2px solid #4caf50;
+}
+
+.modal-content.error {
+  text-align: center;
+  border: 2px solid #f44336;
+}
+
+/* Ícones centralizados */
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.icon {
+  font-size: 60px;
+}
+
+.success-icon {
+  color: #4caf50;
+}
+
+.error-icon {
+  color: #f44336;
 }

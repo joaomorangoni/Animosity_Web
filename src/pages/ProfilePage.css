@@ -356,6 +356,78 @@ body{ margin: 0; background: var(--bg); color: var(--text); font-family: Inter, 
   }
 }
 
+.feedbackList {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.feedbackItem {
+  background: var(--panel-2);
+  padding: 12px 14px;
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+.feedbackHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.feedbackStars span {
+  margin-left: 2px;
+}
+
+.feedbackActions {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  display: flex;
+  gap: 6px;
+}
+
+.feedbackActions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--accent);
+  transition: transform 0.2s;
+}
+
+.feedbackActions button:hover {
+  transform: scale(1.2);
+}
+
+.btnDelete {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btnDelete:hover { filter: brightness(1.1); }
+
+
+.tooltip{
+  margin-left: 10px;
+  color: red
+}
+
+.btnSend.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
 /* ======= Responsivo ======= */
 @media (max-width: 980px){
   .grid{ grid-template-columns: 1fr }
