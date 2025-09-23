@@ -1,7 +1,7 @@
 // src/pages/ProfilePage.jsx
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Pencil, Download, SendHorizontal, UserRound, X, Trash2, Edit2 } from "lucide-react";
+import { Pencil, Download, SendHorizontal, UserRound, X, Trash2, Edit2, ChevronDown, ChevronUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.css";
 
@@ -17,6 +17,7 @@ export default function ProfilePage() {
   const [feedback, setFeedback] = useState("");
   const [estrelas, setEstrelas] = useState(0);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
+  const [showFeedbacks, setShowFeedbacks] = useState(false); // <<<< novo estado
 
   // Modal de status (erro/sucesso)
   const [statusModal, setStatusModal] = useState({ show: false, success: false, message: "" });
@@ -103,7 +104,6 @@ export default function ProfilePage() {
   const showStatusModal = (success, message) => {
     setStatusModal({ show: true, success, message });
   };
-
   const closeStatusModal = () => {
     setStatusModal({ show: false, success: false, message: "" });
   };
@@ -199,56 +199,73 @@ export default function ProfilePage() {
           <h2 className="hello">Olá {profile.nome || firstPartEmail}</h2>
         </div>
 
-        {/* ======= Seções lado a lado ======= */}
-
-
-            {/* Feedback */}
-          <motion.section className="panel feedback" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
-            <h3>Deixe um feedback!</h3>
-            <form onSubmit={handleSubmit} className="feedbackForm">
-              <div className="stars-input">
-                {[1, 2, 3, 4, 5].map((num) => (
-                  <span key={num} onClick={() => setEstrelas(num)} style={{ cursor: "pointer", fontSize: "20px", color: num <= estrelas ? "#FFD700" : "#ccc" }}>★</span>
-                ))}
-              </div>
-              <textarea placeholder="Escreva seu feedback..." value={feedback} onChange={(e) => setFeedback(e.target.value)} />
-
-              <div className="submitWrapper">
-                <div className="tooltipWrapper">
-                  <button
-  type="submit"
-  className={`btnSend ${feedback.trim().length < 10 ? "disabled" : ""}`}
-  disabled={feedback.trim().length < 10 || loadingSubmit}
->
-  {loadingSubmit ? "Enviando..." : editingFeedback ? "Atualizar" : "Enviar"} <SendHorizontal size={18} />
-</button>
-
-                  {feedback.trim().length < 10 && (
-                    <span className="tooltip">O feedback precisa ter pelo menos 10 caracteres</span>
-                  )}
-                </div>
-              </div>
-            </form>
-
-            {/* Lista de feedbacks do usuário */}
-            <div className="feedbackList">
-              {meusFeedbacks.map((fb) => (
-                <div key={fb.id} className="feedbackItem">
-                  <div className="feedbackHeader">
-                    <strong>{fb.nome}</strong>
-                    <div className="feedbackStars">
-                      {[...Array(5)].map((_, i) => <span key={i} style={{ color: i < fb.estrelas ? "#FFD700" : "#ccc" }}>★</span>)}
-                    </div>
-                  </div>
-                  <p>{fb.texto}</p>
-                  <div className="feedbackActions">
-                    <button onClick={() => handleEditFeedback(fb)}><Edit2 size={16} /></button>
-                    <button onClick={() => handleDeleteFeedback(fb.id)}><Trash2 size={16} /></button>
-                  </div>
-                </div>
+        {/* ======= Feedback ======= */}
+        <motion.section className="panel feedback" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
+          <h3>Deixe um feedback!</h3>
+          <form onSubmit={handleSubmit} className="feedbackForm">
+            <div className="stars-input">
+              {[1, 2, 3, 4, 5].map((num) => (
+                <span key={num} onClick={() => setEstrelas(num)} style={{ cursor: "pointer", fontSize: "20px", color: num <= estrelas ? "#FFD700" : "#ccc" }}>★</span>
               ))}
             </div>
-          </motion.section>
+            <textarea placeholder="Escreva seu feedback..." value={feedback} onChange={(e) => setFeedback(e.target.value)} />
+
+            <div className="submitWrapper">
+              <div className="tooltipWrapper">
+                <button
+                  type="submit"
+                  className={`btnSend ${feedback.trim().length < 10 ? "disabled" : ""}`}
+                  disabled={feedback.trim().length < 10 || loadingSubmit}>
+                  {loadingSubmit ? "Enviando..." : editingFeedback ? "Atualizar" : "Enviar"} <SendHorizontal size={18} />
+                </button>
+
+                {feedback.trim().length < 10 && (
+                  <span className="tooltip">O feedback precisa ter pelo menos 10 caracteres</span>
+                )}
+              </div>
+            </div>
+          </form>
+
+          {/* Botão para ver feedbacks */}
+          <button className="btnToggleFeedbacks" onClick={() => setShowFeedbacks(!showFeedbacks)}>
+            {showFeedbacks ? <>Esconder feedbacks <ChevronUp size={16} /></> : <>Ver feedbacks <ChevronDown size={16} /></>}
+          </button>
+
+          {/* Lista de feedbacks do usuário (expandível) */}
+          <AnimatePresence>
+            {showFeedbacks && (
+              <motion.div
+                className="feedbackList"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {meusFeedbacks.length === 0 ? (
+                  <p style={{ textAlign: "center", color: "#777" }}>Você ainda não enviou nenhum feedback.</p>
+                ) : (
+                  meusFeedbacks.map((fb) => (
+                    <div key={fb.id} className="feedbackItem">
+                      <div className="feedbackHeader">
+                        <strong>{fb.nome}</strong>
+                        <div className="feedbackStars">
+                          {[...Array(5)].map((_, i) => <span key={i} style={{ color: i < fb.estrelas ? "#FFD700" : "#ccc" }}>★</span>)}
+                        </div>
+                      </div>
+                      <p>{fb.texto}</p>
+                      <div className="feedbackActions">
+                        <button onClick={() => handleEditFeedback(fb)}><Edit2 size={16} /></button>
+                        <button onClick={() => handleDeleteFeedback(fb.id)}><Trash2 size={16} /></button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.section>
+
+        {/* ======= Outras seções ======= */}
         <section className="gridPanelsRow">
           {/* Atualizações */}
           <motion.aside className="panel updates" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
@@ -257,8 +274,6 @@ export default function ProfilePage() {
             <div className="pill" />
             <div className="pill" />
           </motion.aside>
-
-      
 
           {/* Baixe agora */}
           <motion.aside className="panel download" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
