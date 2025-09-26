@@ -27,5 +27,5 @@ app.get('/usuarios', (req, res)=>{
 
 })
 
-//Informando a porta de respost
+//Informando a porta de resposta
 app.listen(3000)
