@@ -1,4 +1,5 @@
 import express from 'express'
+import { GetAlunos, InsertAluno} from './components_api/UsuarioController.js'
 
 const app = express()
 
@@ -15,16 +16,13 @@ const users = []
     2- Endereço
 */
 
-app.post ('/usuarios', (req,res)=>{
-    users.push(req.body)
-    res.status(201) .json(req.body)
+app.post('/usuarios', (req,res)=>{
+    InsertAluno(req, res);
 })
 
 
 app.get('/usuarios', (req, res)=>{
-    res.json(users)
-    res.status(200) .json(req.body)
-
+    GetAlunos(res);
 })
 
 //Informando a porta de resposta
