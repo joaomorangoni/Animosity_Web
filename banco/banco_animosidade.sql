@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 26/09/2025 às 13:09
--- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.2.4
+-- Tempo de geração: 30/09/2025 às 00:48
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `banco_animosidade`
 --
-CREATE DATABASE IF NOT EXISTS `banco_animosidade` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `banco_animosidade`;
 
 -- --------------------------------------------------------
 
@@ -53,6 +51,15 @@ CREATE TABLE `feedback` (
   `estrelas` int(10) NOT NULL,
   `id_usuario` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `feedback`
+--
+
+INSERT INTO `feedback` (`mensagem`, `versao`, `estrelas`, `id_usuario`) VALUES
+('gostei bastante!!!', '1.1', 5, NULL),
+('gostei bastante!!!', '1.1', 5, NULL),
+('uhuuuuuuuuuuuu!!', '1.1', 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -94,7 +101,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restrições para tabelas despejadas
