@@ -1,11 +1,11 @@
 import express from 'express'
-import { GetAlunos, InsertAluno} from './components_api/UsuarioController.js'
+import { GetUser, InsertUser, UpdateUser} from './components_api/UsuarioController.js'
 
 const app = express()
 
 app.use(express.json())
 
-const users = []
+
 
 //Criando uma rota
 
@@ -17,13 +17,20 @@ const users = []
 */
 
 app.post('/usuarios', (req,res)=>{
-    InsertAluno(req, res);
+    InsertUser(req, res);
 })
 
 
 app.get('/usuarios', (req, res)=>{
-    GetAlunos(res);
+    GetUser(res);
 })
+
+
+app.put('/usuarios/:id', (req, res)=>{
+    UpdateUser(req, res);
+})
+
+
 
 //Informando a porta de resposta
 app.listen(3000)
