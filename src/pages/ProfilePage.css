@@ -1,435 +1,75 @@
-/* ======= Paleta e base ======= */
-:root{
-  --bg: #0e1824;          /* fundo externo (mais escuro) */
-  --panel: #223243;       /* painéis */
-  --panel-2: #1b2a39;     /* caixas internas */
-  --text: #c7d3df;
-  --muted: #8ea0b2;
-  --accent: #6aa8ff;      /* botões */
-  --accent-2: #89b8ff;
-  --shadow: 0 10px 30px rgba(0,0,0,.35);
-  --radius: 18px;
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+    width: 100%;
+    height: 100%
 }
+    
+.banner {
+  grid-column: span 5 / span 5;
+  height: 150px;;
 
 
-
-
-*{ box-sizing: border-box }
-html, body, #root{ width: 100vw }
-body{ margin: 0; background: var(--bg); color: var(--text); font-family: Inter, system-ui, Arial, sans-serif }
-
-/* ======= Topo com partículas (3 camadas) ======= */
-.starsWrap{
-  position: relative;
-  height: 220px;
-  background: #000;
-  overflow: hidden;
-}
-.stars{
-  position: absolute; inset: 0;
-  background-repeat: repeat;
-  animation: drift 40s linear infinite;
-  opacity: .9;
-}
-/* camadas com densidades diferentes para parallax */
-.layer1{
-  background-image:
-    radial-gradient(2px 2px at 20px 30px, #fff 98%, transparent 100%),
-    radial-gradient(2px 2px at 120px 80px, #fff 98%, transparent 100%),
-    radial-gradient(1px 1px at 200px 10px, #fff 98%, transparent 100%),
-    radial-gradient(1px 1px at 300px 120px, #fff 98%, transparent 100%);
-  background-size: 400px 200px;
-  opacity: .9;
-}
-.layer2{
-  background-image:
-    radial-gradient(2px 2px at 60px 60px, #fff 98%, transparent 100%),
-    radial-gradient(1px 1px at 180px 140px, #fff 98%, transparent 100%),
-    radial-gradient(1px 1px at 320px 40px, #fff 98%, transparent 100%);
-  background-size: 500px 250px;
-  animation-duration: 55s;
-  opacity: .7;
-}
-.layer3{
-  background-image:
-    radial-gradient(1px 1px at 90px 30px, #fff 98%, transparent 100%),
-    radial-gradient(2px 2px at 260px 100px, #fff 98%, transparent 100%),
-    radial-gradient(1px 1px at 380px 160px, #fff 98%, transparent 100%);
-  background-size: 600px 300px;
-  animation-duration: 70s;
-  opacity: .5;
-}
-@keyframes drift {
-  from { transform: translateY(0) }
-  to   { transform: translateY(-200px) }
 }
 
-/* ======= Cartão principal ======= */
-.card{
-  width: 100vw;
-  margin: -64px auto 48px;     /* sobrepõe o topo de estrelas */
-  background: #1a2634;
-  border-radius: calc(var(--radius) + 6px);
-  box-shadow: var(--shadow);
-  padding: 90px 28px 32px;
-  position: relative;
-}
-
-/* ======= Avatar central ======= */
-.avatarWrap{
+.profilephoto {
   position: absolute;
-  top: -164px; left: 50%;
-  transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center;
-}
-.avatar{
-  width: 128px; height: 128px; border-radius: 999px;
-  border: 8px solid #000;
-  background: #e9edf2;
-  color: #6b7682;
-  display: grid; place-items: center;
-  position: relative;
-  box-shadow: 0 8px 20px rgba(0,0,0,.5);
-}
-.avatarIcon{ width: 70%; height: 70% }
-.editBadge{
-  position: absolute; right: -2px; bottom: -2px;
-  width: 32px; height: 32px; border-radius: 999px;
-  display: grid; place-items: center;
-  background: #0f1720; color: #fff; border: 2px solid #fff;
-}
-.hello{
-  margin: 2px 0 0;
-  font-weight: 700; letter-spacing: .5px;
-  color: #8fa5bb;
+  top: 15%;
+  left: 45%;
+  background-color: black;
+  border-radius: 100%;
 }
 
-/* ======= Grid de três colunas ======= */
-.grid{
-  margin-top: 48px;
-  display: grid;
-  grid-template-columns: 1fr 1.6fr 1fr;
-  gap: 20px;
-}
-.panel{
-  background: var(--panel);
-  border-radius: var(--radius);
-  padding: 16px;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
-}
-.panel h3{
-  margin: 0 0 12px; font-size: 1.05rem; color: #a7bacd; letter-spacing: .3px
+.splittxt{
+  position: absolute;
+  top: 37%;
+  left: 555px;
+  font-size: 27px
 }
 
-/* ======= Coluna esquerda ======= */
-.updates .pill{
-  height: 74px; border-radius: 16px; background: var(--panel-2);
-  margin: 12px 0; box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
-}
-
-/* ======= Feedback (centro) ======= */
-.feedbackForm{
-  display: grid; gap: 12px;
-  grid-template-rows: 1fr auto;
-  min-height: 260px;
-}
-.feedback textarea{
-  width: 100%; min-height: 180px; resize: none;
-  padding: 12px 14px; border-radius: 16px;
-  background: var(--panel-2); border: none; color: #e8f0f8;
-  outline: 2px solid transparent; transition: outline-color .2s ease;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
-}
-.feedback textarea:focus{ outline-color: #355d86 }
-.btnSend{
-  justify-self: end;
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 16px; border: none; border-radius: 12px;
-  background: linear-gradient(180deg, var(--accent), var(--accent-2));
-  color: #0b1220; font-weight: 700; cursor: pointer;
-  box-shadow: 0 8px 18px rgba(106,168,255,.25);
-}
-
-/* ======= Baixe agora (direita) ======= */
-.dlText{
-  background: var(--panel-2);
-  border-radius: 14px; padding: 14px; margin: 12px 0 16px;
-  color: var(--muted);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
-}
-.btnInstall{
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 12px 16px; border-radius: 14px; border: none;
-  background: #2f8bff; color: white; font-weight: 800; cursor: pointer;
-  box-shadow: 0 10px 22px rgba(47,139,255,.28);
-}
-.btnInstall:hover{ filter: brightness(1.05) }
-.btnInstall:active{ transform: translateY(1px) }
-
-
-
-/* src/pages/ProfilePage.css */
-
-/* --- Modal Overlay --- */
-.modalOverlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 50;
-}
-
-/* --- Modal Content --- */
-.modalContent {
-  position: fixed;
+.feedback{
+  position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #1e1e1e;
-  color: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  width: 400px;
-  max-width: 90%;
-  z-index: 60;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-  animation: modalAppear 0.3s ease forwards;
-}
-
-/* Animação de abertura */
-@keyframes modalAppear {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -48%) scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-/* --- Close Button --- */
-.closeModal {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-.closeModal:hover {
-  transform: rotate(90deg);
-}
-
-/* --- Modal Form --- */
-.modalForm {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* --- Photo Preview --- */
-.photoPreview {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  position: relative;
-}
-
-.photoPreview img {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 999px;
-  border: 3px solid #38586c;
-}
-
-.photoPreview input[type="file"] {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 120px;
-  height: 120px;
-  opacity: 0;
-  cursor: pointer;
-  border-radius: 999px;
-}
-
-/* --- Labels & Inputs --- */
-.modalForm label {
-  display: flex;
-  flex-direction: column;
-  font-size: 0.9rem;
-  color: #fff;
-}
-
-.modalForm input[type="text"],
-.modalForm input[type="password"],
-.modalForm input[type="email"] {
-  margin-top: 4px;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  border: 1px solid #555;
-  background-color: #2b2b2b;
-  color: #fff;
-  font-size: 0.9rem;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.modalForm input:focus {
-  border-color: #38586c;
-  box-shadow: 0 0 5px #38586c;
-}
-
-/* --- Preview de Foto --- */
-.photoPreview {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 1rem auto;
-  border-radius: 999px;
-  overflow: hidden;
-  border: 3px solid #FFD700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.photoPreview img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 999px;
-}
-
-.photoPreview input[type="file"] {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-  border-radius: 999px;
+  left: 35%;
+  width: 30%;
+  height: 45%;
+  border-radius: 10px;
 }
 
 
-/* --- Save Button --- */
-.btnSave {
-  background-color: #5889a7;
-  color: #1e1e1e;
-  border: none;
-  padding: 0.75rem;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s;
+.div2 {
+        grid-column: span 3 / span 3;
+    grid-row: span 4 / span 4;
+    grid-column-start: 2;
+    grid-row-start: 2;
+  background-color: #4a6373;  
+    top: 50%;
+    left: 50%;  
+    gap: 5px;
+    border-radius: 10px;
+    height: 97%;;
 }
 
-.btnSave:hover {
-  background-color: #37596c;
-  transform: scale(1.02);
+.div3 {
+    grid-row: span 4 / span 4;
+    grid-column-start: 1;
+    grid-row-start: 2;
+    background-color: #4a6373;
+        border-radius: 10px;
+        height: 97%;;
+        width: 98%;
 }
 
-/* --- Responsividade --- */
-@media (max-width: 500px) {
-  .modalContent {
-    width: 90%;
-    padding: 1.5rem;
-  }
-
-  .photoPreview img {
-    width: 100px;
-    height: 100px;
-  }
-
-  .photoPreview input[type="file"] {
-    width: 100px;
-    height: 100px;
-  }
-}
-
-.feedbackList {
-  margin-top: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.feedbackItem {
-  background: var(--panel-2);
-  padding: 12px 14px;
-  border-radius: 14px;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  position: relative;
-}
-
-.feedbackHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.feedbackStars span {
-  margin-left: 2px;
-}
-
-.feedbackActions {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  display: flex;
-  gap: 6px;
-}
-
-.feedbackActions button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--accent);
-  transition: transform 0.2s;
-}
-
-.feedbackActions button:hover {
-  transform: scale(1.2);
-}
-
-.btnDelete {
-  background-color: #e74c3c;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.btnDelete:hover { filter: brightness(1.1); }
-
-
-.tooltip{
-  margin-left: 10px;
-  color: red
-}
-
-.btnSend.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-
-/* ======= Responsivo ======= */
-@media (max-width: 980px){
-  .grid{ grid-template-columns: 1fr }
-  .feedbackForm{ min-height: 220px }
-}
+.div4 {
+    grid-row: span 4 / span 4;
+    grid-column-start: 5;
+    grid-row-start: 2;
+    background-color: #4a6373;
+    border-radius: 10px;
+    height: 97%;;
+    width: 98%;
+    margin-left: 5px;
+}   

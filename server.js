@@ -1,5 +1,6 @@
 import express from 'express'
-import { GetUser, InsertUser, UpdateUser} from './components_api/UsuarioController.js'
+import { GetUser, InsertUser, UpdateUser, DeleteUser} from './components_api/UsuarioController.js'
+import { GetFeed, InsertFeed, UpdateFeed, DeleteFeed} from './components_api/FeedbacksController.js'
 
 const app = express()
 
@@ -29,6 +30,36 @@ app.get('/usuarios', (req, res)=>{
 app.put('/usuarios/:id', (req, res)=>{
     UpdateUser(req, res);
 })
+
+app.delete('/usuarios/:id', (req, res)=>{
+    DeleteUser(req, res);
+})
+
+//Fedas
+
+
+
+app.post('/feedbacks/:id_usuario', (req,res)=>{
+    InsertFeed(req, res);
+})
+
+
+app.get('/feedbacks/:id_usuario', (req, res)=>{
+    GetFeed(res);
+})
+
+
+app.put('/feedbacks/:id_usuario', (req, res)=>{
+    UpdateFeed(req, res);
+})
+
+app.delete('/feedbacks/:id_usuario', (req, res)=>{
+    DeleteFeed(req, res);
+})
+
+
+
+
 
 
 

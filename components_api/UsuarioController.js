@@ -40,3 +40,17 @@ export async function UpdateUser(req, res){
 }
 
 
+export async function DeleteUser(req, res){
+  const { id } = req.params;
+  connection.query("DELETE from usuarios WHERE id = ?", [id], (err, usuario)=>{
+    if (err) {
+      console.error('Erro ao editar usuario:', err);
+      return res.status(500).json({ erro: 'Erro ao excluir usuário' });
+  }else{
+      res.status(201).json({mensagem: 'excluído com sucesso',user: usuario});
+  }
+  } )
+}
+
+
+
