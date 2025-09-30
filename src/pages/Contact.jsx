@@ -51,13 +51,13 @@ export default function Contact() {
           </div>
           </div>
 
-        <div className='feedback'>
           <div className='box1'>
             <h1 className='titulo'>Feedback!</h1>
               <textarea class="input1" placeholder="Escreva seu feedback..."></textarea>
-          </div>
-          <div className='box2'></div>
-          <div className='box3'></div>
+            
+
+        
+
         </div>
 
         </div>
