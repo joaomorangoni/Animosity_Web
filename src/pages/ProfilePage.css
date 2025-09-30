@@ -1,75 +1,120 @@
-
-.container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    gap: 8px;
-    width: 100%;
-    height: 100%
-}
-    
-.banner {
-  grid-column: span 5 / span 5;
-  height: 150px;;
-
-
+/* Container principal */
+.conteudo {
+  height: 100%;
+  width:100vw;
+  background-color: #112531;
 }
 
-.profilephoto {
+/* Banner do topo */
+.banner-profile {
+  height: 150px;
+  background: black;
+}
+
+.profile-photo{
+  top: 14%;
+  left: 47%;
   position: absolute;
-  top: 15%;
-  left: 45%;
-  background-color: black;
-  border-radius: 100%;
+  transition: transform 0.3s ease-in-out;
 }
+
+.profile-photo:hover{
+  cursor: pointer;
+  transform: translate(0, -5px);
+}
+
 
 .splittxt{
-  position: absolute;
-  top: 37%;
-  left: 555px;
-  font-size: 27px
+  font-size: 25px;
+  margin-top: 3%;
+  margin-left: 46.7%;
+  gap: 5px;
 }
 
 .feedback{
-  position: absolute;
-  top: 50%;
-  left: 35%;
-  width: 30%;
-  height: 45%;
+  width: 100%; /* isso é padrão para elementos div */
+  border: 1px solid;
+  color: #112531;
+}
+
+.box1 {
+  display: flex;               /* torna o container flexível */
+  justify-content: center;     /* centraliza horizontalmente */
+  align-items: center;         /* centraliza verticalmente */
+  flex-direction: column;      /* opcional, se quiser que elementos fiquem empilhados */
+  
+  background-color: #4e6879;
+  height: 480px;
+  width: 780px;
+  margin: 5% auto 0 auto;      /* centraliza horizontalmente com margin automática */
   border-radius: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.349);
 }
 
 
-.div2 {
-        grid-column: span 3 / span 3;
-    grid-row: span 4 / span 4;
-    grid-column-start: 2;
-    grid-row-start: 2;
-  background-color: #4a6373;  
-    top: 50%;
-    left: 50%;  
-    gap: 5px;
-    border-radius: 10px;
-    height: 97%;;
+.atualizacoes{
+  width: 100%; /* isso é padrão para elementos div */
+  border: 1px solid;
+  color: #112531;
 }
 
-.div3 {
-    grid-row: span 4 / span 4;
-    grid-column-start: 1;
-    grid-row-start: 2;
-    background-color: #4a6373;
-        border-radius: 10px;
-        height: 97%;;
-        width: 98%;
+.box2{
+  width: 380px;
+  height: 480px;
+  background-color: #4e6879;
+  margin-top: -30%;
+  margin-left: 1%;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.349);
 }
 
-.div4 {
-    grid-row: span 4 / span 4;
-    grid-column-start: 5;
-    grid-row-start: 2;
-    background-color: #4a6373;
-    border-radius: 10px;
-    height: 97%;;
-    width: 98%;
-    margin-left: 5px;
-}   
+.box3{
+  width: 380px;
+  height: 480px;
+  background-color: #4e6879;
+  margin-top: -30%;
+  margin-left: 75.5%;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.349);
+}
+
+
+.input1 { 
+  width: 100%;
+  margin-bottom: 15%;
+  max-width: 670px;
+  height: 100%;
+  max-height: 270px;
+  margin-top: 13px;
+  padding: 12px 15px;
+  font-size: 15px;
+  color: #fff; /* texto branco */
+  background: #11253191;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px); /* efeito vidro */
+  text-align:initial;
+}
+
+.input1::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.3s ease;
+}
+
+.input1:focus {
+  border-color: #07151d5e; 
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+  background: #07151d5e;
+}
+
+.input1:focus::placeholder {
+   color: rgba(255, 255, 255, 0.3);
+}
+
+
+.titulo{
+  font-size: 40px;
+  gap: 15px;
+}

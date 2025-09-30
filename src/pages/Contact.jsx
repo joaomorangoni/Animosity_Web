@@ -1,9 +1,12 @@
+import React from 'react';
 import Particles from '../components/Particles.jsx';
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.css";
 import { CgProfile } from "react-icons/cg";
 import SplitText from "../components/acessorios/SplitTxt.jsx";
-import { Input }  from '@mui/base/Input';
+import '../App.css';
+import { CircleUserRound } from "lucide-react";
+import  CustomInput  from "../components/input";
 
 
 
@@ -14,9 +17,9 @@ export default function Contact() {
   
   
   return(
-    
-    <div className="container">
-        <div className="banner">  <Particles
+
+  <div className="conteudo">
+        <div className="banner-profile">  <Particles
                 particleColors={['#ffffff', '#ffffff']}
                 particleCount={1200}
                 particleSpread={35}
@@ -27,34 +30,44 @@ export default function Contact() {
                 disableRotation={false}
                                   />
 
+
+          <div >
+          <CircleUserRound className='profile-photo' size={90} />
+
+
+          <SplitText
+            text="Olá user!"
+            className="text-2xl font-semibold text-center splittxt"
+            delay={100}
+            duration={0.6}
+            ease="power3.out"
+            splitType="chars"
+            from={{ opacity: 0, y: 40 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.1}
+            rootMargin="-100px"
+
+          />
           </div>
-        <div className="div2">
-          <div>
-            <CgProfile size={120} strokeWidth={0.1} className='profilephoto' />
-
-<SplitText
-  text="Olá Usuarios"
-  className="text-2xl font-semibold text-center splittxt"
-  delay={100}
-  duration={0.6}
-  ease="power3.out"
-  splitType="chars"
-  from={{ opacity: 0, y: 40 }}
-  to={{ opacity: 1, y: 0 }}
-  threshold={0.1}
-  rootMargin="-100px"
-  textAlign="center"
-/>
           </div>
 
+        <div className='feedback'>
+          <div className='box1'>
+            <h1 className='titulo'>Feedback!</h1>
+              <textarea class="input1" placeholder="Escreva seu feedback..."></textarea>
+          </div>
+          <div className='box2'></div>
+          <div className='box3'></div>
+        </div>
+
+        </div>
 
 
-              </div>
-        <div className="div3">3</div>
-        <div className="div4">4</div>
-    </div>
+          
     
+
   )
+
 
 
 }

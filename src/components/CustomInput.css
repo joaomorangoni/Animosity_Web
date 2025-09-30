@@ -1,0 +1,32 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin: 12px 0;
+}
+
+.input-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.custom-input {
+  padding: 12px 15px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.3s ease;
+  background: #f9f9f9;
+}
+
+.custom-input:focus {
+  border-color: #3b82f6; /* azul */
+  background: #fff;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+}
+
+.custom-input::placeholder {
+  color: #aaa;
+}
