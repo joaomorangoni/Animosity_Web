@@ -113,6 +113,35 @@
   animation: shimmer-up 2s linear infinite;
 }
 
+
+.section-text {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 40px;
+  color: #ddd; /* ajuste para combinar com seu tema */
+}
+
+.extra-info {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.extra-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #fff; /* ajuste à sua paleta */
+}
+
+.section-text {
+  font-size: 1.2rem;
+  color: #ddd;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+
 /* Animação que faz a faixa subir da base ao topo */
 @keyframes shimmer-up {
   0% {
