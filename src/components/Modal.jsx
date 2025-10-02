@@ -1,5 +1,6 @@
 // Modal.jsx
 import { motion, AnimatePresence } from "framer-motion";
+import "./Modal.css";
 
 export default function Modal({ show, onClose, message }) {
   return (
@@ -19,7 +20,7 @@ export default function Modal({ show, onClose, message }) {
             transition={{ duration: 0.3 }}
           >
             <p>{message}</p>
-            <button className="button" onClick={onClose}>OK</button>
+            <button className="button2" onClick={onClose}>OK</button>
           </motion.div>
         </motion.div>
       )}
