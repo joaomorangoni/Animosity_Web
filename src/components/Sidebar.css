@@ -1,0 +1,75 @@
+/* Sidebar com cores do Animosity */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 60px; /* retraída */
+  background: #4e6879; /* fundo principal */
+  color: #0c212e; /* texto secundário */
+  transition: width 0.4s ease;
+  overflow: hidden;
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  border-right: 2px solid #294354; /* destaque azul profundo */
+}
+
+.sidebar.expanded {
+  width: 220px; /* expandida */
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 40px;
+}
+
+.sidebar-item {
+  margin: 15px 0;
+  transition: all 0.3s ease;
+}
+
+.sidebar-item a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #243c4b;; /* texto secundário */
+  padding: 12px 10px; /* Reduzi o padding direito para abrir espaço */
+  border-radius: 10px;
+  transition: all 0.3s ease, box-shadow 0.3s;
+}
+.sidebar-item a:hover {
+  background: #73a4c2; /* azul escuro médio para hover */
+  box-shadow: 0 0 10px #4a6373; /* glow azul profundo */
+  transform: translateX(5px);
+}
+
+
+.icon {
+  font-size: 20px;
+  width: 25px;      /* Diminuí a largura da caixa do ícone */
+  min-width: 25px;  /* Diminuí também a largura mínima */
+  text-align: center;
+  transition: all 0.3s;
+  color: #294354;   /* azul profundo */
+}
+
+
+.text {
+  opacity: 0;
+  margin-left: 10px;
+  white-space: nowrap;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translateX(-10px);
+  font-weight: 500;
+  color: #243c4b /* azul acinzentado médio */
+}
+
+.sidebar.expanded .text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Indicador ativo */
+

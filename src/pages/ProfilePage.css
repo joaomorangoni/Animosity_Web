@@ -8,13 +8,18 @@
 
 
 .profile-container {
-  display: flex;                
-  justify-content: center;      
-  align-items: center;         
-  width: 100%;                  
-  height: 150px;                
-  position: relative;           
+  display: flex;
+  flex-direction: column; /* Empilha ícone e texto */
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto; /* altura automática para se adaptar */
+  position: relative;
+  text-align: center; /* Garante centralização do texto */
+  margin-top: 5vh; /* pequeno espaçamento do topo */
+  transform: translateY(-15vh);
 }
+
 
 /* Banner do topo */
 .banner-profile {
@@ -24,12 +29,15 @@
 
 
 
-.profile-photo{
-  margin-bottom: 10%;
-  max-width: 100%;              /* Garante que não ultrapasse o container */
+.profile-photo {
+  width: 90px;
+  height: 90px;
+  max-width: 100%;
   height: auto;
   transition: transform 0.3s ease-in-out;
+  color: white;
 }
+
 
 .profile-photo:hover{
   cursor: pointer;
@@ -37,12 +45,19 @@
 }
 
 
-.splittxt{
-  font-size: 25px;
-  margin-bottom: 15%;
-  margin-left: 46.7%;
-  gap: 5px;
+.splittxt {
+  font-size: clamp(1rem, 2.5vw, 1.8rem); /* Responsivo */
+  color: white;
+  margin-top: 10px;
+  text-align: center;
+  margin-left: 0; /* remove centralização forçada */
+  margin-bottom: 20px;
+  word-break: break-word;
 }
+
+
+
+
 
 .feedback{
   width: 100%; /* isso é padrão para elementos div */
@@ -50,6 +65,29 @@
   border: 1px solid;
   color: #112531;
 }
+
+
+.box-profile{
+   margin-top: 7%;
+  margin-left: 5%;
+  width: 90%;
+  height: auto; /* melhor usar auto para ajustar altura automaticamente */
+  background-color: #243c4b;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.349);
+  text-align: center;
+
+  display: flex;             /* ativa flexbox */
+  flex-direction: column;    /* elementos ficam em coluna */
+  align-items: center;       /* centraliza horizontalmente */
+  padding: 20px;
+  gap: 15px;                 /* espaço entre título, textarea e botão */
+  box-sizing: border-box;
+}
+
+
+
+
 
 .box1 {
   margin-top: 7%;
@@ -186,6 +224,329 @@
   max-width: 250px;           /* limita o tamanho máximo */
 }
 
+.radio {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: row-reverse;
+
+}
+
+.radio > input {
+  position: absolute;
+  appearance: none;
+}
+
+.radio > label {
+  cursor: pointer;
+  font-size: 30px;
+  position: relative;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.radio > label > svg {
+  fill: #666;
+  transition: fill 0.3s ease;
+}
+
+.radio > label::before,
+.radio > label::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: #ff9e0b;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
+  animation: particle-explosion 1s ease-out;
+}
+
+.radio > label::before {
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+}
+
+.radio > label::after {
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+}
+
+.radio > label:hover::before,
+.radio > label:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.5);
+}
+
+.radio > label:hover {
+  transform: scale(1.2);
+  animation: pulse 0.6s infinite alternate;
+}
+
+.radio > label:hover > svg,
+.radio > label:hover ~ label > svg {
+  fill: #ff9e0b;
+  filter: drop-shadow(0 0 15px rgba(255, 158, 11, 0.9));
+  animation: shimmer 1s ease infinite alternate;
+}
+
+.radio > input:checked + label > svg,
+.radio > input:checked + label ~ label > svg {
+  fill: #ff9e0b;
+  filter: drop-shadow(0 0 15px rgba(255, 158, 11, 0.9));
+  animation: pulse 0.8s infinite alternate;
+}
+
+
+.menu {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #ffffff;
+  width: fit-content;
+  display: flex;
+  list-style: none;
+  background-color: #11253134;
+}
+
+.menu a {
+  text-decoration: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.menu .link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 36px;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.menu .link::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0a3cff;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.menu .link svg {
+  width: 14px;
+  height: 14px;
+  fill: #000000;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.menu .item {
+  position: relative;
+}
+
+.menu .item .submenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 100%;
+  border-radius: 0 0 16px 16px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #cccccc;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 1;
+  pointer-events: none;
+  list-style: none;
+}
+
+.menu .item:hover .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+  border-top: transparent;
+  border-color: #0a3cff;
+}
+
+.menu .item:hover .link {
+  color: #ffffff;
+  border-radius: 16px 16px 0 0;
+}
+
+.menu .item:hover .link::after {
+  transform: scaleX(1);
+  transform-origin: right;
+}
+
+.menu .item:hover .link svg {
+  fill: #ffffff;
+  transform: rotate(-180deg);
+}
+
+.submenu .submenu-item {
+  width: 100%;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+  background-color: #11253134;
+}
+
+.submenu .submenu-link {
+  display: block;
+  padding: 12px 24px;
+  width: 100%;
+  position: relative;
+  text-align: center;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.submenu .submenu-item:last-child .submenu-link {
+  border-bottom: none;
+}
+
+.submenu .submenu-link::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scaleX(0);
+  width: 100%;
+  height: 100%;
+  background-color: #1d415730;
+  z-index: -1;
+  transform-origin: left;
+  transition: transform 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.submenu .submenu-link:hover:before {
+  transform: scaleX(1);
+  transform-origin: right;
+}
+
+.submenu .submenu-link:hover {
+  color: #ffffff;
+}
+
+.navbar {
+  position: fixed;
+  margin-left: 33%;
+  top: -80px;
+  left: 0;
+  width: 50%;
+  max-width: 420px;
+  background: transparent;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  padding: 12px ;
+  transition: top .35s cubic-bezier(.2,.8,.2,1), opacity .2s;
+  pointer-events: none;
+  opacity: 0;
+   transform: translateY(-20px);
+   transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Quando visível */
+.navbar.show {
+  top: 0;
+
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateY(0); /* posição final */
+}
+.navbar a {
+   position: relative;       /* necessário para o ::after */
+  text-decoration: none;
+  color: #fff;              /* cor do texto */
+  padding: 5px 0;
+  transition: color 0.3s ease;;
+}
+
+.navbar a::after{
+    content: "";              /* precisa existir */
+  position: absolute;
+  left: 0;
+  bottom: 0;                /* linha ficará embaixo do link */
+  height: 2px;              /* espessura da linha */
+  width: 0;                  /* começa invisível */
+  background-color: #fff;   /* cor da linha */
+  transition: width 0.3s ease;
+
+}
+
+
+
+.navbar a:hover::after {
+  color: #f0c040;
+    width: 100%;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes particle-explosion {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    filter: drop-shadow(0 0 10px rgba(255, 158, 11, 0.5));
+  }
+  100% {
+    filter: drop-shadow(0 0 20px rgba(255, 158, 11, 1));
+  }
+}
+
+.radio > input:checked + label:hover > svg,
+.radio > input:checked + label:hover ~ label > svg {
+  fill: #e58e09;
+}
+
+.radio > label:hover > svg,
+.radio > label:hover ~ label > svg {
+  fill: #ff9e0b;
+}
+
+.radio input:checked ~ label svg {
+  fill: #ffa723;
+}
+
 
 
 @media (max-width: 768px) {
@@ -263,5 +624,24 @@
     width: 70%;
     font-size: 15px;
     padding: 6px 10px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .profile-photo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .splittxt {
+    font-size: 1.2rem;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .profile-container {
+    transform: translateY(-3vh);
   }
 }

@@ -38,7 +38,7 @@ const AlternatingLayout = () => {
   ];
 
   return (
-    <div className="container">
+    <div className="container1">
       {sections.map((section, index) => {
         const imageAnim = index === 1 ? 'right' : 'left';
         return (
