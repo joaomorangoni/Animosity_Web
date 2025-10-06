@@ -12,6 +12,7 @@ export default function Profile() {
     nome: localStorage.getItem("userName"),
     email: localStorage.getItem("userEmail")
   };
+  const [atualizacoes, setAtualizacoes] = useState([]);
 
   // Estados principais
   const [feedbacks, setFeedbacks] = useState([]);
@@ -113,6 +114,14 @@ export default function Profile() {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
+
+  useEffect(() => {
+  fetch("http://localhost:3000/api/atualizacoes")
+    .then(res => res.json())
+    .then(data => setAtualizacoes(data))
+    .catch(err => console.error("Erro ao buscar atualizações:", err));
+}, []);
 
   return (
     <div className="conteudo">
@@ -248,9 +257,30 @@ export default function Profile() {
         </div>
 
         <div className="feedbackdouser">
-          <h2>Selos</h2>
-          <p>Sem selos</p>
-          <p>Ao jogar você adquire selos para compartilhar na comunidade.</p>
+          <h2>Atualizações</h2>
+          {atualizacoes.length > 0 ? (
+    <table>
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Descrição</th>
+          <th>Versão</th>
+        </tr>
+      </thead>
+      <tbody>
+        {atualizacoes.map((a, idx) => (
+          <tr key={idx}>
+            <td>{a.titulo}</td>
+            <td>{a.descricao}</td>
+            <td>{a.versao}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  ) : (
+    <p style={{ textAlign: "center" }}>Nenhuma atualização encontrada.</p>
+  )}
+          
         </div>
       </div>
 

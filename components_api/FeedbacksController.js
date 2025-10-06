@@ -108,4 +108,15 @@ export async function DeleteFeed(req, res) {
   );
 }
 
+export async function GetAllFeed(req, res) {
+  try {
+    const [feedbacks] = await connection.promise().query(
+      "SELECT * FROM feedback"
+    );
+    res.status(200).json(feedbacks);
+  } catch (err) {
+    console.error('Erro ao buscar feedbacks:', err);
+    res.status(500).json({ erro: 'Erro ao buscar feedbacks', detalhes: err.message });
+  }
+}
 
