@@ -1,57 +1,128 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import Particles from '../components/Particles.jsx';
-import { useNavigate } from "react-router-dom";
 import "./Styles.css";
-import { CgProfile } from "react-icons/cg";
-import SplitText from "../components/acessorios/SplitTxt.jsx";
-import '../App.css';
 import { CircleUserRound } from "lucide-react";
-import  CustomInput  from "../components/input";
-import { motion, AnimatePresence } from "framer-motion";
-import Modal from "../components/Modal.jsx";
 import TextType from '../components/TextType';
-import Sidebar from '../components/Sidebar.jsx';
-
-
-
-
-
-
+import Modal from "../components/Modal.jsx";
 
 export default function Profile() {
-    const [user, setUser] = useState(null);
-  const navigate = useNavigate();
+  // Pega dados do usuário do localStorage
+  const user = {
+    id: localStorage.getItem("userId"),
+    nome: localStorage.getItem("userName"),
+    email: localStorage.getItem("userEmail")
+  };
 
+  // Estados principais
+  const [feedbacks, setFeedbacks] = useState([]);
+  const [modal, setModal] = useState({ show: false, message: "" });
+  const [show, setShow] = useState(false);
+
+  // Estados para edição de perfil
+  const [showModal, setShowModal] = useState(false);
+  const [nome, setNome] = useState(user.nome || "");
+  const [foto, setFoto] = useState(null);
+  const [avatarPreview, setAvatarPreview] = useState(localStorage.getItem("userPhoto") || null);
+
+  // Busca os feedbacks do usuário
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
+    if (!user.id) return;
 
-    if (!storedUser || !token) {
-      // Redireciona para login se não estiver logado
-      navigate("/login");
+    fetch(`http://localhost:3000/api/feedback/${user.id}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log("Feedbacks recebidos:", data);
+        setFeedbacks(data);
+      })
+      .catch(err => {
+        console.error("Erro ao buscar feedbacks:", err);
+        setModal({ show: true, message: "Erro ao carregar feedbacks!" });
+      });
+  }, [user.id]);
+
+  // Abre o modal
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
+
+  // Atualiza o preview da foto ao selecionar
+  const handleFotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFoto(file);
+      const reader = new FileReader();
+      reader.onload = () => setAvatarPreview(reader.result);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Salva alterações
+ const handleSave = async () => {
+  const userId = user.id; // pega do localStorage
+  if (!userId) {
+    setModal({ show: true, message: 'Usuário não encontrado.' });
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('nome', nome);
+  if (foto) formData.append('foto', foto); // 'foto' é o arquivo selecionado
+
+  try {
+    const res = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
+      method: 'PUT',
+      body: formData // NÃO setar headers 'Content-Type'
+    });
+
+    // DEBUG: log status e body raw
+    console.log('Status da resposta:', res.status);
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error('Erro do servidor:', data);
+      setModal({ show: true, message: data.erro || 'Erro ao atualizar perfil' });
       return;
     }
 
-    setUser(JSON.parse(storedUser));
+    console.log('Resposta do servidor:', data);
+    setModal({ show: true, message: data.mensagem || 'Atualizado' });
+
+    // atualizar localStorage e UI
+    if (data.foto) {
+      // foto salva no servidor: caminho público /uploads/...
+      localStorage.setItem('userPhoto', data.foto);
+      setAvatarPreview(window.location.origin + data.foto); // ou só data.foto dependendo de como você usa
+    }
+    localStorage.setItem('userName', nome);
+    setNome(nome);
+    closeModal();
+  } catch (err) {
+    console.error('Erro no fetch:', err);
+    setModal({ show: true, message: 'Erro ao atualizar perfil!' });
+  }
+};
+
+  // Navbar efeito
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (e.clientY < 80) {
+        setShow(true);
+      } else {
+        setShow(false);
+      }
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-//   const handleLogout = () => {
-//     localStorage.removeItem("token");
-//     localStorage.removeItem("user");
-//     navigate("/login");
-//   };
+  return (
+    <div className="conteudo">
+      <nav className={`navbar ${show ? "show" : ""}`}>
+        <a href="/contact">Feedback</a>
+        <a href="/perfil">Perfil</a>
+        <a href="#">Sair</a>
+      </nav>
 
-  if (!user) return null;
-
-
-  
-  
-  return(
-
-
-<div className="conteudo">
-      
-      {/* Banner do topo */}
+      {/* Banner */}
       <div className="banner-profile">
         <Particles
           particleColors={['#ffffff', '#ffffff']}
@@ -64,78 +135,127 @@ export default function Profile() {
           disableRotation={false}
         />
 
-        {/* Container do avatar e texto */}
         <div className="profile-container">
-          <CircleUserRound className="profile-photo" size={90} />
-          <TextType 
-           text={["Olá ", user.nome]}
-            className="splittxt"
-            typingSpeed={75}
-            pauseDuration={1500}
-            showCursor={true}
-            cursorCharacter="|"
-          />
+          {avatarPreview ? (
+            <img
+              src={avatarPreview}
+              alt="Foto de Perfil"
+              className="profile-photo"
+              onClick={openModal}
+            />
+          ) : (
+            <CircleUserRound
+              className="profile-photo"
+              size={90}
+              onClick={openModal}
+              style={{ cursor: 'pointer' }}
+            />
+          )}
+          <h2>{nome}</h2>
         </div>
-        <div className='conteudo_baixo'>
-
-  <div className='feedbackdouser'>
-    <h2>Meus Feedbacks</h2> 
-    <div className='responsive-table'>
-         <table> 
-            <tr> <th>ESTRELAS</th> 
-            <th>FEEDBACK</th> 
-            <th>VERSÃO</th>
-             </tr>
-              <tr> <td>Alfreds Futterkiste</td>
-               <td>Maria Anders</td> 
-               <td>Germany</td> </tr>
-                <tr> <td>Centro comercial Moctezuma</td> 
-                <td>Francisco Chang</td>
-                 <td>Mexico</td> </tr> </table> </div>
-  </div>
-  
-  <div className='feedbackdouser'>
-    <h2>Jogue Agora!</h2>
-    <p>Clique em instalar para começar sua aventura única e incível</p>
-    <p>Ao clicar, seu download iniciará em 5 segundos.</p>
-    <button className="button">
-  <svg
-    stroke-linejoin="round"
-    stroke-linecap="round"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="1.5"
-    viewBox="0 0 24 24"
-    height="40"
-    width="40"
-    class="button__icon"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
-    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
-    <path d="M7 11l5 5l5 -5"></path>
-    <path d="M12 4l0 12"></path>
-  </svg>
-  <span class="button__text">Download</span>
-</button>
-  </div>
-  
-  <div className='feedbackdouser'>
-    <h2>Selos</h2>
-    <p>Sem selos</p>
-    <p>Ao jogar você adiquire selos para compartilhar na comunidade.</p>
-  </div>
-  </div>
-
       </div>
+
+      {/* Modal de edição */}
+      {showModal && (
+        <div className="edit-modal">
+          <div className="edit-modal-content">
+            <h3>Editar Perfil</h3>
+
+            <label>Nome:</label>
+            <input
+              type="text"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+            />
+
+            <label>Foto de Perfil:</label>
+            <input type="file" accept="image/*" onChange={handleFotoChange} />
+
+            {avatarPreview && (
+              <img
+                src={avatarPreview}
+                alt="Preview"
+                className="avatar-preview"
+              />
+            )}
+
+            <div className="modal-buttons">
+              <button onClick={handleSave}>Salvar</button>
+              <button onClick={closeModal}>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Conteúdo inferior */}
+      <div className="conteudo_baixo">
+        <div className="feedbackdouser">
+          <h2>Meus Feedbacks</h2>
+          <div className="responsive-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>ESTRELAS</th>
+                  <th>FEEDBACK</th>
+                  <th>VERSÃO</th>
+                </tr>
+              </thead>
+              <tbody>
+                {feedbacks.length > 0 ? (
+                  feedbacks.map(f => (
+                    <tr key={f.id}>
+                      <td>{f.estrelas} ⭐</td>
+                      <td>{f.mensagem}</td>
+                      <td>{f.versao}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="3" style={{ textAlign: "center" }}>
+                      Nenhum feedback encontrado.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="feedbackdouser">
+          <h2>Jogue Agora!</h2>
+          <p>Clique em instalar para começar sua aventura única e incrível</p>
+          <p>Ao clicar, seu download iniciará em 5 segundos.</p>
+          <button className="button">
+            <svg
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              viewBox="0 0 24 24"
+              height="40"
+              width="40"
+              className="button__icon"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
+              <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path>
+              <path d="M7 11l5 5 5-5"></path>
+              <path d="M12 4l0 12"></path>
+            </svg>
+            <span className="button__text">Download</span>
+          </button>
+        </div>
+
+        <div className="feedbackdouser">
+          <h2>Selos</h2>
+          <p>Sem selos</p>
+          <p>Ao jogar você adquire selos para compartilhar na comunidade.</p>
+        </div>
       </div>
-    
-  
 
-
-    
-  )
-
+      {/* Modal de mensagens */}
+      <Modal show={modal.show} message={modal.message} onClose={() => setModal({ ...modal, show: false })} />
+    </div>
+  );
 }
-
-

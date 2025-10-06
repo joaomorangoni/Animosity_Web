@@ -5,7 +5,8 @@ import Contact from './pages/Contact.jsx';
 import PageDev from './pages/PageDev.jsx';
 import Community from './pages/Community.jsx';
 import Profile from './pages/ProfilePage.jsx';
-import ProtectedRoute from "./ProtectedRoute.jsx"; // atenção ao nome
+import Register from './pages/Register.jsx';
+
 
 export default function App() {
   return (
@@ -15,17 +16,11 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/dev" element={<PageDev />} />
-        <Route path="/Comunidade" element={<Community />} />
+        <Route path="/comunidade" element={<Community />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
 
-        {/* Rota protegida */}
-        <Route 
-          path="/profile" 
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          } 
-        />
+      
       </Routes>
     </Router>
   );

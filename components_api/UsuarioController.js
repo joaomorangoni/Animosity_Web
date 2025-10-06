@@ -1,5 +1,7 @@
 import connection from '../conexao.js';
 import bcrypt from "bcrypt";
+import fs from 'fs';
+import path from 'path';
 
 export async function GetUser(res) {
   connection.query('SELECT * FROM usuarios', (err, Usuarios) => {
@@ -42,17 +44,27 @@ export async function InsertUser(req, res) {
   }
 }
  
-export async function UpdateUser(req, res){
+// Atualiza usuário (nome e opcionalmente foto)
+export async function UpdateUserWithPhoto(req, res) {
   const { id } = req.params;
-  const { email, senha, nome } = req.body;
-  connection.query("UPDATE usuarios SET email = ?, senha = ?, nome = ? WHERE id = ?", [email, senha, nome, id], (err, usuario)=>{
-    if (err) {
-      console.error('Erro ao editar usuario:', err);
-      return res.status(500).json({ erro: 'Erro ao editar usuario.' });
-  }else{
-      res.status(201).json({mensagem: 'Editado com sucesso',user: usuario});
+  const { nome } = req.body;
+  const foto = req.file ? '/uploads/' + req.file.filename : null;
+
+  try {
+    await connection.promise().execute(
+      "UPDATE usuarios SET nome = ?, foto = COALESCE(?, foto) WHERE id = ?",
+      [nome, foto, id]
+    );
+
+    res.status(200).json({
+      mensagem: "Perfil atualizado com sucesso",
+      nome,
+      foto // retorna caminho público da foto
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erro: "Erro ao atualizar usuário" });
   }
-  } )
 }
 
 

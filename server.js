@@ -1,31 +1,62 @@
 // server.js
 import express from 'express';
 import cors from 'cors';
-import connection from './conexao.js'; // Certifique-se de ter sua conexão MySQL aqui
+import connection from './conexao.js'; // conexão com o MySQL
 import bcrypt from 'bcrypt';
+import multer from 'multer';
+import fs from 'fs';
+import path from 'path';
+
 import {
   GetUser,
   InsertUser,
-  UpdateUser,
+  UpdateUserWithPhoto,
   DeleteUser,
   LoginUser
 } from './components_api/UsuarioController.js';
+
 import {
-  InsertPost,
-  GetPosts,
-  UpdatePost,
-  DeletePost,
-  LikePost,
-  CommentPost,
-  GetComments
-} from './components_api/PostController.js';
+  InsertFeed,
+  GetFeed
+} from './components_api/FeedbacksController.js';
 
-
+// =======================
+// Inicialização do servidor
+// =======================
 const app = express();
-
-// Middleware
 app.use(cors());
 app.use(express.json());
+
+// =======================
+// Configuração da pasta de uploads
+// =======================
+const uploadDir = './uploads';
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+
+// Torna a pasta "uploads" pública
+app.use('/uploads', express.static(uploadDir));
+
+// =======================
+// Configuração do multer (upload de imagens)
+// =======================
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadDir),
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`);
+  }
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
+  fileFilter: (req, file, cb) => {
+    if (!file.mimetype.startsWith('image/')) {
+      return cb(new Error('Apenas imagens são permitidas!'));
+    }
+    cb(null, true);
+  }
+});
 
 // =======================
 // Rotas de Usuários
@@ -37,90 +68,27 @@ app.post('/usuarios', async (req, res) => InsertUser(req, res));
 // Listar usuários
 app.get('/usuarios', (req, res) => GetUser(res));
 
-// Atualizar usuário
-app.put('/usuarios/:id', (req, res) => UpdateUser(req, res));
+// Atualizar usuário (com foto)
+app.put('/api/usuarios/:id', upload.single('foto'), (req, res) => UpdateUserWithPhoto(req, res));
 
 // Deletar usuário
 app.delete('/usuarios/:id', (req, res) => DeleteUser(req, res));
 
-// Login
+// Login de usuário
 app.post('/usuarios/login', async (req, res) => LoginUser(req, res));
 
 // =======================
 // Rotas de Feedbacks
 // =======================
 
-// Criar feedback
-app.post('/feedbacks/:id_usuario', (req, res) => InsertFeed(req, res));
+// Criar novo feedback
+app.post('/api/feedback', (req, res) => InsertFeed(req, res));
 
-// Listar feedbacks
-app.get('/feedbacks/:id_usuario', (req, res) => GetFeed(res));
+// Buscar feedbacks por ID de usuário
+app.get('/api/feedback/:id_usuario', (req, res) => GetFeed(req, res));
 
-// Atualizar feedback
-app.put('/feedbacks/:id_usuario', (req, res) => UpdateFeed(req, res));
-
-// Deletar feedback
-app.delete('/feedbacks/:id_usuario', (req, res) => DeleteFeed(req, res));
-
-
-//-------------------------- POSTAGEMM KRAI KKKKKKKKKK----------------------------
-
-
-// Listar todos os posts ordenados pelos mais novos
-app.get("/posts", async (req, res) => {
-  try {
-    const [rows] = await connection.promise().query(
-      `SELECT posts.id, posts.conteudo, posts.usuario_id, usuarios.nome AS usuario, posts.curtidas, posts.criado_em
-       FROM posts
-       JOIN usuarios ON posts.usuario_id = usuarios.id
-       ORDER BY posts.criado_em DESC`
-    );
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ erro: err.message });
-  }
-});
-
-// Criar post
-app.post("/posts/:id_usuario", async (req, res) => {
-  const { id_usuario } = req.params;
-  const { conteudo } = req.body;
-  try {
-    const [result] = await connection.promise().query(
-      "INSERT INTO posts (usuario_id, conteudo, curtidas, criado_em) VALUES (?, ?, 0, NOW())",
-      [id_usuario, conteudo]
-    );
-    res.json({ id: result.insertId, usuario_id: id_usuario, conteudo, curtidas: 0, criado_em: new Date() });
-  } catch (err) {
-    res.status(500).json({ erro: err.message });
-  }
-});
-
-// Curtir post
-app.post("/posts/:id_post/like", async (req, res) => {
-  const { id_post } = req.params;
-  try {
-    await connection.promise().query(
-      "UPDATE posts SET curtidas = curtidas + 1 WHERE id = ?",
-      [id_post]
-    );
-    res.json({ sucesso: true });
-  } catch (err) {
-    res.status(500).json({ erro: err.message });
-  }
-});
-
-// Deletar post
-app.delete("/posts/:id_post", async (req, res) => {
-  const { id_post } = req.params;
-  try {
-    await connection.promise().query("DELETE FROM posts WHERE id = ?", [id_post]);
-    res.json({ sucesso: true });
-  } catch (err) {
-    res.status(500).json({ erro: err.message });
-  }
-});
-// -----------------------
-// Inicia servidor
+// =======================
+// Inicialização do servidor
+// =======================
 const PORT = 3000;
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));

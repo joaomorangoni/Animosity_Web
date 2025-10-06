@@ -8,33 +8,32 @@ import "./Login.css";
 import { FaGoogle , FaPlaystation, FaXbox} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
+    const [nome, setNome] = useState ("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [mensagem, setMensagem] = useState("");
-  
-
   const navigate = useNavigate();
 
 
 
-  async function handleLogin(e) {
-    e.preventDefault();
-    try {
-      const res = await api.post("/usuarios/login", { email, senha });
+ async function handleRegister(e) {
+  e.preventDefault(); // evita reload da página
+  try {
+    const res = await api.post("/usuarios", { nome, email, senha });
 
-      // 1️⃣ Salvar dados no localStorage
-    localStorage.setItem("userId", res.data.user.id);
-    localStorage.setItem("userName", res.data.user.nome);
-    localStorage.setItem("userEmail", res.data.user.email);
+    // salvar dados no localStorage
+    localStorage.setItem("userId", res.data.user.insertId); // ou id retornado pelo backend
+    localStorage.setItem("userName", nome);
+    localStorage.setItem("userEmail", email);
     // Dentro do handleLogin após salvar no localStorage
-navigate("/profile"); // leva o usuário para a página de perfil
+navigate("/login"); // leva o usuário para a página de perfil
 
-      setMensagem(`Login ok! Bem-vindo, ${res.data.user.nome}`);
-    } catch (err) {
-      setMensagem(err.response?.data?.erro || "Erro no servidor");
-    }
+    setMensagem(`✅ Usuário ${nome} registrado com sucesso!`);
+  } catch (err) {
+    setMensagem(`❌ ${err.response?.data?.erro || "Erro no servidor"}`);
   }
+}
 return (
 
     <div className="login-container">
@@ -51,32 +50,30 @@ return (
     disableRotation={false}
   />
       <div className="formulariologin">
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+      <h2>Registra-se</h2>
+      <form onSubmit={handleRegister}>
+
       <div className="inputs">
+        <input className="stylish" placeholder="Nome" type="text" value={nome} onChange={e => setNome(e.target.value)} />
        <input className="stylish" placeholder="email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
        <input className="stylish" placeholder="senha" type="password" value={senha} onChange={e => setSenha(e.target.value)} />
+       
            
     
       
        </div>
-       <button className="botaum3d">Entrar</button>
+       <button className="botaum3d" type="submit">Registrar</button>
        </form>
+         {mensagem && (
+    <div className="aviso">
+      {mensagem}
+    </div>
+  )}
        <div className="separator">
-        {mensagem && (
-  <div className="aviso">
-    {mensagem}
-  </div>
-)}
   <span>ou</span>
 </div>
-  <div className="social-mediasslk">
-    <FaGoogle />
-    <FaPlaystation />
-    <FaXbox />
-  </div>
  <div>
-  <p>Não tem conta? <a href="/register">Registra-se</a></p>
+  <p>Já tem conta? <a href="/login">Entrar</a></p>
 </div>
 
        </div>
