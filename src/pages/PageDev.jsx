@@ -277,13 +277,13 @@ const handleEnviarAtualizacao = async () => {
                       <td>
                         {editId === a.id ? (
                           <>
-                            <button onClick={() => handleSaveAtualizacao(a.id)}>Salvar</button>
-                            <button onClick={handleCancelEdit}>Cancelar</button>
+                            <button className="buttondev" onClick={() => handleSaveAtualizacao(a.id)}>Salvar</button>
+                            <button className="buttondev" onClick={handleCancelEdit}>Cancelar</button>
                           </>
                         ) : (
                           <>
-                            <button onClick={() => handleEditAtualizacao(a)}>Editar</button>
-                            <button onClick={() => handleDeleteAtualizacao(a.id)}>Apagar</button>
+                            <button className="buttondev" onClick={() => handleEditAtualizacao(a)}>Editar</button>
+                            <button className="buttondev" onClick={() => handleDeleteAtualizacao(a.id)}>Apagar</button>
                           </>
                         )}
                       </td>

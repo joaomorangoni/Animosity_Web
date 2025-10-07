@@ -216,6 +216,27 @@ input.stylish:focus {
 }
 
 
+.buttondev {
+  color: #ecf0f1;
+  font-size: 17px;
+  background-color: #294354;
+  border: 1px solid #2a2f3b;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px;
+  box-shadow: 0px 6px 0px #324f61;
+  transition: all 0.1s;
+}
+
+.buttondev:active {
+  box-shadow: 0px 2px 0px #324f61;
+  position: relative;
+  top: 2px;
+}
+
+
+
+
 @keyframes fly-1 {
   from {
     transform: translateY(0.1em);
