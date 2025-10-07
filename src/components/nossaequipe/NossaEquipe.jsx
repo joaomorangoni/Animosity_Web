@@ -23,9 +23,9 @@ const membros = [
   },
   {
     nome: "Kauan Venancio",
-    funcao: "Dev Front-end",
+    funcao: "Dev Full stack",
     imagem: "./public/img/kauan.jpeg",
-    descricao: "Oi! Sou o Kauan, e fiquei responsável pelo visual artístico e animações do site.",
+    descricao: "Oi! Sou o Kauan, e fiquei responsável pelo visual artístico, animações e funcionalidades do site.",
     github: "https://github.com/vrodrigueskauan",
     linkedin: "https://linkedin.com/in/kauanvenancio",
   },
@@ -39,9 +39,9 @@ const membros = [
   },
   {
     nome: "Daniel Benatti",
-    funcao: "Dev Back-end.",
+    funcao: "Financeiro.",
     imagem: "./public/img/daniel.jpeg",
-    descricao: "Sou o Daniel e fiz o back-end desse site!",
+    descricao: "Sou o Daniel e fiz o financeiro do projeto!",
     github: "https://github.com/danielbenatti",
     linkedin: "https://linkedin.com/in/danielbenatti",
   },

@@ -6,18 +6,18 @@ import { motion, useInView } from 'framer-motion';
 const goals = [
   {
     icon: <Target className="goal-icon" />,
-    title: "Alcançar Excelência",
-    description: "Oferecer serviços e produtos com qualidade excepcional que superem as expectativas dos nossos clientes.",
+    title: "O que vamos alcançar?",
+    description: "O projeto tem como objetivo principal desenvolver um jogo voltado para a conscientização da ansiedade, suas causas e consequências",
   },
   {
     icon: <Users className="goal-icon" />,
     title: "Valorizar Pessoas",
-    description: "Fomentar um ambiente de trabalho inclusivo, colaborativo e com foco no crescimento contínuo.",
+    description: "Vamos valorizar a comunidade e suas opiniões, para a melhoria de mecanicas, e métodos para ajudar sempre!",
   },
   {
     icon: <Star className="goal-icon" />,
     title: "Inovar com Propósito",
-    description: "Investir em soluções criativas e tecnológicas que tragam impactos positivos para a sociedade.",
+    description: "Além de informar, o jogo busca incentivar o autocuidado e a importância de procurar ajuda de profissionais especializados na area da saúde mental.",
   },
 ];
 
