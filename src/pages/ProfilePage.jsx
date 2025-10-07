@@ -5,6 +5,7 @@ import "./ProfilePage.css";
 import { CircleUserRound } from "lucide-react";
 import TextType from '../components/TextType';
 import Modal from "../components/Modal.jsx";
+import Footer from '../components/footer/Footer.jsx';
 
 export default function Profile() {
   // Pega dados do usuário do localStorage
@@ -287,6 +288,7 @@ export default function Profile() {
 
       {/* Modal de mensagens */}
       <Modal show={modal.show} message={modal.message} onClose={() => setModal({ ...modal, show: false })} />
+      <Footer/>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import "./pagedev.css";
 import Particles from '../components/Particles.jsx';
 import Grafico from '../components/Grafico.jsx';
 import Barras from '../components/Barras.jsx';
+import Footer from '../components/footer/Footer.jsx';
 
 export default function PageDev() {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -297,7 +298,9 @@ const handleEnviarAtualizacao = async () => {
         </div>
 
       </div>
+      <Footer/>
 
     </div>
+    
   );
 }

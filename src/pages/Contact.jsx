@@ -10,6 +10,7 @@ import  CustomInput  from "../components/input";
 import { motion, AnimatePresence } from "framer-motion";
 import Modal from "../components/Modal.jsx";
 import StarRating from "../components/StarRating.jsx";
+import Footer from '../components/footer/Footer.jsx';
 
 
 
@@ -176,6 +177,7 @@ const handlesubmit = () => {
       />
           </div>
         </div>
+        <Footer/>
             </div>
   )
 

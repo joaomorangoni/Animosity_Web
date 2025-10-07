@@ -1,78 +1,66 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import './gallery.css';
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import "./gallery.css";
 
-const textVariant = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
-};
+export default function AlternatingLayout() {
+  // Inicializa o AOS
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: false, // anima de novo ao voltar no scroll
+      offset: 120,
+    });
+  }, []);
 
-const imageVariants = {
-  left: {
-    hidden: { opacity: 0, scale: 0.8, x: -100 },
-    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 1 } },
-  },
-  right: {
-    hidden: { opacity: 0, scale: 0.8, x: 100 },
-    visible: { opacity: 1, scale: 1, x: 0, transition: { duration: 1 } },
-  },
-};
-
-const AlternatingLayout = () => {
+  // Conteúdo de exemplo
   const sections = [
     {
-      title: 'Entre em um mundo onde a mente é o maior campo de batalha',
-      text: 'Prepare-se para explorar Gehirn, uma terra fragmentada por forças sombrias que distorceram a realidade e mergulharam o mundo no caos. Em um universo onde a magia nasce do próprio limite do corpo, cada escolha e cada batalha são moldadas pela adrenalina do momento. Embarque em uma jornada de ação e suspense, onde você, como protagonista, terá o desafio de libertar este mundo das garras de forças colossais conhecidas apenas como As Calamidades.',
-      image: '../public/img/img1.png',
+      title: "Entre em um mundo onde a mente é o maior campo de batalha",
+      text: "Gehirn é uma terra fragmentada, onde a mente é tanto uma arma quanto um campo de guerra. Explore regiões distorcidas por forças que desafiam a realidade, enfrente seus próprios limites e descubra segredos que moldarão o destino de todos.",
+      image: "/img/img1.png",
     },
     {
-       title: 'Entre em um mundo onde a mente é o maior campo de batalha',
-    text: 'Prepare-se para explorar Gehirn, uma terra fragmentada por forças sombrias que distorceram a realidade e mergulharam o mundo no caos. Em um universo onde a magia nasce do próprio limite do corpo, cada escolha e cada batalha são moldadas pela adrenalina do momento. Embarque em uma jornada de ação e suspense, onde você, como protagonista, terá o desafio de libertar este mundo das garras de forças colossais conhecidas apenas como As Calamidades.',
-      image: '../public/img/img2.png',
+      title: "Onde a escuridão se mistura com a esperança",
+      text: "Entre ruínas esquecidas, cada passo é uma escolha entre luz e trevas. As Calamidades esperam nas sombras, observando cada decisão sua — e a sobrevivência dependerá da coragem de encarar o impossível.",
+      image: "/img/img2.png",
     },
     {
-          title: 'Uma jornada onde o tempo é seu maior aliado... ou seu pior inimigo',
-    text: 'Cada passo dado em Gehirn revela novos mistérios e desafios que colocam à prova sua estratégia e coragem. As terras por onde você passará mudam a cada tentativa, tornando cada partida única. Os perigos se intensificam à medida que você avança, e o próprio tempo pode se tornar um obstáculo inesperado. Resta ao jogador decidir: acelerar o ritmo ou explorar com cautela?',
-      image: '../public/img/img3.png',
+      title: "O tempo é seu maior aliado... ou seu pior inimigo",
+      text: "O mundo muda a cada tentativa. Caminhos se reconfiguram, inimigos evoluem e o tempo castiga os que hesitam. Cada jornada é única — e o tempo não perdoa os indecisos.",
+      image: "/img/img3.png",
     },
   ];
 
   return (
-    <div className="container1">
-      {sections.map((section, index) => {
-        const imageAnim = index === 1 ? 'right' : 'left';
+    <section className="alt-layout">
+      {sections.map((item, index) => {
+        const reversed = index % 2 !== 0; // alterna layout
+
         return (
           <div
+            className={`alt-section ${reversed ? "reverse" : ""}`}
             key={index}
-            className={`section ${index % 2 === 0 ? 'image-right' : 'image-left'}`}
           >
-            <motion.div
-              className="text"
-              variants={textVariant}
-              initial="hidden"
-              whileInView="visible"
-              exit="hidden"
-              viewport={{ once: false, amount: 0.3 }}
+            {/* Texto */}
+            <div
+              className="alt-text"
+              data-aos={reversed ? "fade-left" : "fade-right"}
             >
-              <h2>{section.title}</h2>
-              <p>{section.text}</p>
-            </motion.div>
+              <h2>{item.title}</h2>
+              <p>{item.text}</p>
+            </div>
 
-            <motion.div
-              className="image"
-              variants={imageVariants[imageAnim]}
-              initial="hidden"
-              whileInView="visible"
-              exit="hidden"
-              viewport={{ once: false, amount: 0.3 }}
+            {/* Imagem */}
+            <div
+              className="alt-image"
+              data-aos={reversed ? "fade-right" : "fade-left"}
             >
-              <img src={section.image} alt={section.title} />
-            </motion.div>
+              <img src={item.image} alt={item.title} />
+            </div>
           </div>
         );
       })}
-    </div>
+    </section>
   );
-};
-
-export default AlternatingLayout;
+}
