@@ -114,8 +114,8 @@ const handlesubmit = () => {
 
   <div className="conteudo">
       <nav className={`navbar ${show ? "show" : ""}`}>
-      <a href="#">Perfil</a>
-      <a href="/community">Comunidade</a>
+      <a href="/profile">Perfil</a>
+      <a href="/community">Feedback</a>
       <a href="#">Sair</a>
     </nav>
         <div className="banner-profile">  <Particles
