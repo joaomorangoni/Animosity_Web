@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Particles from '../components/Particles.jsx';
 import "./Styles.css";
+import "./ProfilePage.css";
 import { CircleUserRound } from "lucide-react";
 import TextType from '../components/TextType';
 import Modal from "../components/Modal.jsx";
