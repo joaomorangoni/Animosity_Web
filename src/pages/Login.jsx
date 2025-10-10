@@ -7,6 +7,8 @@ import api from "../services/api";
 import "./Login.css";
 import { FaGoogle , FaPlaystation, FaXbox} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode"
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -61,16 +63,23 @@ return (
       
        </div>
        <button className="botaum3d">Entrar</button>
-       </form>
-       <div className="separator">
-        {mensagem && (
+       {mensagem && (
   <div className="aviso">
     {mensagem}
   </div>
 )}
+       </form>
+       <div className="separator">
+        
   <span>ou</span>
 </div>
   <div className="social-mediasslk">
+    <GoogleLogin 
+    onSuccess={(credentialresponse) => {
+      console.log(credentialresponse)
+      console.log(jwtDecode(credentialresponse.credential))
+    }} 
+    onError={() => console.log("deu ruim chefe ")} />
     <FaGoogle />
     <FaPlaystation />
     <FaXbox />
