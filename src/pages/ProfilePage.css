@@ -32,6 +32,8 @@
 .profile-photo {
   width: 90px;
   height: 90px;
+  border-radius: 50%;   /* deixa circular */
+  object-fit: cover;    /* centraliza e corta a imagem proporcionalmente */
   max-width: 100%;
   height: auto;
   transition: transform 0.3s ease-in-out;

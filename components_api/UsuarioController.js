@@ -2,6 +2,7 @@ import connection from '../conexao.js';
 import bcrypt from "bcrypt";
 import fs from 'fs';
 import path from 'path';
+import axios from "axios";
 
 export async function GetUser(res) {
   connection.query('SELECT * FROM usuarios', (err, Usuarios) => {
@@ -17,6 +18,9 @@ export async function GetUser(res) {
 export async function InsertUser(req, res) {
   try {
     const { email, senha, nome } = req.body;
+    if (!senha && !google_id) {
+      return res.status(400).json({ erro: "Usuário precisa de senha ou login Google." });
+    }
 
     // 1️⃣ Gerar hash da senha
     const saltRounds = 10; // nível de segurança
@@ -122,3 +126,62 @@ export async function LoginUser(req, res) {
     res.status(500).json({ erro: "Erro interno do servidor" });
   }
 }
+
+
+
+export async function LoginGoogleUser(req, res) {
+  try {
+    const { credential } = req.body;
+
+    if (!credential) {
+      return res.status(400).json({ erro: "Token do Google não fornecido" });
+    }
+
+    //  Verifica token com a API do Google
+    const response = await axios.get(
+      `https://oauth2.googleapis.com/tokeninfo?id_token=${credential}`
+    );
+    const payload = response.data;
+    const { sub: googleId, name, email, picture } = payload;
+    const foto = picture || null;
+
+    //  Verifica se o usuário já existe
+    const [rows] = await connection.promise().query(
+      "SELECT * FROM usuarios WHERE email = ?",
+      [email]
+    );
+
+    if (rows.length > 0) {
+      const usuario = rows[0];
+      return res.status(200).json({
+        mensagem: "Login com Google realizado com sucesso!",
+        user: {
+          id: usuario.id,
+          nome: usuario.nome,
+          email: usuario.email,
+          foto: usuario.foto,
+        },
+      });
+    }
+
+    //  Usuário não existe → cria no banco
+    const [insertResult] = await connection.promise().query(
+      "INSERT INTO usuarios (nome, email, foto, senha) VALUES (?, ?, ?, ?)",
+      [name, email, foto, null]
+    );
+
+    res.status(201).json({
+      mensagem: "Usuário criado e logado com Google!",
+      user: {
+        id: insertResult.insertId,
+        nome: name,
+        email,
+        foto,
+      },
+    });
+  } catch (error) {
+    console.error("Erro no LoginGoogleUser:", error);
+    res.status(500).json({ erro: "Erro ao autenticar com Google" });
+  }
+}
+

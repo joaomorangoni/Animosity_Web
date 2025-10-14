@@ -6,13 +6,18 @@ import bcrypt from 'bcrypt';
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
+import { Connector } from "@google-cloud/cloud-sql-connector";
+import mysql from "mysql2/promise";
+import dotenv from "dotenv";
+import axios from "axios";
 
 import {
   GetUser,
   InsertUser,
   UpdateUserWithPhoto,
   DeleteUser,
-  LoginUser
+  LoginUser,
+  LoginGoogleUser
 } from './components_api/UsuarioController.js';
 
 import {
@@ -43,9 +48,9 @@ if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
 // Torna a pasta "uploads" pública
 app.use('/uploads', express.static(uploadDir));
 
-// =======================
-// Configuração do multer (upload de imagens)
-// =======================
+
+// Configuração do multer (uploda as imagens)
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
@@ -65,9 +70,9 @@ const upload = multer({
   }
 });
 
-// =======================
+
 // Rotas de Usuários
-// =======================
+
 
 // Criar usuário
 app.post('/usuarios', async (req, res) => InsertUser(req, res));
@@ -84,9 +89,12 @@ app.delete('/usuarios/:id', (req, res) => DeleteUser(req, res));
 // Login de usuário
 app.post('/usuarios/login', async (req, res) => LoginUser(req, res));
 
-// =======================
+
+app.post('/usuarios/login/google', async (req, res) => LoginGoogleUser(req, res));
+
+
 // Rotas de Feedbacks
-// =======================
+
 
 // Criar novo feedback
 app.post('/api/feedback', (req, res) => InsertFeed(req, res));
@@ -150,8 +158,6 @@ app.put('/api/atualizacoes/:id', async (req, res) => {
 
 
 
-// =======================
-// Inicialização do servidor
-// =======================
+
 const PORT = 3000;
 app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));

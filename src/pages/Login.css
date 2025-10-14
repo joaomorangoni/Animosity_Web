@@ -29,6 +29,28 @@ width: 100vw;
   text-align: center;
 }
 
+.social-buttons{
+  display: flex;            /* Flexbox para alinhar conteúdo */
+  align-items: center;      /* Centraliza verticalmente */
+  justify-content: center;  /* Centraliza horizontalmente */
+  width: 50px;              /* Largura do botão */
+  height: 50px;             /* Altura do botão */
+  border-radius: 50%;       /* Deixa circular */
+  background-color: #4285F4; /* Cor do botão Google */
+  border: none;
+  cursor: pointer;
+}
+
+.social-buttons:hover {
+  background-color: #357ae8; /* Escurece ao passar o mouse */
+}
+
+.social-buttons .teste1 {
+  color: white;             
+  font-size: 150px;    
+  display: block;           
+}
+
 input.stylish {
   position: relative;
   width: 250px;
