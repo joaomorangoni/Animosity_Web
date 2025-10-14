@@ -33,10 +33,10 @@ width: 100vw;
   display: flex;            /* Flexbox para alinhar conteúdo */
   align-items: center;      /* Centraliza verticalmente */
   justify-content: center;  /* Centraliza horizontalmente */
-  width: 50px;              /* Largura do botão */
-  height: 50px;             /* Altura do botão */
+  width: 80px;              /* Largura do botão */
+  height: 90px;             /* Altura do botão */
   border-radius: 50%;       /* Deixa circular */
-  background-color: #4285F4; /* Cor do botão Google */
+ 
   border: none;
   cursor: pointer;
 }
@@ -47,7 +47,7 @@ width: 100vw;
 
 .social-buttons .teste1 {
   color: white;             
-  font-size: 150px;    
+  font-size: 50px;    
   display: block;           
 }
 
