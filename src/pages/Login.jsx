@@ -97,13 +97,17 @@ export default function Login() {
           <span>ou</span>
         </div>
 
+      <div className="social-medias-session">
         <GoogleLogin
       onSuccess={handleGoogleLoginSuccess}
       onError={() => console.log("deu ruim chefe")}
-      type="icon"
+      type="standart"
       shape="circle"
+      theme="filled_black"
       logo_alignment="center"
+      width={145}
     />
+    </div>
 
         <div>
           <p>Não tem conta? <a href="/register">Registra-se</a></p>
