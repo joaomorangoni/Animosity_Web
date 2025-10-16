@@ -99,7 +99,10 @@ export default function Login() {
 
         <GoogleLogin
       onSuccess={handleGoogleLoginSuccess}
-      onError={() => console.log("Erro no login")}
+      onError={() => console.log("deu ruim chefe")}
+      type="icon"
+      shape="circle"
+      logo_alignment="center"
     />
 
         <div>
