@@ -30,14 +30,14 @@
 
 
 .profile-photo {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;   /* deixa circular */
-  object-fit: cover;    /* centraliza e corta a imagem proporcionalmente */
-  max-width: 100%;
-  height: auto;
-  transition: transform 0.3s ease-in-out;
-  color: white;
+  width: 90px;       /* tamanho da foto */
+  height: 90px;      /* mesmo valor da largura para ficar quadrada */
+  object-fit: cover;  /* mantém proporção e corta excesso */
+  border-radius: 50%; /* deixa redondo */
+  cursor: pointer;
+  border: 3px solid #fff; /* opcional: borda branca */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* opcional: sombra */
+  transition: all 0.3s ease;
 }
 
 
@@ -153,7 +153,7 @@
 }
 
 .edit-modal-content {
-  background: #fff;
+  background: #27353d;
   padding: 20px;
   border-radius: 12px;
   width: 300px;
@@ -167,11 +167,37 @@
   font-size: 16px;
   border-radius: 6px;
   border: 1px solid #ccc;
+  background-color: #1125317e;
+  backdrop-filter: blur(6px);
 }
 
-.edit-modal-content input[type="file"] {
-  font-size: 14px;
+.file-button {
+  display: inline-flex;
+  max-width: 150px;
+  width: 100%;
+  align-items: center;
+  gap: 8px;
+  background: #1b32404a;
+  backdrop-filter: blur(6px);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
+
+.file-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+
+.file-button svg {
+  stroke: white;
+}
+
 
 .avatar-preview {
   width: 90px;
@@ -185,6 +211,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
+
 }
 
 .modal-buttons button {
@@ -193,10 +220,14 @@
   border: none;
   cursor: pointer;
   font-weight: bold;
+    background-color: #111c2441;
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
 }
 
 .modal-buttons button:hover {
-  opacity: 0.9;
+    transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4)
 }
 
 
@@ -345,7 +376,7 @@
   transition: all 0.1s;
   width: 50%;           /* ocupa metade do box */
   max-width: 250px;
-  margin-right: 25%;
+  margin-left: 25%;
 }
 
 .button1:active {

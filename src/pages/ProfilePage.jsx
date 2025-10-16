@@ -6,13 +6,16 @@ import { CircleUserRound } from "lucide-react";
 import TextType from '../components/TextType';
 import Modal from "../components/Modal.jsx";
 import Footer from '../components/footer/Footer.jsx';
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Profile() {
   // Pega dados do usuário do localStorage
+   const [showNavbar, setShowNavbar] = useState(false);
   const user = {
     id: localStorage.getItem("userId"),
     nome: localStorage.getItem("userName"),
     email: localStorage.getItem("userEmail")
+    
   };
   const [atualizacoes, setAtualizacoes] = useState([]);
 
@@ -43,7 +46,7 @@ export default function Profile() {
       });
   }, [user.id]);
 
-  // Abre o modal
+  // Abre o moda
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
@@ -104,34 +107,37 @@ export default function Profile() {
   }
 };
 
-  // Navbar efeito
   useEffect(() => {
     const handleMouseMove = (e) => {
-      if (e.clientY < 80) {
-        setShow(true);
-      } else {
-        setShow(false);
-      }
+      // Mostra navbar quando o mouse chega no topo da tela
+      if (e.clientY < 50) setShowNavbar(true);
+      else setShowNavbar(false);
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
 
-  useEffect(() => {
-  fetch("http://localhost:3000/api/atualizacoes")
-    .then(res => res.json())
-    .then(data => setAtualizacoes(data))
-    .catch(err => console.error("Erro ao buscar atualizações:", err));
-}, []);
-
   return (
     <div className="conteudo">
-      <nav className={`navbar ${show ? "show" : ""}`}>
-        <a href="/contact">Feedback</a>
-        <a href="/perfil">Perfil</a>
-        <a href="#">Sair</a>
-      </nav>
+       <AnimatePresence>
+        {showNavbar && (
+          <motion.nav
+            className="navbar-round"
+            initial={{ opacity: 0, y: -25, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -25, scale: 0.9 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <ul>
+              <li><a href="/">Início</a></li>
+              <li><a href="/contact">Feedback</a></li>
+              <li><a href="/contato">Sair</a></li>
+            </ul>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+      
 
       {/* Banner */}
       <div className="banner-profile">
@@ -167,36 +173,69 @@ export default function Profile() {
       </div>
 
       {/* Modal de edição */}
-      {showModal && (
-        <div className="edit-modal">
-          <div className="edit-modal-content">
-            <h3>Editar Perfil</h3>
+      <AnimatePresence>
+  {showModal && (
+    <motion.div
+      className="edit-modal"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+    >
+      <motion.div
+        className="edit-modal-content"
+        initial={{ scale: 0.8, opacity: 0, y: -20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.8, opacity: 0, y: -20 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
+        <h3>Editar Perfil</h3>
 
-            <label>Nome:</label>
-            <input
-              type="text"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-            />
+        <label>Nome:</label>
+        <input
+          type="text"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+        />
 
-            <label>Foto de Perfil:</label>
-            <input type="file" accept="image/*" onChange={handleFotoChange} />
+        <label>Foto de Perfil:</label>
+        <label className="file-button">
+  <input 
+    type="file" 
+    accept="image/*" 
+    onChange={handleFotoChange} 
+    style={{ display: "none" }} // escondemos o input real
+  />
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    fill="none" 
+    viewBox="0 0 24 24" 
+    stroke="currentColor" 
+    width="24" 
+    height="24"
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+  </svg>
+  <span>Adicionar Foto</span>
+</label>
 
-            {avatarPreview && (
-              <img
-                src={avatarPreview}
-                alt="Preview"
-                className="avatar-preview"
-              />
-            )}
 
-            <div className="modal-buttons">
-              <button onClick={handleSave}>Salvar</button>
-              <button onClick={closeModal}>Cancelar</button>
-            </div>
-          </div>
+        {avatarPreview && (
+          <img
+            src={avatarPreview}
+            alt="Preview"
+            className="avatar-preview"
+          />
+        )}
+
+        <div className="modal-buttons">
+          <button onClick={handleSave}>Salvar</button>
+          <button onClick={closeModal}>Cancelar</button>
         </div>
-      )}
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
 
       {/* Conteúdo inferior */}
       <div className="conteudo_baixo">
