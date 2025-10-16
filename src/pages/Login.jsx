@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { FaGoogle, FaPlaystation, FaXbox } from "react-icons/fa";
-import Particles from '../components/Particles.jsx';
-import { useNavigate } from "react-router-dom";
-import { useGoogleLogin } from "@react-oauth/google"; // ⚠ usar useGoogleLogin
-import axios from "axios";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, Lock, User, XCircle, CheckCircle } from "lucide-react";
+import Particles from "../components/Particles.jsx";
+import Input1 from "../components/inputlogin.jsx";
+import api from "../services/api";
 import "./Login.css";
+import { FaGoogle, FaPlaystation, FaXbox } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+import axios from "axios"; // ✅ IMPORTAÇÃO NECESSÁRIA
+import { jwtDecode } from "jwt-decode";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -13,46 +18,43 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  // Login tradicional
+  // 🔹 Login tradicional
   async function handleLogin(e) {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/usuarios/login", { email, senha });
+      const res = await api.post("/usuarios/login", { email, senha });
 
       localStorage.setItem("userId", res.data.user.id);
       localStorage.setItem("userName", res.data.user.nome);
       localStorage.setItem("userEmail", res.data.user.email);
 
+      navigate("/profile"); // leva o usuário para a página de perfil
       setMensagem(`Login ok! Bem-vindo, ${res.data.user.nome}`);
-      navigate("/profile");
     } catch (err) {
       setMensagem(err.response?.data?.erro || "Erro no servidor");
     }
   }
 
-  // Login Google usando botão customizado
-  const loginGoogle = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
-      try {
-        const res = await axios.post("http://localhost:3000/usuarios/login/google", {
-          credential: tokenResponse.credential
-        });
+  // 🔹 Login com Google
+  async function handleGoogleLoginSuccess(credentialResponse) {
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/usuarios/login/google",
+        { credential: credentialResponse.credential }
+      );
 
-        localStorage.setItem("userId", res.data.user.id);
-        localStorage.setItem("userName", res.data.user.nome);
-        localStorage.setItem("userEmail", res.data.user.email);
+      // salva usuário retornado no localStorage
+      localStorage.setItem("userName", res.data.user.nome);
+      localStorage.setItem("userEmail", res.data.user.email);
+      localStorage.setItem("userId", res.data.user.id);
 
-        navigate("/profile");
-      } catch (err) {
-        console.error(err.response?.data || err.message);
-        setMensagem("Erro no login com Google");
-      }
-    },
-    onError: () => {
-      console.log("Erro no login Google");
+      navigate("/profile");
+    } catch (err) {
+      console.error(err.response?.data || err.message);
       setMensagem("Erro no login com Google");
-    },
-  });
+    }
+  }
+  
 
   return (
     <div className="login-container">
@@ -95,14 +97,10 @@ export default function Login() {
           <span>ou</span>
         </div>
 
-        <div className="social-mediasslk">
-          <button className="social-buttons" onClick={() => loginGoogle()}>
-            <FaGoogle className="teste1"  />
-          </button>
-
-          <FaPlaystation style={{ marginLeft: "10px" }} />
-          <FaXbox style={{ marginLeft: "10px" }} />
-        </div>
+        <GoogleLogin
+      onSuccess={handleGoogleLoginSuccess}
+      onError={() => console.log("Erro no login")}
+    />
 
         <div>
           <p>Não tem conta? <a href="/register">Registra-se</a></p>

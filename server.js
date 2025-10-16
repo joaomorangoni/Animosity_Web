@@ -155,6 +155,10 @@ app.put('/api/atualizacoes/:id', async (req, res) => {
   }
 });
 
+// Login com Google
+app.post('/usuarios/login/google', async (req, res) => LoginGoogleUser(req, res));
+
+
 
 
 

@@ -2,7 +2,7 @@ import connection from '../conexao.js';
 import bcrypt from "bcrypt";
 import fs from 'fs';
 import path from 'path';
-import axios from "axios";
+import axios from "axios"; 
 
 export async function GetUser(res) {
   connection.query('SELECT * FROM usuarios', (err, Usuarios) => {
@@ -17,19 +17,19 @@ export async function GetUser(res) {
 
 export async function InsertUser(req, res) {
   try {
-    const { email, senha, nome } = req.body;
+    const { email, senha, nome, google_id } = req.body;
+
+    // ✅ Verificação: precisa ter senha ou login via Google
     if (!senha && !google_id) {
       return res.status(400).json({ erro: "Usuário precisa de senha ou login Google." });
     }
 
-    // 1️⃣ Gerar hash da senha
-    const saltRounds = 10; // nível de segurança
-    const hashedPassword = await bcrypt.hash(senha, saltRounds);
+    const saltRounds = 10;
+    const hashedPassword = senha ? await bcrypt.hash(senha, saltRounds) : null;
 
-    // 2️⃣ Inserir no banco usando o hash
     connection.query(
       "INSERT INTO usuarios (email, senha, nome) VALUES (?, ?, ?)",
-      [email, hashedPassword, nome], // <-- aqui o hashedPassword substitui a senha
+      [email, hashedPassword, nome],
       (err, usuario) => {
         if (err) {
           console.error("Erro ao inserir usuário:", err);
@@ -47,8 +47,7 @@ export async function InsertUser(req, res) {
     res.status(500).json({ erro: "Erro interno do servidor." });
   }
 }
- 
-// Atualiza usuário (nome e opcionalmente foto)
+
 export async function UpdateUserWithPhoto(req, res) {
   const { id } = req.params;
   const { nome } = req.body;
@@ -129,6 +128,7 @@ export async function LoginUser(req, res) {
 
 
 
+
 export async function LoginGoogleUser(req, res) {
   try {
     const { credential } = req.body;
@@ -137,7 +137,7 @@ export async function LoginGoogleUser(req, res) {
       return res.status(400).json({ erro: "Token do Google não fornecido" });
     }
 
-    //  Verifica token com a API do Google
+    // 🔎 Verifica token com a API do Google
     const response = await axios.get(
       `https://oauth2.googleapis.com/tokeninfo?id_token=${credential}`
     );
@@ -145,7 +145,7 @@ export async function LoginGoogleUser(req, res) {
     const { sub: googleId, name, email, picture } = payload;
     const foto = picture || null;
 
-    //  Verifica se o usuário já existe
+    // 🧠 Verifica se o usuário já existe
     const [rows] = await connection.promise().query(
       "SELECT * FROM usuarios WHERE email = ?",
       [email]
@@ -164,7 +164,7 @@ export async function LoginGoogleUser(req, res) {
       });
     }
 
-    //  Usuário não existe → cria no banco
+    // 🆕 Usuário não existe → cria no banco
     const [insertResult] = await connection.promise().query(
       "INSERT INTO usuarios (nome, email, foto, senha) VALUES (?, ?, ?, ?)",
       [name, email, foto, null]
@@ -184,4 +184,3 @@ export async function LoginGoogleUser(req, res) {
     res.status(500).json({ erro: "Erro ao autenticar com Google" });
   }
 }
-
