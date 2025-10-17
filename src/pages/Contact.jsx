@@ -10,7 +10,7 @@ import "./Styles.css";
 import '../App.css';
 
 export default function Contact() {
-  // ----------------- USUÁRIO -----------------
+
   const user = {
     id: localStorage.getItem("userId"),
     nome: localStorage.getItem("userName"),
@@ -18,7 +18,6 @@ export default function Contact() {
   };
   console.log("Usuário carregado do localStorage:", user);
 
-  // ----------------- NAVBAR -----------------
   const [showNavbar, setShowNavbar] = useState(false);
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -28,16 +27,16 @@ export default function Contact() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // ----------------- MODAL FEEDBACK -----------------
+
   const [feedbackModal, setFeedbackModal] = useState({ show: false, message: "" });
   const closeFeedbackModal = () => setFeedbackModal({ ...feedbackModal, show: false });
 
-  // ----------------- MODAL EDIÇÃO PERFIL -----------------
+  
   const [editModal, setEditModal] = useState(false);
   const openEditModal = () => setEditModal(true);
   const closeEditModal = () => setEditModal(false);
 
-  // ----------------- FEEDBACK -----------------
+  
   const [feedback, setFeedback] = useState({
     mensagem: "",
     estrelas: 5,
@@ -69,7 +68,7 @@ export default function Contact() {
         console.log("Resposta do servidor:", data);
         setFeedbackModal({ show: true, message: "Feedback enviado com sucesso!" });
         setFeedback({ mensagem: "", estrelas: 5, versao: "1.1" });
-        // Atualiza lista local de feedbacks
+
         setFeedbacks(prev => [...prev, payload]);
       })
       .catch(err => {
@@ -86,7 +85,7 @@ export default function Contact() {
       .catch(err => setFeedbackModal({ show: true, message: "Erro ao carregar feedbacks!" }));
   }, [user.id]);
 
-  // ----------------- PERFIL -----------------
+  
   const [nome, setNome] = useState(user.nome || "");
   const [foto, setFoto] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(localStorage.getItem("userPhoto") || null);
@@ -136,6 +135,29 @@ export default function Contact() {
       setFeedbackModal({ show: true, message: "Erro ao atualizar perfil!" });
     }
   };
+
+  //to criando o estado da versão 
+  const [versaoSelecionada, setVersaoSelecionada] = useState(feedback.versao || "");
+  const [open, setOpen] = useState(false);
+const [selectedVersion, setSelectedVersion] = useState(feedback.versao || "");
+
+  const [versoes, setVersoes] = useState([]);
+
+// buscar a porra das versões
+  useEffect(() => {
+  const fetchVersoes = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/versoes");
+      if (!res.ok) throw new Error("Erro ao buscar versões");
+      const data = await res.json();
+      setVersoes(data);
+    } catch (err) {
+      console.error("Erro:", err);
+    }
+  };
+
+  fetchVersoes();
+}, []);
 
   return (
     <div className="conteudo">
@@ -262,18 +284,41 @@ export default function Contact() {
           onChange={(e) => setFeedback({ ...feedback, mensagem: e.target.value })}
         />
 
-        <div className="version-dropdown">
-          <label htmlFor="versao">Versão do jogo</label>
-          <select
-            value={feedback.versao}
-            onChange={(e) => setFeedback({ ...feedback, versao: e.target.value })}
-          >
-            <option value="1.1">1.1</option>
-            <option value="1.1.1">1.1.1</option>
-            <option value="1.2">1.2</option>
-            <option value="1.3">1.3</option>
-          </select>
-        </div>
+     <div className="version-dropdown">
+  <label>Selecionar versão:</label>
+  <div
+    className={`custom-select ${open ? 'open' : ''}`}
+    onClick={() => setOpen(!open)}
+  >
+    {selectedVersion || "Selecione uma versão"}
+  </div>
+  <div className={`select-options ${open ? 'open' : ''}`}>
+    {versoes.map((v, index) => (
+      <div
+        key={index}
+        onClick={() => {
+          setSelectedVersion(v.versao);
+          setOpen(false);
+          setFeedback({ ...feedback, versao: v.versao });
+        }}
+      >
+        {v.versao}
+      </div>
+    ))}
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
         <div className="button-container">
           <button className="button1" onClick={handleFeedbackSubmit}>Enviar</button>

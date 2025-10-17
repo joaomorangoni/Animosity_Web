@@ -118,6 +118,21 @@ export default function Profile() {
   }, []);
 
 
+  //deletar os feedas
+    const handleDeleteFeedback = async (id_usuario, versao, mensagem) => {
+    try {
+      const res = await fetch(`http://localhost:3000/api/feedback/${id_usuario}?versao=${versao}&mensagem=${encodeURIComponent(mensagem)}`, {
+        method: 'DELETE'
+      });
+      if (res.ok) fetchFeedbacks();
+    } catch (err) {
+      console.error('Erro ao deletar feedback:', err);
+    }
+  };
+
+
+
+
   return (
     <div className="conteudo">
        <AnimatePresence>
@@ -265,6 +280,7 @@ export default function Profile() {
                       Nenhum feedback encontrado.
                     </td>
                   </tr>
+                  
                 )}
               </tbody>
             </table>

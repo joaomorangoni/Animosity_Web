@@ -19,21 +19,31 @@ export default function Login() {
   const navigate = useNavigate();
 
   // 🔹 Login tradicional
-  async function handleLogin(e) {
-    e.preventDefault();
-    try {
-      const res = await api.post("/usuarios/login", { email, senha });
+async function handleLogin(e) {
+  e.preventDefault();
+  try {
+    const res = await api.post("/usuarios/login", { email, senha });
 
-      localStorage.setItem("userId", res.data.user.id);
-      localStorage.setItem("userName", res.data.user.nome);
-      localStorage.setItem("userEmail", res.data.user.email);
+    const token = res.data.token; // pega token do backend
+    const user = res.data.user;
 
-      navigate("/profile"); // leva o usuário para a página de perfil
-      setMensagem(`Login ok! Bem-vindo, ${res.data.user.nome}`);
-    } catch (err) {
-      setMensagem(err.response?.data?.erro || "Erro no servidor");
+    localStorage.setItem("userId", user.id);
+    localStorage.setItem("userName", user.nome);
+    localStorage.setItem("userEmail", user.email);
+    localStorage.setItem("token", token);
+
+    // redireciona conforme adm
+    if (user.adm === 1) {
+      navigate("/dev"); // se for admin/dev
+    } else {
+      navigate("/profile"); // se não
     }
+
+    setMensagem(`Login ok! Bem-vindo, ${user.nome}`);
+  } catch (err) {
+    setMensagem(err.response?.data?.erro || "Erro no servidor");
   }
+}
 
   // 🔹 Login com Google
   async function handleGoogleLoginSuccess(credentialResponse) {
@@ -54,6 +64,9 @@ export default function Login() {
       setMensagem("Erro no login com Google");
     }
   }
+
+
+
   
 
   return (

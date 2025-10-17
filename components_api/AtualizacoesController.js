@@ -58,3 +58,14 @@ export async function DeleteAtualizacao(req, res) {
     res.status(500).json({ erro: "Erro ao deletar atualização" });
   }
 }
+
+
+export const getVersoes = async (req, res) => {
+  try {
+    const [rows] = await connection.promise().query("SELECT DISTINCT versao FROM atualizacoes ORDER BY versao DESC");
+    res.json(rows);
+  } catch (error) {
+    console.error("Erro ao buscar versões:", error);
+    res.status(500).json({ error: "Erro ao buscar versões" });
+  }
+};

@@ -29,7 +29,8 @@ import {
 import {
   GetAtualizacoes,
   InsertAtualizacao,
-  DeleteAtualizacao
+  DeleteAtualizacao,
+  getVersoes
 } from './components_api/AtualizacoesController.js';
 
 // =======================
@@ -159,9 +160,14 @@ app.put('/api/atualizacoes/:id', async (req, res) => {
 app.post('/usuarios/login/google', async (req, res) => LoginGoogleUser(req, res));
 
 
+app.get('/api/versoes', (req, res) => getVersoes(req, res));
+
+
+
+
 
 
 
 
 const PORT = 3000;
-app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
+app.listen(PORT, () => console.log(` Servidor rodando na porta ${PORT}`));
