@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 16-Out-2025 às 14:11
--- Versão do servidor: 10.4.24-MariaDB
--- versão do PHP: 7.4.29
+-- Tempo de geração: 17/10/2025 às 11:04
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,7 +26,7 @@ USE `banco_animosidade`;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `atualizacoes`
+-- Estrutura para tabela `atualizacoes`
 --
 
 CREATE TABLE `atualizacoes` (
@@ -34,21 +34,29 @@ CREATE TABLE `atualizacoes` (
   `titulo` varchar(255) NOT NULL,
   `descricao` text NOT NULL,
   `versao` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `atualizacoes`
+--
+
+INSERT INTO `atualizacoes` (`id`, `titulo`, `descricao`, `versao`) VALUES
+(2, 'bolas', 'ahhahahaahahha', '1.12'),
+(3, 'Foda', 'Fodastico', '69');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `download`
+-- Estrutura para tabela `download`
 --
 
 CREATE TABLE `download` (
   `jogo` varchar(255) DEFAULT NULL,
   `instalacoes` int(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `download`
+-- Despejando dados para a tabela `download`
 --
 
 INSERT INTO `download` (`jogo`, `instalacoes`) VALUES
@@ -57,7 +65,7 @@ INSERT INTO `download` (`jogo`, `instalacoes`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `feedback`
+-- Estrutura para tabela `feedback`
 --
 
 CREATE TABLE `feedback` (
@@ -65,21 +73,22 @@ CREATE TABLE `feedback` (
   `versao` varchar(10) NOT NULL,
   `estrelas` int(10) NOT NULL,
   `id_usuario` int(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `feedback`
+-- Despejando dados para a tabela `feedback`
 --
 
 INSERT INTO `feedback` (`mensagem`, `versao`, `estrelas`, `id_usuario`) VALUES
 ('gostei bastante!!!', '1.1', 5, NULL),
 ('gostei bastante!!!', '1.1', 5, NULL),
-('uhuuuuuuuuuuuu!!', '1.1', 5, NULL);
+('uhuuuuuuuuuuuu!!', '1.1', 5, NULL),
+('gostei dms slk lek amassaram', '1.1', 5, 30);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuarios`
+-- Estrutura para tabela `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -89,15 +98,16 @@ CREATE TABLE `usuarios` (
   `adm` tinyint(1) DEFAULT 0,
   `nome` varchar(255) NOT NULL,
   `foto` longblob DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `usuarios`
+-- Despejando dados para a tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `email`, `senha`, `adm`, `nome`, `foto`) VALUES
 (3, 'kauan@email.com', 'batmangg', 0, 'kauan', NULL),
 (4, 'kauan12@email.com', '$2b$10$scb1YoQik2rUwJcovTVyjO/A7ErckHjRLekjPEgMNTA9EhpJTa8Oq', 0, 'kauan12', NULL),
+(5, '', '$2b$10$/uh5uu0XSyoshr.tlLymVe8hhKEw0hgnYHTKjSAs95HZebUaKNe0i', 0, '', NULL),
 (12, 'adadad', '$2b$10$BXpqo7SJQpayPMrM5k/i8eA7oIuSsog2E3oeIHJbqncYtJu7iNddS', 0, 'qdadad', NULL),
 (17, 'kauan@ggmail.com', '$2b$10$1Pm0AL8w6Cy13vYFx8IdIex10e7V1.wfOso3/umMOt9JudgJMc/Ky', 0, 'kauan venancio', NULL),
 (19, 'kauan@gmail.com', '$2b$10$wQ884QjfYCAc8YO5Jxl1L.8FHKC7o/UFtZi3CPOa5yQLSzX2gS8Ou', 0, 'kauan731', NULL),
@@ -110,35 +120,33 @@ INSERT INTO `usuarios` (`id`, `email`, `senha`, `adm`, `nome`, `foto`) VALUES
 (27, 'kauanzin@gmail.com', '$2b$10$/YpAEAmpBddlS0aEin90lO0foPoMJiOEaS4fotavXuuyzVNGPe3qG', 0, 'kauan1234', NULL),
 (28, 'joaogay@gmail.com', '$2b$10$HiwJSfoTA5IOkyj25Rn7pewjLEOJVpDaA5r808xkKQArbAngNaYqy', 0, 'mini megacavaleiro', 0x2f75706c6f6164732f313735393736373235363036332d32313933363730352e706e67),
 (29, 'seila@gmail.com', '$2b$10$ie3V16PB5sPuj9ar.zxfa.Ghhv3S1pIFa9n9sm2H.4Y0BQpOz9.1m', 0, 'baitolas', 0x2f75706c6f6164732f313735393738343331363436352d33303031333630322e706e67),
-(30, 'kauanvenanciobarata@gmail.com', NULL, 0, 'Kauan Venâncio', 0x68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f414367386f634953416a386e394f7566516a494d465739514754735849614b6e72545a784d543072385752546a74787a713942495574657a3d7339362d63),
-(31, 'etcarvalhoe@gmail.com', NULL, 0, 'Tiago Estrada', 0x68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f414367386f634a3273386e745a3572465a7a7a625543744f54384874476e59444467556552347430333030324c3853747773616d51673d7339362d63),
-(32, 'joaopedromorangoni@gmail.com', NULL, 1, 'João Pedro Morangoni', 0x68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f612f414367386f634a47315a78435f35334d6675496c705573694d757074703759774b4b45556e4f31487864716c5a3154484b616237656d593d7339362d63);
+(30, 'kauanvenanciobarata@gmail.com', NULL, 0, 'Kauan_935', 0x2f75706c6f6164732f313736303635343233333631352d3236313336373933302e706e67);
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `atualizacoes`
+-- Índices de tabela `atualizacoes`
 --
 ALTER TABLE `atualizacoes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `feedback`
+-- Índices de tabela `feedback`
 --
 ALTER TABLE `feedback`
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
--- Índices para tabela `usuarios`
+-- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
@@ -151,14 +159,14 @@ ALTER TABLE `atualizacoes`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `feedback`
+-- Restrições para tabelas `feedback`
 --
 ALTER TABLE `feedback`
   ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
