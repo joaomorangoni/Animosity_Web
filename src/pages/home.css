@@ -1,0 +1,21 @@
+.personagens{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.descricao-personagens{
+    margin-left: 10%;
+}
+
+
+.hero{
+    margin-right: 35%;
+
+}
+
+.hero-photo{
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px black;
+    border: 2px solid whitesmoke;
+}
