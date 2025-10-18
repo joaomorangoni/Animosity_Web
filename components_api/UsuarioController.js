@@ -19,7 +19,7 @@ export async function InsertUser(req, res) {
   try {
     const { email, senha, nome, google_id } = req.body;
 
-    // ✅ Verificação: precisa ter senha ou login via Google
+    // Verificação: precisa ter senha ou login via Google
     if (!senha && !google_id) {
       return res.status(400).json({ erro: "Usuário precisa de senha ou login Google." });
     }
