@@ -37,12 +37,7 @@ export default function CompanyGoals() {
         </div>
 
         {/* Título + texto abaixo dos cards */}
-        <div className="extra-info">
-          <h3 className="extra-title">Como faremos isso?</h3>
-          <p className="section-text">
-            O uso moderado de jogos eletrônicos demonstra benefícios para a saúde mental, agindo como ferramentas eficazes de estímulo cognitivo e alívio de estresse. Pesquisas, como um estudo da Johns Hopkins Medicine, indicam que jogos especialmente desenvolvidos para intervenções em saúde mental podem oferecer uma modesta redução nos sintomas de TDAH e depressão em crianças e adolescentes. Além disso, a comunidade de jogos (fóruns, grupos e redes sociais) desempenha um papel importante, proporcionando um senso de pertencimento e apoio social que pode ser crucial para o bem-estar mental, especialmente para indivíduos que lutam contra o isolamento. Outros estudos apontam que o ato de jogar, de forma geral, pode estimular o raciocínio estratégico, a resolução de problemas e a coordenação motora, contribuindo para um melhor funcionamento executivo do cérebro. Contudo, é fundamental que o uso seja equilibrado, pois o excesso é reconhecido pela OMS como um risco de desenvolvimento do "Transtorno do Jogo".
-          </p>
-        </div>
+     
       </div>
     </section>
   );

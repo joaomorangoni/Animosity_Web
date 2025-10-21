@@ -19,3 +19,126 @@
     box-shadow: 5px 5px 5px black;
     border: 2px solid whitesmoke;
 }
+
+
+
+.extra-title{
+    text-align: center;
+    font-size: 3rem;
+}
+
+.extra-subtitle{
+    text-align: center;
+    font-size: 1.5rem;
+    color: #496c84;
+}
+
+.extra-info{
+    display: flex;
+    justify-content: space-between;
+    padding: 3%;
+}
+
+
+.image-content{
+    margin-right: 8%;
+
+}
+
+
+.section-text{
+    text-align: left;
+    margin-right: 25%;
+    max-width: 100%;    
+    font-size: 1.5rem;    
+    line-height: 1.5;   
+    word-wrap: break-word;  
+    padding: 1rem;         
+    box-sizing: border-box; 
+    color: #689abb;
+}
+
+.gallery{
+    display: flex;              /* ativa o flexbox */     
+  justify-content: space-around;
+  align-items: center;        
+  gap: 20px;               
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;     
+}
+
+
+.img-container {  
+    padding: 10px;
+    border-radius: 15px;      
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
+    margin-right: 15%;  
+
+  }
+  
+  .img-container:hover {
+
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25); /* sombra mais forte */
+  }
+  
+  .img-container img {
+            
+    max-width: 680px;              
+    display: block;       
+    border-radius: 10px;  
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+    
+    transition: transform 0.3s ease;
+  }
+  
+  .img-container img:hover {
+    transform: scale(1.03); /* zoom suave */
+  }
+
+
+.img-gallery{
+    width: 100%;          
+    max-width: 680px;     
+    height: auto;         
+    display: block;       
+    border-radius: 10px;  
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+    margin-right: 5%;
+}
+
+.text-gallery{
+    margin-right: 10%;
+}
+
+.title-gallery{
+    text-align: left;
+    color: #9DB2BF;
+    text-align: center;
+    font-size: 3rem;
+}
+
+
+.paragrafos{
+    text-align: left;
+    font-size: 1.5rem;
+    color: #496c84;
+}
+
+
+@media (max-width: 768px) {
+    .immg-gallery {
+      max-width: 120px;
+      border-radius: 5px;
+    }
+
+    .gallery {
+        flex-direction: column; /* empilha os itens verticalmente */
+        gap: 15px;
+        padding: 15px;
+      } .div-flex-responsiva {
+        flex-direction: column; /* empilha os itens verticalmente */
+        gap: 15px;
+        padding: 15px;
+      }
+  }

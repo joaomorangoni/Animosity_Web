@@ -1,7 +1,5 @@
 import connection from '../conexao.js';
 import bcrypt from "bcrypt";
-import fs from 'fs';
-import path from 'path';
 import axios from "axios"; 
 
 export async function GetUser(res) {
