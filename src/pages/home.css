@@ -24,12 +24,12 @@
 
 .extra-title{
     text-align: center;
-    font-size: 3rem;
+    font-size: 50px;
 }
 
 .extra-subtitle{
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 25px;
     color: #496c84;
 }
 
@@ -50,7 +50,7 @@
     text-align: left;
     margin-right: 25%;
     max-width: 100%;    
-    font-size: 1.5rem;    
+    font-size: 20px;    
     line-height: 1.5;   
     word-wrap: break-word;  
     padding: 1rem;         
@@ -83,8 +83,8 @@
   }
   
   .img-container img {
-            
-    max-width: 680px;              
+         
+    max-width: 480px;              
     display: block;       
     border-radius: 10px;  
     box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
@@ -121,24 +121,105 @@
 
 .paragrafos{
     text-align: left;
-    font-size: 1.5rem;
+    font-size: 25px;
     color: #496c84;
 }
 
 
-@media (max-width: 768px) {
-    .immg-gallery {
-      max-width: 120px;
-      border-radius: 5px;
-    }
+/* ===== RESPONSIVIDADE ===== */
 
-    .gallery {
-        flex-direction: column; /* empilha os itens verticalmente */
-        gap: 15px;
-        padding: 15px;
-      } .div-flex-responsiva {
-        flex-direction: column; /* empilha os itens verticalmente */
-        gap: 15px;
-        padding: 15px;
-      }
+/* Corrige layout no celular */
+@media (max-width: 768px) {
+  /* Garante que a galeria empilhe texto + imagem */
+  .gallery {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
   }
+
+  /* Texto primeiro */
+  .text-gallery {
+    order: 1;
+    margin: 0;
+    text-align: center;
+  }
+
+  .title-gallery {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .paragrafos {
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 0 10px;
+  }
+
+  /* Imagem depois */
+  .img-container {
+    order: 2;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .img-container img {
+    max-width: 90%;
+    height: auto;
+  }
+
+  /* Seções extra-info (texto + imagem) */
+  .extra-info {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .section-text {
+    margin: 0;
+    text-align: center;
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .image-content {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .image-content img {
+    max-width: 90%;
+    height: auto;
+  }
+
+  /* Ajuste de espaçamento geral */
+  .extra-title {
+    font-size: 2rem;
+  }
+
+  .extra-subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+/* Corrige telas muito pequenas (tipo celulares antigos) */
+@media (max-width: 480px) {
+  .title-gallery {
+    font-size: 1.5rem;
+  }
+
+  .paragrafos {
+    font-size: 1rem;
+  }
+
+  .section-text {
+    font-size: 0.95rem;
+  }
+}

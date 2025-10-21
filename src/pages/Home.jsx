@@ -86,34 +86,68 @@ export default function Home() {
           <img src="../../public/img/img1.png" alt="" />
           </div>
           </motion.div>
+        <div className='gallery'>
         <div className='text-gallery'>
+        <motion.div
+        initial={{ opacity: 0, y:100 }} // Estado inicial
+        whileInView={{ opacity: 1, y: 0}} // Estado final
+        transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+
+        
+        >
         <h1 className='title-gallery'>Entre em um mundo onde a mente é o maior campo de batalha</h1>
-      
+        </motion.div>
+        <motion.div
+        initial={{ opacity: 0, y:100 }} // Estado inicial
+        whileInView={{ opacity: 1, y: 0}} // Estado final
+        transition={{ duration: 2, delay: 0, ease: "easeOut" }}
+        
+        >
         <p className='paragrafos'>Gehirn é uma terra fragmentada, onde a mente é tanto uma arma quanto um campo de guerra. Explore regiões distorcidas por forças que desafiam a realidade, enfrente seus próprios limites e descubra segredos que moldarão o destino de todos.</p>
+        </motion.div>
+        </div>
         </div>
         
           
        
 
       </div>
-      <div className='gallery'>
+
+
+ <div className='gallery'>
         <div className='text-gallery'>
+        <motion.div
+        initial={{ opacity: 0, y:100 }} // Estado inicial
+        whileInView={{ opacity: 1, y: 0}} // Estado final
+        transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+
+        
+        >
         <h1 className='title-gallery'>Entre em um mundo onde a mente é o maior campo de batalha</h1>
-      
+        </motion.div>
+        <motion.div
+        initial={{ opacity: 0, y:100 }} // Estado inicial
+        whileInView={{ opacity: 1, y: 0}} // Estado final
+        transition={{ duration: 2, delay: 0, ease: "easeOut" }}
+        
+        >
         <p className='paragrafos'>Gehirn é uma terra fragmentada, onde a mente é tanto uma arma quanto um campo de guerra. Explore regiões distorcidas por forças que desafiam a realidade, enfrente seus próprios limites e descubra segredos que moldarão o destino de todos.</p>
+        </motion.div>
         </div>
         
-        <motion.div
+
+        
+          <motion.div
            initial={{ opacity: 0, x:100 }} // Estado inicial
            whileInView={{ opacity: 1, x: 0}} // Estado final
            transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
-        
-        
-        >
+          
+          >
           <div className='img-container'>
           <img src="../../public/img/img1.png" alt="" />
           </div>
           </motion.div>
+   
        
 
       </div>
