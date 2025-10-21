@@ -4,6 +4,8 @@
   }
   
   .company-goals .container {
+    background: "#526d8258";
+    backdrop-filter: blur(10px);
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
@@ -29,7 +31,8 @@
   }
   
   .goal-card {
-    background-color: #526D82;
+    background: "#526d8258";
+    backdrop-filter: blur(10px);
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
@@ -44,7 +47,7 @@
   .goal-icon {
     width: 2rem;
     height: 2rem;
-    color: #27374D;
+    color: #9DB2BF;
     margin-bottom: 1rem;
   }
   
@@ -52,7 +55,7 @@
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #27374D;
+    color: #9DB2BF;
   }
   
   .goal-description {
@@ -61,7 +64,8 @@
   }
   .goal-card {
   position: relative;
-  background: #526D82;
+  background: #526d8225;
+  backdrop-filter: blur(10px);
   border-radius: 12px;
   padding: 1.5rem;
   color: white;

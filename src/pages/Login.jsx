@@ -18,7 +18,7 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  // 🔹 Login tradicional
+
 async function handleLogin(e) {
   e.preventDefault();
   try {
@@ -45,7 +45,7 @@ async function handleLogin(e) {
   }
 }
 
-  // 🔹 Login com Google
+
   async function handleGoogleLoginSuccess(credentialResponse) {
     try {
       const res = await axios.post(
@@ -86,22 +86,27 @@ async function handleLogin(e) {
       <div className="formulariologin">
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
-          <div className="inputs">
-            <input
-              className="stylish"
-              placeholder="email"
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
-            <input
-              className="stylish"
-              placeholder="senha"
-              type="password"
-              value={senha}
-              onChange={e => setSenha(e.target.value)}
-            />
-          </div>
+  <div className="input-group">
+  <input
+    type="email"
+    id="email"
+    required
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+  />
+  <label htmlFor="email">Email</label>
+</div>
+
+<div className="input-group">
+  <input
+    type="password"
+    id="senha"
+    required
+    value={senha}
+    onChange={(e) => setSenha(e.target.value)}
+  />
+  <label htmlFor="senha">Senha</label>
+</div>
           <button className="botaum3d">Entrar</button>
           {mensagem && <div className="aviso">{mensagem}</div>}
         </form>

@@ -95,7 +95,7 @@ export default function Home() {
 
         
         >
-        <h1 className='title-gallery'>Entre em um mundo onde a mente é o maior campo de batalha</h1>
+        <h1 className='title-gallery'>O tempo é seu maior aliado... ou seu pior inimigo</h1>
         </motion.div>
         <motion.div
         initial={{ opacity: 0, y:100 }} // Estado inicial
@@ -103,7 +103,7 @@ export default function Home() {
         transition={{ duration: 2, delay: 0, ease: "easeOut" }}
         
         >
-        <p className='paragrafos'>Gehirn é uma terra fragmentada, onde a mente é tanto uma arma quanto um campo de guerra. Explore regiões distorcidas por forças que desafiam a realidade, enfrente seus próprios limites e descubra segredos que moldarão o destino de todos.</p>
+        <p className='paragrafos'>O mundo muda a cada tentativa. Caminhos se reconfiguram, inimigos evoluem e o tempo castiga os que hesitam. Cada jornada é única — e o tempo não perdoa os indecisos.</p>
         </motion.div>
         </div>
         </div>
@@ -123,7 +123,7 @@ export default function Home() {
 
         
         >
-        <h1 className='title-gallery'>Entre em um mundo onde a mente é o maior campo de batalha</h1>
+        <h1 className='title-gallery'>Onde a escuridão se mistura com a esperança</h1>
         </motion.div>
         <motion.div
         initial={{ opacity: 0, y:100 }} // Estado inicial
@@ -131,7 +131,7 @@ export default function Home() {
         transition={{ duration: 2, delay: 0, ease: "easeOut" }}
         
         >
-        <p className='paragrafos'>Gehirn é uma terra fragmentada, onde a mente é tanto uma arma quanto um campo de guerra. Explore regiões distorcidas por forças que desafiam a realidade, enfrente seus próprios limites e descubra segredos que moldarão o destino de todos.</p>
+        <p className='paragrafos'>Entre ruínas esquecidas, cada passo é uma escolha entre luz e trevas. As Calamidades esperam nas sombras, observando cada decisão sua — e a sobrevivência dependerá da coragem de encarar o impossível.</p>
         </motion.div>
         </div>
         

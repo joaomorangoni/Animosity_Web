@@ -100,7 +100,8 @@ const NossaEquipe = () => {
                   backgroundColor: "#5c7b9b",
                 }}
                 style={{
-                  background: "#526D82",
+                  background: "#526d8258",
+                  backdropFilter: "blur(10px)",
                   padding: "2rem",
                   borderRadius: "1rem",
                   cursor: "pointer",
@@ -169,7 +170,8 @@ const NossaEquipe = () => {
                 backgroundColor: "#5c7b9b",
               }}
               style={{
-                background: "#526D82",
+                 background: "#526d8258",
+                  backdropFilter: "blur(10px)",
                 padding: "2rem",
                 borderRadius: "1rem",
                 cursor: "pointer",
@@ -196,6 +198,7 @@ const NossaEquipe = () => {
                   />
                 </motion.div>
                 <motion.div
+                
                   initial={{ opacity: 0 }}
                   whileHover={{ opacity: 1 }}
                   style={{
@@ -232,8 +235,9 @@ const NossaEquipe = () => {
                 exit={{ opacity: 0, scaleY: 0.02 }}
                 transition={{ duration: 0.6 }}
                 style={{
-                  background: "#526D82",
-                  color: "#27374D",
+                 background: "#526d8258",
+                  backdropFilter: "blur(10px)",
+                  color: "#5274a4ff",
                   padding: "2rem",
                   borderRadius: "1rem",
                   maxWidth: "500px",
@@ -268,7 +272,7 @@ const NossaEquipe = () => {
                       height: 120,
                       margin: "0 auto",
                       mb: 2,
-                      border: "2px solid #27374D",
+                      border: "2px solid #425673ff",
                     }}
                   />
                 </motion.div>

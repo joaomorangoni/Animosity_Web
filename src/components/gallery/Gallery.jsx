@@ -13,7 +13,7 @@ export default function AlternatingLayout() {
     });
   }, []);
 
-  // Conteúdo de exemplo
+  // Conteúdo de exemplo a
   const sections = [
     {
       title: "Entre em um mundo onde a mente é o maior campo de batalha",

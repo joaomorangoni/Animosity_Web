@@ -52,16 +52,41 @@ return (
       <div className="formulariologin">
       <h2>Registra-se</h2>
       <form onSubmit={handleRegister}>
+<div className="inputs">
+  <div className="input-group">
+    <input
+      type="text"
+      id="nome"
+      value={nome}
+      onChange={(e) => setNome(e.target.value)}
+      required
+    />
+    <label htmlFor="nome">Nome</label>
+  </div>
 
-      <div className="inputs">
-        <input className="stylish" placeholder="Nome" type="text" value={nome} onChange={e => setNome(e.target.value)} />
-       <input className="stylish" placeholder="email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
-       <input className="stylish" placeholder="senha" type="password" value={senha} onChange={e => setSenha(e.target.value)} />
-       
-           
-    
-      
-       </div>
+  <div className="input-group">
+    <input
+      type="email"
+      id="email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      required
+    />
+    <label htmlFor="email">Email</label>
+  </div>
+
+  <div className="input-group">
+    <input
+      type="password"
+      id="senha"
+      value={senha}
+      onChange={(e) => setSenha(e.target.value)}
+      required
+    />
+    <label htmlFor="senha">Senha</label>
+  </div>
+</div>
+
        <button className="botaum3d" type="submit">Registrar</button>
        </form>
          {mensagem && (
