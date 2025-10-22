@@ -17,6 +17,7 @@ import Carousel from '../components/carrousel.jsx'
 
 
 
+
 // Estilo global se necessário
 import '../App.css';
 
@@ -223,6 +224,17 @@ export default function Home() {
        >
         <Carousel/>
       </motion.div>
+        </div>
+        
+          <h1 className='extra-title'>Sobre o projeto</h1>
+          <p className='extra-subtitle'>Nossa história e como chegamos aqui.</p>
+          <div className='about-section'>
+          <div className='about-section-text'>
+            <p>Surgimos como um grupo de entusiastas em videogames estudantes da ETEC Maria Cristina Medeiros em Ribeirão Pires (SP). Em 2025, no nosso 3° Ano do ensino médio, tivemos que desenvolver um TCC, e tivemos a ideia de desenvolver um jogo.</p>
+            <p>No início, nosso projeto tem como objetivo enriquecer a indústria brasileira de jogos, com um etretenimento de qualidade e pautar sobre assuntos importantes seguindo a agenda da ONU 2030.</p>
+
+          </div>
+
         </div>
         
 

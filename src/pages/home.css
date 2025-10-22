@@ -125,8 +125,20 @@
     color: #496c84;
 }
 
+.about-section{
+  display: flex;              /* ativa o flexbox */     
+  justify-content: space-around;
+  align-items: center;        
+  gap: 20px;               
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;   
+}
 
-/* ===== RESPONSIVIDADE ===== */
+
+
+
+
 
 /* Corrige layout no celular */
 @media (max-width: 768px) {
