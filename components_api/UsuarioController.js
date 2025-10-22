@@ -102,20 +102,34 @@ export async function LoginUser(req, res) {
 
         const usuario = results[0];
 
+        // Verifica senha com bcrypt
         const senhaValida = await bcrypt.compare(senha, usuario.senha);
         if (!senhaValida) {
           return res.status(401).json({ erro: "Senha incorreta" });
         }
 
-        // Retorna dados do usuário
-        res.status(200).json({
-          message: "Login realizado com sucesso!",
-          user: {
-            id: usuario.id,
-            nome: usuario.nome,
-            email: usuario.email
-          }
-        });
+        // Cria sessão para o usuário logado
+        req.session.usuario = {
+          id: usuario.id,
+          nome: usuario.nome,
+          email: usuario.email,
+          adm: usuario.adm, // importante
+        };
+
+        // Redireciona conforme tipo de conta
+        if (usuario.adm === 1) {
+          res.status(200).json({
+            redirect: "/dev",
+            message: "Login de administrador realizado com sucesso!",
+            user: req.session.usuario,
+          });
+        } else {
+          res.status(200).json({
+            redirect: "/profile",
+            message: "Login realizado com sucesso!",
+            user: req.session.usuario,
+          });
+        }
       }
     );
   } catch (error) {
@@ -123,6 +137,7 @@ export async function LoginUser(req, res) {
     res.status(500).json({ erro: "Erro interno do servidor" });
   }
 }
+
 
 
 

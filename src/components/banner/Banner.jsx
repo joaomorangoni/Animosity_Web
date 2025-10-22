@@ -4,12 +4,6 @@ import "./Banner.css";
 import { motion } from "framer-motion";
 
 const Banner = () => {
-  const scrollToSobre = () => {
-    const section = document.getElementById("sobre");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   return (
     <div className="banner">
@@ -28,16 +22,7 @@ const Banner = () => {
           transition={{ duration: 1 }}  // duração da animação
         />
 
-        {/* Botão */}
-        <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut", delay: 0.5 }}
-          className="btn-3d"
-          onClick={scrollToSobre}
-        >
-          Saiba mais
-        </motion.button>
+        
       </div>
     </div>
   );

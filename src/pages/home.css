@@ -125,8 +125,31 @@
     color: #496c84;
 }
 
+.about-section{
+  display: flex;              /* ativa o flexbox */     
+  justify-content: space-around;       
+  gap: 20px;               
+  padding: 30px;
+  width: 100%;
+  box-sizing: border-box;   
+}
 
-/* ===== RESPONSIVIDADE ===== */
+.texto{
+  text-align: right;
+  font-size: 25px;
+  color: #496c84;
+  margin: 1%;
+  margin-left: 10%;
+  margin-top: 5%;
+}
+
+
+.about-img{
+  max-height: 300px;
+
+  max-width: 300px;
+}
+
 
 /* Corrige layout no celular */
 @media (max-width: 768px) {

@@ -1,7 +1,7 @@
 /* Banner ocupa toda a tela */
 .banner {
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   background-color: black;
   color: white;
   display: flex;
@@ -13,6 +13,8 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow:  0px 1.5px 5px #5c7b9b;
 }
 
 /* Fundo de partículas */

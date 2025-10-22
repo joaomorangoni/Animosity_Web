@@ -2,14 +2,12 @@
 import express from 'express';
 import cors from 'cors';
 import connection from './conexao.js'; // conexão com o MySQL
-import bcrypt from 'bcrypt';
+
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
-import { Connector } from "@google-cloud/cloud-sql-connector";
-import mysql from "mysql2/promise";
-import dotenv from "dotenv";
-import axios from "axios";
+
+import session from "express-session";
 
 import {
   GetUser,
@@ -33,24 +31,20 @@ import {
   getVersoes
 } from './components_api/AtualizacoesController.js';
 
-// =======================
-// Inicialização do servidor
-// =======================
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// =======================
-// Configuração da pasta de uploads
-// =======================
+
 const uploadDir = './uploads';
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
 
-// Torna a pasta "uploads" pública
+
 app.use('/uploads', express.static(uploadDir));
 
 
-// Configuração do multer (uploda as imagens)
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
@@ -72,7 +66,48 @@ const upload = multer({
 });
 
 
-// Rotas de Usuários
+app.use(
+  session({
+    secret: "chave_muito_segura_aqui", // troque por algo forte
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+
+function verificarLogin(req, res, next) {
+  if (!req.session.user) {
+    return res.redirect("/login"); // ou res.status(401).json({ erro: "Usuário não logado" });
+  }
+  next();
+}
+
+// Middleware: verifica se o usuário é administrador
+function verificarAdmin(req, res, next) {
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+  
+  // Se o campo adm for 1, ele é admin
+  if (req.session.user.adm !== 1) {
+    return res.redirect("/profile"); // redireciona usuários comuns
+  }
+
+  next(); // tudo certo, pode continuar
+}
+
+// rota comum (somente logados)
+app.get("/profile", verificarLogin, (req, res) => {
+  res.send(`Bem-vindo ao seu perfil, ${req.session.usuario.nome}!`);
+});
+
+// rota admin (somente admin = 1)
+app.get("/dev", verificarAdmin, (req, res) => {
+  res.send(`Painel de administrador - ${req.session.usuario.nome}`);
+});
+
+
+
 
 
 // Criar usuário

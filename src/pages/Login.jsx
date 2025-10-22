@@ -19,32 +19,33 @@ export default function Login() {
   const navigate = useNavigate();
 
 
-async function handleLogin(e) {
-  e.preventDefault();
-  try {
-    const res = await api.post("/usuarios/login", { email, senha });
-
-    const token = res.data.token; // pega token do backend
-    const user = res.data.user;
-
-    localStorage.setItem("userId", user.id);
-    localStorage.setItem("userName", user.nome);
-    localStorage.setItem("userEmail", user.email);
-    localStorage.setItem("token", token);
-
-    // redireciona conforme adm
-    if (user.adm === 1) {
-      navigate("/dev"); // se for admin/dev
-    } else {
-      navigate("/profile"); // se não
+  async function handleLogin(e) {
+    e.preventDefault();
+  
+    try {
+      const res = await api.post("/usuarios/login", { email, senha });
+      const { user, redirect, message } = res.data;
+  
+      // salva dados do usuário localmente (opcional)
+      localStorage.setItem("userId", user.id);
+      localStorage.setItem("userName", user.nome);
+      localStorage.setItem("userEmail", user.email);
+      localStorage.setItem("userAdm", user.adm);
+  
+      // redireciona com base na resposta do backend
+      if (redirect) {
+        navigate(redirect);
+      } else {
+        navigate("/profile");
+      }
+  
+      setMensagem(message || `Bem-vindo, ${user.nome}!`);
+    } catch (err) {
+      console.error("Erro no login:", err);
+      setMensagem(err.response?.data?.erro || "Erro no servidor");
     }
-
-    setMensagem(`Login ok! Bem-vindo, ${user.nome}`);
-  } catch (err) {
-    setMensagem(err.response?.data?.erro || "Erro no servidor");
   }
-}
-
+  
 
   async function handleGoogleLoginSuccess(credentialResponse) {
     try {
