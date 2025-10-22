@@ -127,17 +127,27 @@
 
 .about-section{
   display: flex;              /* ativa o flexbox */     
-  justify-content: space-around;
-  align-items: center;        
+  justify-content: space-around;       
   gap: 20px;               
-  padding: 20px;
+  padding: 30px;
   width: 100%;
   box-sizing: border-box;   
 }
 
+.texto{
+  text-align: right;
+  font-size: 25px;
+  color: #496c84;
+  margin: 1%;
+  margin-left: 10%;
+}
 
 
+.about-img{
+  max-height: 300px;
 
+  max-width: 300px;
+}
 
 
 /* Corrige layout no celular */

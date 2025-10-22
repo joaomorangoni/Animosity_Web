@@ -225,14 +225,47 @@ export default function Home() {
         <Carousel/>
       </motion.div>
         </div>
+        <motion.div
+         initial={{ opacity: 0, y:100 }} // Estado inicial
+         whileInView={{ opacity: 1, y: 0}} // Estado final
+         transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
         
+        >
           <h1 className='extra-title'>Sobre o projeto</h1>
-          <p className='extra-subtitle'>Nossa história e como chegamos aqui.</p>
-          <div className='about-section'>
-          <div className='about-section-text'>
-            <p>Surgimos como um grupo de entusiastas em videogames estudantes da ETEC Maria Cristina Medeiros em Ribeirão Pires (SP). Em 2025, no nosso 3° Ano do ensino médio, tivemos que desenvolver um TCC, e tivemos a ideia de desenvolver um jogo.</p>
-            <p>No início, nosso projeto tem como objetivo enriquecer a indústria brasileira de jogos, com um etretenimento de qualidade e pautar sobre assuntos importantes seguindo a agenda da ONU 2030.</p>
+        </motion.div>
 
+        <motion.div
+        initial={{ opacity: 0, y:150 }} // Estado inicial
+        whileInView={{ opacity: 1, y: 0}} // Estado final
+        transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
+        
+        >
+          <p className='extra-subtitle'>Nossa história e como chegamos aqui.</p>
+        </motion.div>
+          
+        
+          <div className='about-section'>
+          <motion.div
+          initial={{ opacity: 0, x:-100 }} // Estado inicial
+          whileInView={{ opacity: 1, x: 0}} // Estado final
+          transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
+          
+          >
+
+          
+          <img className='image-content' src="../../public/img/protagonista.png" alt="" />
+          </motion.div>
+          
+          <div className='texto'>
+          <motion.div
+           initial={{ opacity: 0, x:100 }} // Estado inicial
+           whileInView={{ opacity: 1, x: 0}} // Estado final
+           transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
+          
+          >
+            <p className='texto'>Somos um grupo de estudantes entusiastas por videogames da ETEC Maria Cristina Medeiros, em Ribeirão Pires (SP). Em 2025, durante o 3º ano do Ensino Médio, enfrentamos o desafio de desenvolver nosso Trabalho de Conclusão de Curso (TCC) — e decidimos criar um jogo.
+            Desde o início, nosso objetivo foi contribuir com a indústria brasileira de games, oferecendo um entretenimento de qualidade que também promovesse reflexões sobre temas relevantes, alinhados aos Objetivos de Desenvolvimento Sustentável da Agenda 2030 da ONU.</p>
+          </motion.div>
           </div>
 
         </div>
