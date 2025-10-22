@@ -118,18 +118,23 @@ export default function Profile() {
   }, []);
 
 
-  //deletar os feedas
-    const handleDeleteFeedback = async (id_usuario, versao, mensagem) => {
-    try {
-      const res = await fetch(`http://localhost:3000/api/feedback/${id_usuario}?versao=${versao}&mensagem=${encodeURIComponent(mensagem)}`, {
-        method: 'DELETE'
-      });
-      if (res.ok) fetchFeedbacks();
-    } catch (err) {
-      console.error('Erro ao deletar feedback:', err);
-    }
-  };
 
+
+
+  useEffect(() => {
+
+
+    fetch(`http://localhost:3000/api/atualizacoes`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(" recebidos:", data);
+        setAtualizacoes(data);
+      })
+      .catch(err => {
+        console.error("Erro ao buscar Atualizações:", err);
+        setModal({ show: true, message: "Erro ao carregar atualizações!" });
+      });
+  });
 
 
 
