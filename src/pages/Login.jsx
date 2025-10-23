@@ -8,13 +8,14 @@ import "./Login.css";
 import { FaGoogle, FaPlaystation, FaXbox } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import axios from "axios"; // ✅ IMPORTAÇÃO NECESSÁRIA
+import axios from "axios"; 
 import { jwtDecode } from "jwt-decode";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [mensagem, setMensagem] = useState("");
+  const [adm] = useState("");
 
   const navigate = useNavigate();
 
@@ -26,13 +27,13 @@ export default function Login() {
       const res = await api.post("/usuarios/login", { email, senha });
       const { user, redirect, message } = res.data;
   
-      // salva dados do usuário localmente (opcional)
+      
       localStorage.setItem("userId", user.id);
       localStorage.setItem("userName", user.nome);
       localStorage.setItem("userEmail", user.email);
       localStorage.setItem("userAdm", user.adm);
   
-      // redireciona com base na resposta do backend
+      
       if (redirect) {
         navigate(redirect);
       } else {
@@ -44,9 +45,21 @@ export default function Login() {
       console.error("Erro no login:", err);
       setMensagem(err.response?.data?.erro || "Erro no servidor");
     }
+    try{
+      const res = await api.get("/usuarios/verify", {params: { email, adm}});
+      const{adm} = res.data
+      if(adm == 1){
+        navigate("/dev")
+      } else{
+        navigate("/profile")
+      }
+
+    }catch (err) {
+      console.error("Erro no login:", err);
+      setMensagem(err.response?.data?.erro || "Erro no servidor");
   }
   
-
+  }
   async function handleGoogleLoginSuccess(credentialResponse) {
     try {
       const res = await axios.post(
@@ -54,7 +67,7 @@ export default function Login() {
         { credential: credentialResponse.credential }
       );
 
-      // salva usuário retornado no localStorage
+      
       localStorage.setItem("userName", res.data.user.nome);
       localStorage.setItem("userEmail", res.data.user.email);
       localStorage.setItem("userId", res.data.user.id);

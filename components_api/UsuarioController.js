@@ -27,8 +27,7 @@ export async function VerifyUser(req,res){
           console.error("Erro ao verificar usuário:", err);
           return res.status(500).json({ erro: "Erro ao verificar usuário." });
         } else {
-          let tipo;
-          (resultado == 0) ? tipo = "Pessoa" : "ADM";
+          const tipo = (resultado[0].adm === 0) ? "Pessoa" : "ADM";
           res.status(201).json({
             mensagem: "Usuário verificar com sucesso",
             tipo: tipo
@@ -37,7 +36,7 @@ export async function VerifyUser(req,res){
       }
     )
   }catch{
-
+    console.log("erro na verificação")
   }
 }
 

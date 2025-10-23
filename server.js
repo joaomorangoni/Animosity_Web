@@ -1,7 +1,7 @@
 // server.js
 import express from 'express';
 import cors from 'cors';
-import connection from './conexao.js'; // conexão com o MySQL
+import connection from './conexao.js';
 
 import multer from 'multer';
 import fs from 'fs';
@@ -79,29 +79,14 @@ app.use(
 
 
 
-function verificarLogin(req, res, next) {
-  if (!req.session.user) {
-    return res.redirect("/login"); // ou res.status(401).json({ erro: "Usuário não logado" });
-  }
-  next();
-}
 
 
-// rota comum (somente logados)
-app.get("/profile", verificarLogin, (req, res) => {
-  res.send(`Bem-vindo ao seu perfil, ${req.session.usuario.nome}!`);
-});
-
-// rota admin (somente admin = 1)
-app.get("/dev", verificarAdmin, (req, res) => {
-  res.send(`Painel de administrador - ${req.session.usuario.nome}`);
-});
+app.get('/usuarios/verify', async (req,res) => VerifyUser(req, res))
 
 
 
 
 
-// Criar usuário
 app.post('/usuarios', async (req, res) => InsertUser(req, res));
 
 // Listar usuários
