@@ -15,7 +15,8 @@ import {
   UpdateUserWithPhoto,
   DeleteUser,
   LoginUser,
-  LoginGoogleUser
+  LoginGoogleUser,
+  VerifyUser
 } from './components_api/UsuarioController.js';
 
 import {
@@ -75,6 +76,9 @@ app.use(
 );
 
 
+
+
+
 function verificarLogin(req, res, next) {
   if (!req.session.user) {
     return res.redirect("/login"); // ou res.status(401).json({ erro: "Usuário não logado" });
@@ -82,19 +86,6 @@ function verificarLogin(req, res, next) {
   next();
 }
 
-// Middleware: verifica se o usuário é administrador
-function verificarAdmin(req, res, next) {
-  if (!req.session.user) {
-    return res.redirect("/login");
-  }
-  
-  // Se o campo adm for 1, ele é admin
-  if (req.session.user.adm !== 1) {
-    return res.redirect("/profile"); // redireciona usuários comuns
-  }
-
-  next(); // tudo certo, pode continuar
-}
 
 // rota comum (somente logados)
 app.get("/profile", verificarLogin, (req, res) => {

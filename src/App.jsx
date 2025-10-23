@@ -6,7 +6,7 @@ import PageDev from './pages/PageDev.jsx';
 import Community from './pages/Community.jsx';
 import Profile from './pages/ProfilePage.jsx';
 import Register from './pages/Register.jsx';
-import ProtectedRoute from '../components_api/ProtectedRoute.jsx';
+
 
 export default function App() {
   return (
@@ -15,26 +15,12 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/dev" element={<PageDev />} />
         <Route path="/comunidade" element={<Community />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
 
-        {/* Protegidas */}
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute role="user">
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/dev"
-          element={
-            <ProtectedRoute role="admin">
-              <PageDev />
-            </ProtectedRoute>
-          }
-        />
+      
       </Routes>
     </Router>
   );

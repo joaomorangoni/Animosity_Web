@@ -13,6 +13,34 @@ export async function GetUser(res) {
   });
 }
 
+
+
+export async function VerifyUser(req,res){
+  try{
+    const{email} = req.body;
+
+
+    connection.query(
+      "SELECT adm FROM usuarios WHERE email=?", [email], (err, resultado) => 
+      {
+        if (err) {
+          console.error("Erro ao verificar usuário:", err);
+          return res.status(500).json({ erro: "Erro ao verificar usuário." });
+        } else {
+          let tipo;
+          (resultado == 0) ? tipo = "Pessoa" : "ADM";
+          res.status(201).json({
+            mensagem: "Usuário verificar com sucesso",
+            tipo: tipo
+          });
+        }
+      }
+    )
+  }catch{
+
+  }
+}
+
 export async function InsertUser(req, res) {
   try {
     const { email, senha, nome, google_id } = req.body;
