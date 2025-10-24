@@ -69,7 +69,7 @@ export default function Home() {
           
           >
           <div className='img-container'>
-          <img src="../../public/img2.png" alt="" />
+          <img src="img2.png" alt="" />
           </div>
           </motion.div>
    
