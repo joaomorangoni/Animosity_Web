@@ -205,3 +205,12 @@
     align-items: center;
   }
 }
+
+
+@media (max-width: 768px) {
+  .img-container,
+  .image-content {
+    margin-right: 0 !important; /* zera a margem lateral */
+    width: 100%;
+  }
+}
