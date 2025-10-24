@@ -24,7 +24,7 @@ export default function Login() {
     e.preventDefault();
   
     try {
-      const res = await api.post("/usuarios/login", { email, senha });
+      const res = await api.post("https://animosity-web-g5ao.vercel.app/usuarios/login", { email, senha });
       const { user, redirect, message } = res.data;
   
       
@@ -46,7 +46,7 @@ export default function Login() {
       setMensagem(err.response?.data?.erro || "Erro no servidor");
     }
     try{
-      const res = await api.get("/usuarios/verify", {params: { email, adm}});
+      const res = await api.get("https://animosity-web-g5ao.vercel.app/usuarios/verify", {params: { email, adm}});
       const{adm} = res.data
       if(adm == 1){
         navigate("/dev")
@@ -79,7 +79,7 @@ export default function Login() {
     }
 
     try{
-      const res = await api.get( `${import.meta.env.VITE_API_URL}/usuarios/verify`, {params: { email, adm}});
+      const res = await api.get( "https://animosity-web-g5ao.vercel.app/usuarios/verify", {params: { email, adm}});
       const{adm} = res.data
       if(adm == 1){
         navigate("/dev")
