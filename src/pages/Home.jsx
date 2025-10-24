@@ -69,7 +69,7 @@ export default function Home() {
           
           >
           <div className='img-container'>
-          <img src="/img2.png" alt="" />
+          <img src="/braia.jpeg" alt="" />
           </div>
           </motion.div>
    
