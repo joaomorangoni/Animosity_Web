@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import Particles from '../components/Particles.jsx';
 import "./Styles.css";
 import "./ProfilePage.css";
@@ -7,6 +8,8 @@ import TextType from '../components/TextType';
 import Modal from "../components/Modal.jsx";
 import Footer from '../components/footer/Footer.jsx';
 import { motion, AnimatePresence } from "framer-motion";
+
+
 
 export default function Profile() {
   // Pega dados do usuário do localStorage
@@ -138,11 +141,13 @@ export default function Profile() {
 
   const abrirLink = async () => {
     try {
-      const response = await axios.get(`localhost:3000/api/downloads`);
-      const url = response;
+      console.log("Axios está aqui:", axios);
+
+      const response = await axios.get(`http://localhost:3000/api/downloads`);
+      const url = response.data;
 
       if (url) {
-        window.location.href = url; 
+        window.open(url, "_blank");
       } else {
         alert("Link não encontrado!");
       }
