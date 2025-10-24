@@ -77,6 +77,7 @@ export default function Login() {
       console.error(err.response?.data || err.message);
       setMensagem("Erro no login com Google");
     }
+    
   }
 
 

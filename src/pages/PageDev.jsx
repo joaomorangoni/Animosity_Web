@@ -12,6 +12,7 @@ export default function PageDev() {
   const [atualizacoes, setAtualizacoes] = useState([]);
   const [editId, setEditId] = useState(null);
   const [form, setForm] = useState({ titulo: "", descricao: "", versao: "" });
+  const nome= localStorage.getItem("userName")
 
   // Buscar feedbacks
   const fetchFeedbacks = async () => {
@@ -98,7 +99,7 @@ export default function PageDev() {
   // Função para enviar atualização
 const handleEnviarAtualizacao = async () => {
   try {
-    if(!form.titulo || !form.descricao || !form.versao) {
+    if(!form.titulo || !form.descricao || !form.versao )  {
       alert("Preencha todos os campos!");
       return;
     }
@@ -110,7 +111,7 @@ const handleEnviarAtualizacao = async () => {
     });
 
     if(res.ok) {
-      setForm({ titulo: "", descricao: "", versao: "" }); // limpa inputs
+      setForm({ titulo: "", descricao: "", versao: "" , jogo: "" }); // limpa inputs
       fetchAtualizacoes(); // atualiza tabela
     } else {
       console.error("Erro ao enviar atualização");
@@ -119,6 +120,31 @@ const handleEnviarAtualizacao = async () => {
     console.error("Erro ao enviar atualização:", err);
   }
 };
+
+const handleEnviarJogo = async () =>{
+  try{
+    const res = await fetch("http://localhost:3000/api/downloads", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form)
+    });
+    if(res.ok){
+      
+      setForm({ jogo: "" });
+      alert("Jogo atualizado com sucesso!");
+    } else{
+      console.error("Erro ao atualizar jogo");
+    }
+  }catch(err){
+    console.error("Erro ao atualizar jogo:", err);
+  }
+
+
+}
+
+
+
+
 
   return (
     <div className="conteudo-dev">
@@ -135,6 +161,9 @@ const handleEnviarAtualizacao = async () => {
           disableRotation={false}
         />
       </div>
+      <h1 className="olatitle">Bem vindo, dev {nome}!</h1>
+      
+ 
 
       <div className="conteudo_baixo">
 
@@ -224,7 +253,24 @@ const handleEnviarAtualizacao = async () => {
   value={form.versao} 
   onChange={e => setForm({...form, versao: e.target.value})}
 />
-          <button className="buttonfoda"  onClick={handleEnviarAtualizacao}>
+
+<input 
+  className="stylish" 
+  type="text" 
+  placeholder="Download do Jogo" 
+  value={form.jogo || ""} 
+  onChange={e => setForm({...form, jogo: e.target.value})}
+/>
+
+
+
+           <button
+      className="buttonfoda"
+      onClick={() => {
+        handleEnviarAtualizacao();
+        handleEnviarJogo();
+      }}
+    >
             <div className="svg-wrapper-1">
               <div className="svg-wrapper">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -295,6 +341,7 @@ const handleEnviarAtualizacao = async () => {
               <p>Nenhuma atualização encontrada.</p>
             )}
           </div>
+          
         </div>
 
       </div>

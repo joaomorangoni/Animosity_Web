@@ -6,22 +6,40 @@ import PageDev from './pages/PageDev.jsx';
 import Community from './pages/Community.jsx';
 import Profile from './pages/ProfilePage.jsx';
 import Register from './pages/Register.jsx';
+import ProtectedProfile from '../components_api/ProtectedProfile.jsx';
+import ProtectedDev from './ProtectedDev.jsx';
+
 
 
 export default function App() {
   return (
-    <Router>
+     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/dev" element={<PageDev />} />
         <Route path="/comunidade" element={<Community />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
 
-      
+        {/* Rotas protegidas corretamente */}
+        <Route
+          path="/dev"
+          element={
+            <ProtectedDev>
+              <PageDev />
+            </ProtectedDev>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedProfile>
+              <Profile />
+            </ProtectedProfile>
+          }
+        />
       </Routes>
     </Router>
   );
 }
+

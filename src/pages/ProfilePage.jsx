@@ -136,6 +136,22 @@ export default function Profile() {
       });
   });
 
+  const abrirLink = async () => {
+    try {
+      const response = await axios.get(`localhost:3000/api/downloads`);
+      const url = response;
+
+      if (url) {
+        window.location.href = url; 
+      } else {
+        alert("Link não encontrado!");
+      }
+    } catch (error) {
+      console.error("Erro ao buscar link:", error);
+      alert("Erro ao carregar o link!");
+    }
+  };
+
 
 
   return (
@@ -296,7 +312,8 @@ export default function Profile() {
           <h2>Jogue Agora!</h2>
           <p>Clique em instalar para começar sua aventura única e incrível</p>
           <p>Ao clicar, seu download iniciará em 5 segundos.</p>
-          <button className="button">
+          
+          <button className="button" onClick={abrirLink}>
             <svg
               strokeLinejoin="round"
               strokeLinecap="round"

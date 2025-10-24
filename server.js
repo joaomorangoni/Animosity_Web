@@ -32,6 +32,11 @@ import {
   getVersoes
 } from './components_api/AtualizacoesController.js';
 
+import{
+  UpdateDownloads,
+  getDownload
+} from './components_api/DownloadController.js';
+
 
 const app = express();
 app.use(cors());
@@ -77,8 +82,10 @@ app.use(
 
 
 
+app.get('/api/downloads', async (req, res) => getDownload(req, res));
 
 
+app.put('/api/downloads', async (req, res) => UpdateDownloads(req, res));
 
 
 app.get('/usuarios/verify', async (req,res) => VerifyUser(req, res))
