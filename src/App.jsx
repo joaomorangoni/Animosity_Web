@@ -8,6 +8,7 @@ import Profile from './pages/ProfilePage.jsx';
 import Register from './pages/Register.jsx';
 import ProtectedProfile from '../components_api/ProtectedProfile.jsx';
 import ProtectedDev from './ProtectedDev.jsx';
+import './App.css';
 
 
 
