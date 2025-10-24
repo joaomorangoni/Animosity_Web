@@ -188,7 +188,7 @@ export default function Home() {
       
       >
         <div className='image-content' data-aos="zoom-in-left">
-          <img src=".././public/img/gato.png" alt="" />
+          <img src="gato.png" alt="" />
         </div>
         </motion.div>
       </div>
@@ -253,7 +253,7 @@ export default function Home() {
           >
 
           
-          <img className='image-content' src="../../public/img/protagonista.png" alt="" />
+          <img className='image-content' src="../../public/protagonista.png" alt="" />
           </motion.div>
           
           <div className='texto'>
