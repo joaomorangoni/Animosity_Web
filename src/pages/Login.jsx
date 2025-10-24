@@ -89,7 +89,7 @@ export default function Login() {
 
     }catch (err) {
       console.error("Erro no login:", err);
-      setMensagem(err.response?.data?.erro || "Erro no servidor");
+      setMensagem(err.response?.data?.erro || "Usuário não encontrado");
   }
   
     
