@@ -1,230 +1,133 @@
-.personagens{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.descricao-personagens{
-    margin-left: 10%;
-}
-
-
-.hero{
-    margin-right: 35%;
-
-}
-
-.hero-photo{
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px black;
-    border: 2px solid whitesmoke;
-}
-
-
-
-.extra-title{
-    text-align: center;
-    font-size: 50px;
-}
-
-.extra-subtitle{
-    text-align: center;
-    font-size: 25px;
-    color: #496c84;
-}
-
-.extra-info{
-    display: flex;
-    justify-content: space-between;
-    padding: 3%;
-}
-
-
-.image-content{
-    margin-right: 8%;
-
-}
-
-
-.section-text{
-    text-align: left;
-    margin-right: 25%;
-    max-width: 100%;    
-    font-size: 20px;    
-    line-height: 1.5;   
-    word-wrap: break-word;  
-    padding: 1rem;         
-    box-sizing: border-box; 
-    color: #689abb;
-}
-
-.gallery{
-    display: flex;              /* ativa o flexbox */     
+/* ====== LAYOUT GERAL ====== */
+.gallery,
+.about-section,
+.extra-info {
+  display: flex;
+  align-items: center;
   justify-content: space-around;
-  align-items: center;        
-  gap: 20px;               
-  padding: 20px;
+  gap: 40px;
+  padding: 40px 5%;
   width: 100%;
-  box-sizing: border-box;     
+  box-sizing: border-box;
+  flex-wrap: wrap;
 }
 
-
-.img-container {  
-    padding: 10px;
-    border-radius: 15px;      
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
-    margin-right: 15%;  
-
-  }
-  
-  .img-container:hover {
-
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25); /* sombra mais forte */
-  }
-  
-  .img-container img {
-         
-    max-width: 480px;              
-    display: block;       
-    border-radius: 10px;  
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
-    
-    transition: transform 0.3s ease;
-  }
-  
-  .img-container img:hover {
-    transform: scale(1.03); /* zoom suave */
-  }
-
-
-.img-gallery{
-    width: 100%;          
-    max-width: 680px;     
-    height: auto;         
-    display: block;       
-    border-radius: 10px;  
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
-    margin-right: 5%;
-}
-
-.text-gallery{
-    margin-right: 10%;
-}
-
-.title-gallery{
-    text-align: left;
-    color: #9DB2BF;
-    text-align: center;
-    font-size: 3rem;
-}
-
-
-.paragrafos{
-    text-align: left;
-    font-size: 25px;
-    color: #496c84;
-}
-
-.about-section{
-  display: flex;              /* ativa o flexbox */     
-  justify-content: space-around;       
-  gap: 20px;               
-  padding: 30px;
-  width: 100%;
-  box-sizing: border-box;   
-}
-
-.texto{
-  text-align: right;
-  font-size: 25px;
+/* ====== TEXTOS ====== */
+.text-gallery,
+.texto,
+.section-text {
+  max-width: 600px;
   color: #496c84;
-  margin: 1%;
-  margin-left: 10%;
-  margin-top: 5%;
+  line-height: 1.6;
+  font-size: 1.2rem;
 }
 
-
-.about-img{
-  max-height: 300px;
-
-  max-width: 300px;
+.title-gallery {
+  color: #9DB2BF;
+  font-size: 2.8rem;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
+.paragrafos {
+  color: #496c84;
+  font-size: 1.3rem;
+  text-align: center;
+}
 
-/* Corrige layout no celular */
-@media (max-width: 768px) {
-  /* Garante que a galeria empilhe texto + imagem */
-  .gallery {
+.extra-title {
+  text-align: center;
+  font-size: 3rem;
+  color: #9DB2BF;
+}
+
+.extra-subtitle {
+  text-align: center;
+  font-size: 1.3rem;
+  color: #496c84;
+}
+
+/* ====== IMAGENS ====== */
+.img-container,
+.image-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-container img,
+.image-content img {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.img-container img:hover,
+.image-content img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ====== SOBRE ====== */
+.about-section {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 50px;
+  padding: 50px 5%;
+  flex-wrap: wrap;
+}
+
+.texto {
+  max-width: 600px;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #496c84;
+}
+
+/* ====== RESPONSIVIDADE ====== */
+
+/* --- Tablets e menores --- */
+@media (max-width: 1024px) {
+  .gallery,
+  .extra-info,
+  .about-section {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
     gap: 30px;
-    padding: 20px;
-    width: 100%;
-    box-sizing: border-box;
   }
 
-  /* Texto primeiro */
-  .text-gallery {
-    order: 1;
-    margin: 0;
+  .text-gallery,
+  .section-text,
+  .texto {
+    order: 2;
     text-align: center;
+    font-size: 1.1rem;
+    margin: 0 5%;
+  }
+
+  .img-container,
+  .image-content {
+    order: 1;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .img-container img,
+  .image-content img {
+    max-width: 90%;
   }
 
   .title-gallery {
-    font-size: 1.8rem;
-    text-align: center;
+    font-size: 2.2rem;
   }
 
-  .paragrafos {
-    font-size: 1.1rem;
-    text-align: center;
-    margin: 0 10px;
-  }
-
-  /* Imagem depois */
-  .img-container {
-    order: 2;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  .img-container img {
-    max-width: 90%;
-    height: auto;
-  }
-
-  /* Seções extra-info (texto + imagem) */
-  .extra-info {
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-  }
-
-  .section-text {
-    margin: 0;
-    text-align: center;
-    font-size: 1rem;
-    padding: 10px;
-  }
-
-  .image-content {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-  }
-
-  .image-content img {
-    max-width: 90%;
-    height: auto;
-  }
-
-  /* Ajuste de espaçamento geral */
   .extra-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   .extra-subtitle {
@@ -232,17 +135,65 @@
   }
 }
 
-/* Corrige telas muito pequenas (tipo celulares antigos) */
+/* --- Celulares grandes e médios --- */
+@media (max-width: 768px) {
+  .gallery,
+  .extra-info,
+  .about-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 25px;
+  }
+
+  .title-gallery {
+    font-size: 1.8rem;
+  }
+
+  .paragrafos {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+
+  .section-text {
+    font-size: 1rem;
+  }
+
+  .extra-title {
+    font-size: 2rem;
+  }
+
+  .extra-subtitle {
+    font-size: 1rem;
+  }
+
+  .img-container img,
+  .image-content img {
+    max-width: 95%;
+  }
+}
+
+/* --- Celulares muito pequenos (tipo 360px) --- */
 @media (max-width: 480px) {
+  .gallery,
+  .about-section {
+    padding: 20px 10px;
+    gap: 15px;
+  }
+
   .title-gallery {
     font-size: 1.5rem;
   }
 
   .paragrafos {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
-  .section-text {
-    font-size: 0.95rem;
+  .extra-title {
+    font-size: 1.8rem;
+  }
+
+  .extra-subtitle {
+    font-size: 0.9rem;
   }
 }
