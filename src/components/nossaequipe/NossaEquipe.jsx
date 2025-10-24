@@ -46,7 +46,7 @@ const membros = [
     linkedin: "https://linkedin.com/in/danielbenatti",
   },
   {
-    nome: "Bruno Sorrisos",
+    nome: "Bruno Sorrilha",
     funcao: "Gestor de Projeto",
     imagem: "/bruno.jpeg",
     descricao: "Organiza as demandas e garante que tudo funcione bem.",
