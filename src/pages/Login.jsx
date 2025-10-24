@@ -63,7 +63,7 @@ export default function Login() {
   async function handleGoogleLoginSuccess(credentialResponse) {
     try {
       const res = await axios.post(
-        "login/google",
+        `${import.meta.env.VITE_API_URL}/usuarios/login/google`,
         { credential: credentialResponse.credential }
       );
 
@@ -89,7 +89,7 @@ export default function Login() {
 
     }catch (err) {
       console.error("Erro no login:", err);
-      setMensagem(err.response?.data?.erro || "Usuário não encontrado");
+      setMensagem(err.response?.data?.erro || "Erro no servidor");
   }
   
     
