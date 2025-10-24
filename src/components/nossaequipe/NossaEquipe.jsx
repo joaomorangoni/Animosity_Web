@@ -16,15 +16,15 @@ const membros = [
   {
     nome: "João Pedro Morangoni",
     funcao: "Game Dev",
-    imagem: "./public/img/moranguinho.jpg",
-    descricao: "Oi, sou o João, tenho 17 anos e programei o jogo!.",
-    github: "https://github.com/morangoni",
+    imagem: "./public/moranguinho.jpg",
+    descricao: "Oi, sou o João, tenho 18 anos e programei o jogo!.",
+    github: "https://github.com/joaomorangoni",
     linkedin: "https://linkedin.com/in/morangoni",
   },
   {
     nome: "Kauan Venancio",
     funcao: "Dev Full stack",
-    imagem: "./public/img/kauan.jpeg",
+    imagem: "./public/kauan.jpeg",
     descricao: "Oi! Sou o Kauan, e fiquei responsável pelo visual artístico, animações e funcionalidades do site.",
     github: "https://github.com/vrodrigueskauan",
     linkedin: "https://linkedin.com/in/kauanvenancio",
@@ -32,7 +32,7 @@ const membros = [
   {
     nome: "Bryan Almeida",
     funcao: "Artista e animador de pixel-art",
-    imagem: "./public/img/braia.jpeg",
+    imagem: "./public/braia.jpeg",
     descricao: "Eai! Sou o Bryan e fiz as pixel-arts do jogo, desde cenários até o maior vilão!.",
     github: "https://github.com/bryanalmeida",
     linkedin: "https://linkedin.com/in/bryanalmeida",
@@ -40,7 +40,7 @@ const membros = [
   {
     nome: "Daniel Benatti",
     funcao: "Financeiro.",
-    imagem: "./public/img/daniel.jpeg",
+    imagem: "./public/daniel.jpeg",
     descricao: "Sou o Daniel e fiz o financeiro do projeto!",
     github: "https://github.com/danielbenatti",
     linkedin: "https://linkedin.com/in/danielbenatti",
@@ -48,7 +48,7 @@ const membros = [
   {
     nome: "Bruno Sorrisos",
     funcao: "Gestor de Projeto",
-    imagem: "./public/img/bruno.jpeg",
+    imagem: "./public/bruno.jpeg",
     descricao: "Organiza as demandas e garante que tudo funcione bem.",
     github: "https://github.com/brunosorrisos",
     linkedin: "https://linkedin.com/in/brunosorrisos",
