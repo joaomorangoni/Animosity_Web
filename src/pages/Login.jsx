@@ -79,7 +79,7 @@ export default function Login() {
     }
 
     try{
-      const res = await api.get("/usuarios/verify", {params: { email, adm}});
+      const res = await api.get( `${import.meta.env.VITE_API_URL}/usuarios/verify`, {params: { email, adm}});
       const{adm} = res.data
       if(adm == 1){
         navigate("/dev")
