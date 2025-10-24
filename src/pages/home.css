@@ -191,11 +191,14 @@
     width: 240px;
     display: flex;
     justify-content: center;
+
   }
 
   .img-container img {
-    max-width: 90%;
-    height: auto;
+    max-width: 320px;
+        height: auto;
+        margin-right: 78%;
+        margin-left: initial;
   }
 
   /* Seções extra-info (texto + imagem) */
