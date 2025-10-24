@@ -1,5 +1,5 @@
 /* ===========================
-   🌟 RESET GERAL
+   RESET E BASE
 =========================== */
 * {
   margin: 0;
@@ -7,146 +7,131 @@
   box-sizing: border-box;
 }
 
-body, html {
+html, body {
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
   font-family: 'Poppins', sans-serif;
+  background-color: #0a0a0a;
+  color: #fff;
+  overflow-x: hidden;
 }
 
 /* ===========================
-   🖼️ SEÇÃO PRINCIPAL
+   GALERIA PRINCIPAL
 =========================== */
-.gallery,
-.extra-info,
-.about-section {
+.gallery {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 30px;
-  padding: 50px 8%;
+  padding: 80px 10%;
   width: 100%;
-}
-
-.gallery {
-  background-color: #f8f8f8;
-}
-
-.extra-info {
-  background-color: #ffffff;
-}
-
-.about-section {
-  background-color: #f3f3f3;
+  min-height: 100vh;
+  gap: 50px;
+  overflow: hidden;
 }
 
 /* ===========================
-   🖼️ CONTEÚDO VISUAL
+   TEXTOS
 =========================== */
-.img-container,
-.image-content {
+.text-gallery {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.title-gallery {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.paragrafos {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #d1d1d1;
+  max-width: 500px;
+}
+
+/* ===========================
+   IMAGEM
+=========================== */
+.img-container {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.img-container img,
-.image-content img {
+.img-container img {
   width: 100%;
   max-width: 480px;
   height: auto;
-  border-radius: 20px;
+  border-radius: 18px;
   object-fit: cover;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  transition: transform 0.5s ease;
+}
+
+.img-container img:hover {
+  transform: scale(1.05);
 }
 
 /* ===========================
-   ✏️ CONTEÚDO TEXTUAL
+   RESPONSIVIDADE MOBILE
 =========================== */
-.text-content {
-  flex: 1;
-  text-align: left;
-  color: #333;
-}
-
-.text-content h2 {
-  font-size: 2.2rem;
-  color: #222;
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-.text-content p {
-  font-size: 1.1rem;
-  color: #555;
-  line-height: 1.7;
-}
-
-/* ===========================
-   📱 RESPONSIVIDADE MOBILE
-=========================== */
-@media (max-width: 768px) {
-  body, html {
-    overflow-x: hidden;
-  }
-
-  .gallery,
-  .extra-info,
-  .about-section {
-    flex-direction: column;       /* Imagem em cima, texto embaixo */
+@media (max-width: 900px) {
+  .gallery {
+    flex-direction: column-reverse; /* Imagem em cima, texto embaixo */
     justify-content: center;
     align-items: center;
-    gap: 25px;
-    padding: 30px 20px;
+    padding: 50px 5%;
+    min-height: auto; /* Evita corte pela metade */
+  }
+
+  .text-gallery {
     text-align: center;
+    align-items: center;
+    gap: 15px;
   }
 
-  .text-content {
-    text-align: center;           /* Centraliza o texto no celular */
-    width: 100%;
+  .title-gallery {
+    font-size: 1.8rem;
+    line-height: 1.4;
   }
 
-  .img-container,
-  .image-content {
-    margin: 0 !important;
-    width: 100%;
-    justify-content: center;
-  }
-
-  .img-container img,
-  .image-content img {
-    width: 95%;
-    max-width: 360px;
-    height: auto;
-    border-radius: 15px;
-  }
-
-  .text-content h2 {
-    font-size: 1.6rem;
-  }
-
-  .text-content p {
+  .paragrafos {
     font-size: 1rem;
+    line-height: 1.6;
+    max-width: 90%;
+  }
+
+  .img-container img {
+    width: 90%;
+    max-width: 350px;
+    border-radius: 15px;
   }
 }
 
 /* ===========================
-   💻 TELAS MÉDIAS (TABLET)
+   TABLET AJUSTE
 =========================== */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .gallery,
-  .extra-info,
-  .about-section {
-    padding: 40px 6%;
-    gap: 20px;
+@media (min-width: 901px) and (max-width: 1200px) {
+  .gallery {
+    flex-direction: row;
+    padding: 60px 8%;
   }
 
-  .text-content h2 {
-    font-size: 1.9rem;
+  .title-gallery {
+    font-size: 2rem;
   }
 
-  .text-content p {
+  .paragrafos {
     font-size: 1.05rem;
+  }
+
+  .img-container img {
+    max-width: 420px;
   }
 }
