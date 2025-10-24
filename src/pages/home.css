@@ -137,14 +137,36 @@
 
 /* --- Celulares grandes e médios --- */
 @media (max-width: 768px) {
+  body, html {
+    overflow-x: hidden;
+  }
+
   .gallery,
   .extra-info,
   .about-section {
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 20px;
-    padding: 25px;
+    gap: 25px;
+    width: 100%;
+    padding: 20px 10px;
   }
+
+  .img-container,
+  .image-content {
+    margin: 0 !important;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .img-container img,
+  .image-content img {
+    max-width: 95%;
+    height: auto;
+  }
+}
+
 
   .title-gallery {
     font-size: 1.8rem;
@@ -171,7 +193,7 @@
   .image-content img {
     max-width: 95%;
   }
-}
+
 
 /* --- Celulares muito pequenos (tipo 360px) --- */
 @media (max-width: 480px) {
@@ -195,22 +217,5 @@
 
   .extra-subtitle {
     font-size: 0.9rem;
-  }
-}
-@media (max-width: 768px) {
-  .gallery,
-  .extra-info,
-  .about-section {
-    justify-content: center; /* ← corrige o espaço vazio */
-    align-items: center;
-  }
-}
-
-
-@media (max-width: 768px) {
-  .img-container,
-  .image-content {
-    margin-right: 0 !important; /* zera a margem lateral */
-    width: 100%;
   }
 }
