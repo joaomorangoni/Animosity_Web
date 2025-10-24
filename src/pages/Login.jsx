@@ -63,7 +63,7 @@ export default function Login() {
   async function handleGoogleLoginSuccess(credentialResponse) {
     try {
       const res = await axios.post(
-        "http://localhost:3000/usuarios/login/google",
+        "https://animosity-web-g5ao.vercel.app/usuarios/login/google",
         { credential: credentialResponse.credential }
       );
 
@@ -79,7 +79,7 @@ export default function Login() {
     }
 
     try{
-      const res = await api.get("/usuarios/verify", {params: { email, adm}});
+      const res = await api.get("https://animosity-web-g5ao.vercel.app/usuarios/verify", {params: { email, adm}});
       const{adm} = res.data
       if(adm == 1){
         navigate("/dev")

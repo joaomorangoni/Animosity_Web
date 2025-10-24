@@ -2,9 +2,10 @@ import mysql from 'mysql2';
 
 
 const connection = mysql.createConnection({
-  host: 'localhost',
+  host: 'ballast.proxy.rlwy.net',
+  port: 16504,
   user: 'root',
-  password: '',
+  password: 'BJkdOLYUcWyoWscRnuBEgjjZwSnBSlHR',
   database: 'banco_animosidade'
 });
 
