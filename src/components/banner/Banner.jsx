@@ -1,6 +1,6 @@
 import React from "react";
 import Particles from "../acessorios/BackgroundParticles";
-import "./Banner.css";
+import "./banner.css";
 import { motion } from "framer-motion";
 
 const Banner = () => {
