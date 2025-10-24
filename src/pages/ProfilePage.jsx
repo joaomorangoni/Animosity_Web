@@ -141,7 +141,6 @@ export default function Profile() {
 
   const abrirLink = async () => {
     try {
-      console.log("Axios está aqui:", axios);
 
       const response = await axios.get(`http://localhost:3000/api/downloads`);
       const url = response.data;
@@ -173,7 +172,7 @@ export default function Profile() {
             <ul>
               <li><a href="/">Início</a></li>
               <li><a href="/contact">Feedback</a></li>
-              <li><a href="/contato">Sair</a></li>
+              <li><a href="/">Sair</a></li>
             </ul>
           </motion.nav>
         )}
