@@ -197,3 +197,11 @@
     font-size: 0.9rem;
   }
 }
+@media (max-width: 768px) {
+  .gallery,
+  .extra-info,
+  .about-section {
+    justify-content: center; /* ← corrige o espaço vazio */
+    align-items: center;
+  }
+}
