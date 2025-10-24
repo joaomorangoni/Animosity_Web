@@ -24,7 +24,7 @@ export default function Login() {
     e.preventDefault();
   
     try {
-      const res = await api.post("https://animosity-web-g5ao.vercel.app/usuarios/login", { email, senha });
+      const res = await api.post("/usuarios/login", { email, senha });
       const { user, redirect, message } = res.data;
   
       
@@ -63,7 +63,7 @@ export default function Login() {
   async function handleGoogleLoginSuccess(credentialResponse) {
     try {
       const res = await axios.post(
-        "https://animosity-web-g5ao.vercel.app/login/google",
+        "login/google",
         { credential: credentialResponse.credential }
       );
 
@@ -79,7 +79,7 @@ export default function Login() {
     }
 
     try{
-      const res = await api.get("https://animosity-web-g5ao.vercel.app//usuarios/verify", {params: { email, adm}});
+      const res = await api.get("/usuarios/verify", {params: { email, adm}});
       const{adm} = res.data
       if(adm == 1){
         navigate("/dev")

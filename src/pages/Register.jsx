@@ -20,7 +20,7 @@ export default function Register() {
  async function handleRegister(e) {
   e.preventDefault(); // evita reload da página
   try {
-    const res = await api.post("https://animosity-web-g5ao.vercel.app/usuarios", { nome, email, senha });
+    const res = await api.post("/usuarios", { nome, email, senha });
 
     // salvar dados no localStorage
     localStorage.setItem("userId", res.data.user.insertId); // ou id retornado pelo backend

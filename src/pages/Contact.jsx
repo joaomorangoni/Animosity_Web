@@ -58,7 +58,7 @@ export default function Contact() {
 
     const payload = { ...feedback, id_usuario: user.id };
 
-    fetch("http://localhost:3000/api/feedback", {
+    fetch("/api/feedback", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -79,7 +79,7 @@ export default function Contact() {
 
   useEffect(() => {
     if (!user.id) return;
-    fetch(`http://localhost:3000/api/feedback/${user.id}`)
+    fetch(`/api/feedback/${user.id}`)
       .then(res => res.json())
       .then(data => setFeedbacks(data))
       .catch(err => setFeedbackModal({ show: true, message: "Erro ao carregar feedbacks!" }));
@@ -111,7 +111,7 @@ export default function Contact() {
     if (foto) formData.append('foto', foto);
 
     try {
-      const res = await fetch(`http://localhost:3000/api/usuarios/${user.id}`, {
+      const res = await fetch(`/api/usuarios/${user.id}`, {
         method: 'PUT',
         body: formData
       });
@@ -147,7 +147,7 @@ const [selectedVersion, setSelectedVersion] = useState(feedback.versao || "");
   useEffect(() => {
   const fetchVersoes = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/versoes");
+      const res = await fetch("/api/versoes");
       if (!res.ok) throw new Error("Erro ao buscar versões");
       const data = await res.json();
       setVersoes(data);
