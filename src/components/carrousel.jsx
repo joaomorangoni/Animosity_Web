@@ -5,9 +5,9 @@ import "./Carousel.css";
 
 export default function Carousel() {
   const imagens = [
-    "../../public/img/screenshot1.jpeg",
-    "../../public/img/screenshot3.jpeg",
-    "../../public/img/screenshot4.jpeg"
+    "/screenshot1.jpeg",
+    "/screenshot3.jpeg",
+    "/screenshot4.jpeg"
   ];
 
   const [index, setIndex] = useState(0);
