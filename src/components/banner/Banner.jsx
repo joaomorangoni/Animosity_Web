@@ -14,7 +14,7 @@ const Banner = () => {
       <div className="banner-center">
         {/* Logo central com fade in */}
         <motion.img
-          src="../../public/logoimg.png"
+          src="/logoimg.png"
           alt="Logo"
           className="banner-logo"
           initial={{ opacity: 0 }}      // começa invisível
