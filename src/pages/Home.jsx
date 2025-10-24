@@ -69,7 +69,7 @@ export default function Home() {
           
           >
           <div className='img-container'>
-          <img src="img2.png" alt="" />
+          <img src="/img2.png" alt="" />
           </div>
           </motion.div>
    
@@ -84,7 +84,7 @@ export default function Home() {
       
       >
           <div className='img-container'>
-          <img src="../../public/img1.png" alt="" />
+          <img src="/img1.png" alt="" />
           </div>
           </motion.div>
         <div className='gallery'>
