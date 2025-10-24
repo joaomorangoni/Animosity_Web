@@ -18,8 +18,7 @@ import Carousel from '../components/carrousel.jsx'
 
 
 
-// Estilo global se necessário
-import '../App.css';
+
 
 export default function Home() {
 
@@ -69,7 +68,7 @@ export default function Home() {
           
           >
           <div className='img-container'>
-          <img src="" alt="" />
+          <img src="/braia.jpeg" alt="" />
           </div>
           </motion.div>
    
