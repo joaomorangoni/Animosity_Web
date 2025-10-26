@@ -48,7 +48,7 @@ export default function Home() {
 
         
         >
-        <h1 className='title-gallery'>Entre em um mundo onde a mente é o maior campo de batata</h1>
+        <h1 className='title-gallery'>Entre em um mundo onde a mente é o maior campo de batalha</h1>
         </motion.div>
         <motion.div
         initial={{ opacity: 0, y:100 }} // Estado inicial
