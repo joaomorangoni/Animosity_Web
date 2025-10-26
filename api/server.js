@@ -1,13 +1,10 @@
-// server.js
 import express from 'express';
 import cors from 'cors';
-import connection from './conexao.js';
-
+import connection from '../conexao.js';
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
-
-import session from "express-session";
+import session from 'express-session';
 
 import {
   GetUser,
@@ -17,40 +14,34 @@ import {
   LoginUser,
   LoginGoogleUser,
   VerifyUser
-} from './components_api/UsuarioController.js';
+} from '../components_api/UsuarioController.js';
 
 import {
   InsertFeed,
   GetFeed,
   GetAllFeed
-} from './components_api/FeedbacksController.js';
+} from '../components_api/FeedbacksController.js';
 
 import {
   GetAtualizacoes,
   InsertAtualizacao,
   DeleteAtualizacao,
   getVersoes
-} from './components_api/AtualizacoesController.js';
+} from '../components_api/AtualizacoesController.js';
 
-import{
+import {
   UpdateDownloads,
   getDownload
-} from './components_api/DownloadController.js';
-
+} from '../components_api/DownloadController.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-
+// Configurações de upload
 const uploadDir = './uploads';
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
-
-
 app.use('/uploads', express.static(uploadDir));
-
-
-
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
@@ -62,7 +53,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
-  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
+  limits: { fileSize: 2 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     if (!file.mimetype.startsWith('image/')) {
       return cb(new Error('Apenas imagens são permitidas!'));
@@ -71,97 +62,49 @@ const upload = multer({
   }
 });
 
-
 app.use(
   session({
-    secret: "chave_muito_segura_aqui", // troque por algo forte
+    secret: "chave_muito_segura_aqui",
     resave: false,
     saveUninitialized: false,
   })
 );
 
-
-
-app.get('/api/downloads', async (req, res) => getDownload(req, res));
-
-
-app.put('/api/downloads', async (req, res) => UpdateDownloads(req, res));
-
-
-app.get('/usuarios/verify', async (req,res) => VerifyUser(req, res))
-
-
-
-
-
-app.post('/usuarios', async (req, res) => InsertUser(req, res));
-
-// Listar usuários
+// Rotas (iguais às suas)
+app.get('/api/downloads', (req, res) => getDownload(req, res));
+app.put('/api/downloads', (req, res) => UpdateDownloads(req, res));
+app.get('/usuarios/verify', (req, res) => VerifyUser(req, res));
+app.post('/usuarios', (req, res) => InsertUser(req, res));
 app.get('/usuarios', (req, res) => GetUser(res));
-
-// Atualizar usuário (com foto)
 app.put('/api/usuarios/:id', upload.single('foto'), (req, res) => UpdateUserWithPhoto(req, res));
-
-// Deletar usuário
 app.delete('/usuarios/:id', (req, res) => DeleteUser(req, res));
+app.post('/usuarios/login', (req, res) => LoginUser(req, res));
+app.post('/usuarios/login/google', (req, res) => LoginGoogleUser(req, res));
 
-// Login de usuário
-app.post('/usuarios/login', async (req, res) => LoginUser(req, res));
-
-
-app.post('/usuarios/login/google', async (req, res) => LoginGoogleUser(req, res));
-
-
-// Rotas de Feedbacks
-
-
-// Criar novo feedback
 app.post('/api/feedback', (req, res) => InsertFeed(req, res));
-
-// Buscar feedbacks por ID de usuário
 app.get('/api/feedback/:id_usuario', (req, res) => GetFeed(req, res));
-
-// Buscar todos os feedbacks
 app.get('/feedbacks', (req, res) => GetAllFeed(req, res));
 
-
-// Deletar feedback por id_usuario + versao + mensagem
 app.delete('/api/feedback/:id_usuario', async (req, res) => {
   const { id_usuario } = req.params;
   const { versao, mensagem } = req.query;
-
   if (!versao || !mensagem) {
     return res.status(400).json({ erro: "Versão e mensagem são obrigatórias!" });
   }
-
   const query = "DELETE FROM feedback WHERE id_usuario = ? AND versao = ? AND mensagem = ?";
   connection.query(query, [id_usuario, versao, mensagem], (err, result) => {
-    if (err) {
-      console.error("Erro ao deletar feedback:", err);
-      return res.status(500).json({ erro: "Erro ao deletar feedback" });
-    }
-
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ erro: "Feedback não encontrado" });
-    }
-
+    if (err) return res.status(500).json({ erro: "Erro ao deletar feedback" });
+    if (result.affectedRows === 0) return res.status(404).json({ erro: "Feedback não encontrado" });
     res.status(200).json({ mensagem: "Feedback deletado com sucesso" });
   });
 });
 
-// Listar todas as atualizações
 app.get('/api/atualizacoes', (req, res) => GetAtualizacoes(req, res));
-
-// Criar nova atualização
 app.post('/api/atualizacoes', (req, res) => InsertAtualizacao(req, res));
-
-// Deletar atualização
 app.delete('/api/atualizacoes/:id', (req, res) => DeleteAtualizacao(req, res));
-
 app.put('/api/atualizacoes/:id', async (req, res) => {
   const { id } = req.params;
   const { titulo, descricao, versao } = req.body;
-
   try {
     await connection.execute(
       'UPDATE atualizacoes SET titulo = ?, descricao = ?, versao = ? WHERE id = ?',
@@ -169,23 +112,10 @@ app.put('/api/atualizacoes/:id', async (req, res) => {
     );
     res.json({ message: 'Atualização alterada com sucesso!' });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: 'Erro ao atualizar' });
   }
 });
 
-// Login com Google
-app.post('/usuarios/login/google', async (req, res) => LoginGoogleUser(req, res));
-
-
 app.get('/api/versoes', (req, res) => getVersoes(req, res));
 
-
-
-
-
-
-
-
-const PORT = 3000;
-app.listen(PORT, () => console.log(` Servidor rodando na porta ${PORT}`));
+export default app;
