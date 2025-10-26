@@ -160,7 +160,7 @@
     justify-content: center;
     gap: 30px;
     padding: 20px;
-    width: 100vw;
+    width: 100%;
     box-sizing: border-box;
   }
 
@@ -169,11 +169,10 @@
     order: 1;
     margin: 0;
     text-align: center;
-    font-size: 0.5rem;
   }
 
   .title-gallery {
-    font-size: 0.8rem;
+    font-size: 1.8rem;
     text-align: center;
   }
 
@@ -188,17 +187,14 @@
     order: 2;
     margin: 0;
     padding: 0;
-    width: 240px;
+    width: 100%;
     display: flex;
     justify-content: center;
-
   }
 
   .img-container img {
-    max-width: 320px;
-        height: auto;
-        margin-right: 78%;
-        margin-left: initial;
+    max-width: 90%;
+    height: auto;
   }
 
   /* Seções extra-info (texto + imagem) */
@@ -222,7 +218,7 @@
   }
 
   .image-content img {
-    max-width: 50%;
+    max-width: 90%;
     height: auto;
   }
 
@@ -250,3 +246,4 @@
     font-size: 0.95rem;
   }
 }
+ 

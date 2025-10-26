@@ -18,12 +18,10 @@ import Carousel from '../components/carrousel.jsx'
 
 
 
-
+// Estilo global se necessário
+import '../App.css';
 
 export default function Home() {
-
-
-  console.log("ola mundo")
 
   useEffect(() => {
     AOS.init({
@@ -71,7 +69,7 @@ export default function Home() {
           
           >
           <div className='img-container'>
-          <img src="/braia.jpeg" alt="" />
+          <img src="/img2.png" alt="" />
           </div>
           </motion.div>
    
@@ -289,4 +287,4 @@ export default function Home() {
       <Footer />
     </>
   );
-}
+} 
