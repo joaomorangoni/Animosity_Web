@@ -1,140 +1,126 @@
-.personagens{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+/* === ESTILO PADRÃO (PC, TABLET) === */
+.personagens {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.descricao-personagens{
-    margin-left: 10%;
+.descricao-personagens {
+  margin-left: 10%;
 }
 
-
-.hero{
-    margin-right: 35%;
-
+.hero {
+  margin-right: 35%;
 }
 
-.hero-photo{
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px black;
-    border: 2px solid whitesmoke;
+.hero-photo {
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px black;
+  border: 2px solid whitesmoke;
 }
 
-
-
-.extra-title{
-    text-align: center;
-    font-size: 50px;
+.extra-title {
+  text-align: center;
+  font-size: 50px;
 }
 
-.extra-subtitle{
-    text-align: center;
-    font-size: 25px;
-    color: #496c84;
+.extra-subtitle {
+  text-align: center;
+  font-size: 25px;
+  color: #496c84;
 }
 
-.extra-info{
-    display: flex;
-    justify-content: space-between;
-    padding: 3%;
+.extra-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 3%;
 }
 
-
-.image-content{
-    margin-right: 8%;
-
+.image-content {
+  margin-right: 8%;
 }
 
-
-.section-text{
-    text-align: left;
-    margin-right: 25%;
-    max-width: 100%;    
-    font-size: 20px;    
-    line-height: 1.5;   
-    word-wrap: break-word;  
-    padding: 1rem;         
-    box-sizing: border-box; 
-    color: #689abb;
+.section-text {
+  text-align: left;
+  margin-right: 25%;
+  max-width: 100%;
+  font-size: 20px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  padding: 1rem;
+  box-sizing: border-box;
+  color: #689abb;
 }
 
-.gallery{
-    display: flex;              /* ativa o flexbox */     
+.gallery {
+  display: flex;
   justify-content: space-around;
-  align-items: center;        
-  gap: 20px;               
+  align-items: center;
+  gap: 20px;
   padding: 20px;
   width: 100%;
-  box-sizing: border-box;     
+  box-sizing: border-box;
 }
 
-
-.img-container {  
-    padding: 10px;
-    border-radius: 15px;      
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
-    margin-right: 15%;  
-
-  }
-  
-  .img-container:hover {
-
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25); /* sombra mais forte */
-  }
-  
-  .img-container img {
-         
-    max-width: 480px;              
-    display: block;       
-    border-radius: 10px;  
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
-    
-    transition: transform 0.3s ease;
-  }
-  
-  .img-container img:hover {
-    transform: scale(1.03); /* zoom suave */
-  }
-
-
-.img-gallery{
-    width: 100%;          
-    max-width: 680px;     
-    height: auto;         
-    display: block;       
-    border-radius: 10px;  
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
-    margin-right: 5%;
+.img-container {
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  margin-right: 15%;
 }
 
-.text-gallery{
-    margin-right: 10%;
+.img-container:hover {
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25);
 }
 
-.title-gallery{
-    text-align: left;
-    color: #9DB2BF;
-    text-align: center;
-    font-size: 3rem;
+.img-container img {
+  max-width: 480px;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
 }
 
-
-.paragrafos{
-    text-align: left;
-    font-size: 25px;
-    color: #496c84;
+.img-container img:hover {
+  transform: scale(1.03);
 }
 
-.about-section{
-  display: flex;              /* ativa o flexbox */     
-  justify-content: space-around;       
-  gap: 20px;               
+.img-gallery {
+  width: 100%;
+  max-width: 680px;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-right: 5%;
+}
+
+.text-gallery {
+  margin-right: 10%;
+}
+
+.title-gallery {
+  text-align: center;
+  color: #9DB2BF;
+  font-size: 3rem;
+}
+
+.paragrafos {
+  text-align: left;
+  font-size: 25px;
+  color: #496c84;
+}
+
+.about-section {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
   padding: 30px;
   width: 100%;
-  box-sizing: border-box;   
+  box-sizing: border-box;
 }
 
-.texto{
+.texto {
   text-align: right;
   font-size: 25px;
   color: #496c84;
@@ -143,107 +129,92 @@
   margin-top: 5%;
 }
 
-
-.about-img{
+.about-img {
   max-height: 300px;
-
   max-width: 300px;
 }
 
-
-/* Corrige layout no celular */
+/* === RESPONSIVIDADE: CELULARES === */
 @media (max-width: 768px) {
-  /* Garante que a galeria empilhe texto + imagem */
-  .gallery {
-    flex-direction: column;
+
+  /* Personagens: imagens acima do texto */
+  .personagens {
+    flex-direction: column;       /* Coloca os itens em coluna */
     align-items: center;
-    justify-content: center;
-    gap: 30px;
-    padding: 20px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* Texto primeiro */
-  .text-gallery {
-    order: 1;
-    margin: 0;
     text-align: center;
   }
 
-  .title-gallery {
-    font-size: 1.8rem;
-    text-align: center;
+  .descricao-personagens {
+    margin-left: 0;
+    margin-top: 20px;             /* Espaçamento entre imagem e texto */
   }
 
-  .paragrafos {
-    font-size: 1.1rem;
-    text-align: center;
-    margin: 0 10px;
+  .hero {
+    margin-right: 0;
   }
 
-  /* Imagem depois */
-  .img-container {
-    order: 2;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  .img-container img {
-    max-width: 90%;
+  .hero-photo {
+    width: 90%;                   /* Imagem se adapta bem à tela */
     height: auto;
+    margin-bottom: 20px;
   }
 
-  /* Seções extra-info (texto + imagem) */
+  /* Extra Info: imagens acima */
   .extra-info {
     flex-direction: column;
     align-items: center;
-    gap: 30px;
-  }
-
-  .section-text {
-    margin: 0;
     text-align: center;
-    font-size: 1rem;
-    padding: 10px;
   }
 
   .image-content {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-  }
-
-  .image-content img {
-    max-width: 90%;
-    height: auto;
-  }
-
-  /* Ajuste de espaçamento geral */
-  .extra-title {
-    font-size: 2rem;
-  }
-
-  .extra-subtitle {
-    font-size: 1.1rem;
-  }
-}
-
-/* Corrige telas muito pequenas (tipo celulares antigos) */
-@media (max-width: 480px) {
-  .title-gallery {
-    font-size: 1.5rem;
-  }
-
-  .paragrafos {
-    font-size: 1rem;
+    margin-right: 0;
+    margin-bottom: 20px;
   }
 
   .section-text {
-    font-size: 0.95rem;
+    margin-right: 0;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  /* Galeria: empilha as imagens */
+  .gallery {
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+  }
+
+  .img-container {
+    margin-right: 0;
+  }
+
+  .img-container img {
+    max-width: 95%;
+  }
+
+  /* About: imagem acima do texto */
+  .about-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .texto {
+    text-align: center;
+    margin: 10px 5%;
+  }
+
+  .about-img {
+    max-width: 90%;
+    height: auto;
+    margin-bottom: 15px;
+  }
+
+  .extra-title {
+    font-size: 36px;
+  }
+
+  .extra-subtitle {
+    font-size: 20px;
   }
 }
- 
