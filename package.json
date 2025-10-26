@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "node server.js"
   },
   "dependencies": {
     "@coreui/coreui": "^5.4.3",
@@ -66,8 +67,17 @@
     "globals": "^16.3.0",
     "vite": "^7.0.4"
   },
-  "engines": {
-    "node": ">=18.0.0"
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "cadastro.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joaomorangoni/Animosity_Web.git"
   },
-  "license": "ISC"
+  "bugs": {
+    "url": "https://github.com/joaomorangoni/Animosity_Web/issues"
+  },
+  "homepage": "https://github.com/joaomorangoni/Animosity_Web#readme"
 }
