@@ -22,6 +22,9 @@ import Carousel from '../components/carrousel.jsx'
 
 export default function Home() {
 
+
+  console.log("ola mundo")
+
   useEffect(() => {
     AOS.init({
       duration: 1500, // Animation duration in milliseconds
