@@ -3,7 +3,7 @@ html, body {
   height: auto;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #294354;
+  background-color: #14222b;
 }
 
 @tailwind base;
