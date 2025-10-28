@@ -4,7 +4,7 @@ export default function ProtectedProfile({ children }) {
 
   const adm = localStorage.getItem("userAdm"); 
 
-
+  // Se não tiver nada salvo → manda pro login
   if (adm === null) {
     return <Navigate to="/login" replace />;
   }
