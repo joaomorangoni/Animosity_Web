@@ -71,7 +71,7 @@ export default function Login() {
       );
   
       const { nome, email, id, adm } = res.data.user;
-  
+      console.log(res.data.user);
   
       localStorage.setItem("userName", nome);
       localStorage.setItem("userEmail", email);
