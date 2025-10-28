@@ -61,6 +61,22 @@ export default function Login() {
   
   }
   async function handleGoogleLoginSuccess(credentialResponse) {
+
+
+    try{
+      const res = await api.get( "https://backend-animosity.vercel.app/usuarios/verify", {params: { email, adm}});
+      const{adm} = res.data
+      if(adm == 1){
+        navigate("/dev")
+      } else{
+        navigate("/profile")
+      }
+
+    }catch (err) {
+      console.error("Erro no login:", err);
+      setMensagem(err.response?.data?.erro || "Erro no servidor");
+  }
+  
     try {
       const res = await axios.post(
         "https://backend-animosity.vercel.app/usuarios/login/google",
@@ -78,19 +94,7 @@ export default function Login() {
       setMensagem("Erro no login com Google");
     }
 
-    try{
-      const res = await api.get( "https://backend-animosity.vercel.app/usuarios/verify", {params: { email, adm}});
-      const{adm} = res.data
-      if(adm == 1){
-        navigate("/dev")
-      } else{
-        navigate("/profile")
-      }
-
-    }catch (err) {
-      console.error("Erro no login:", err);
-      setMensagem(err.response?.data?.erro || "Erro no servidor");
-  }
+    
   
     
   }
