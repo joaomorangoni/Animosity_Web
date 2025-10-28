@@ -69,6 +69,10 @@ export default function Login() {
         "https://backend-animosity.vercel.app/usuarios/login/google",
         { credential: credentialResponse.credential }
       );
+      const res1 = await axios.get(
+        "https://backend-animosity.vercel.app/usuarios/verify",
+        { credential: credentialResponse.credential}
+      )
   
       const { nome, email, id, adm } = res.data.user;
       console.log(res.data.user);
