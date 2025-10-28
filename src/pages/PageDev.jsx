@@ -17,7 +17,7 @@ export default function PageDev() {
   // Buscar feedbacks
   const fetchFeedbacks = async () => {
     try {
-      const res = await fetch(`/feedbacks`);
+      const res = await fetch(`https://backend-animosity.vercel.app/feedbacks`);
       const data = await res.json();
       setFeedbacks(data);
 
@@ -34,7 +34,7 @@ export default function PageDev() {
   // Buscar atualizações
   const fetchAtualizacoes = async () => {
     try {
-      const res = await fetch("/api/atualizacoes");
+      const res = await fetch("https://backend-animosity.vercel.app/api/atualizacoes");
       const data = await res.json();
       setAtualizacoes(data);
     } catch (err) {
@@ -50,7 +50,7 @@ export default function PageDev() {
   // Deletar feedback
   const handleDeleteFeedback = async (id_usuario, versao, mensagem) => {
     try {
-      const res = await fetch(`/api/feedback/${id_usuario}?versao=${versao}&mensagem=${encodeURIComponent(mensagem)}`, {
+      const res = await fetch(`https://backend-animosity.vercel.app/api/feedback/${id_usuario}?versao=${versao}&mensagem=${encodeURIComponent(mensagem)}`, {
         method: 'DELETE'
       });
       if (res.ok) fetchFeedbacks();
@@ -72,7 +72,7 @@ export default function PageDev() {
 
   const handleSaveAtualizacao = async (id) => {
     try {
-      const res = await fetch(`/api/atualizacoes/${id}`, {
+      const res = await fetch(`https://backend-animosity.vercel.app/api/atualizacoes/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
@@ -88,7 +88,7 @@ export default function PageDev() {
 
   const handleDeleteAtualizacao = async (id) => {
     try {
-      const res = await fetch(`/api/atualizacoes/${id}`, {
+      const res = await fetch(`https://backend-animosity.vercel.app/api/atualizacoes/${id}`, {
         method: "DELETE"
       });
       if (res.ok) fetchAtualizacoes();
@@ -104,7 +104,7 @@ const handleEnviarAtualizacao = async () => {
       return;
     }
 
-    const res = await fetch("/api/atualizacoes", {
+    const res = await fetch("https://backend-animosity.vercel.app/api/atualizacoes", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form)
@@ -123,7 +123,7 @@ const handleEnviarAtualizacao = async () => {
 
 const handleEnviarJogo = async () =>{
   try{
-    const res = await fetch("/api/downloads", {
+    const res = await fetch("https://backend-animosity.vercel.app/api/downloads", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form)

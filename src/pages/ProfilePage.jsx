@@ -37,7 +37,7 @@ export default function Profile() {
   useEffect(() => {
     if (!user.id) return;
 
-    fetch(`http://localhost:3000/api/feedback/${user.id}`)
+    fetch(`https://backend-animosity.vercel.app/api/feedback/${user.id}`)
       .then(res => res.json())
       .then(data => {
         console.log("Feedbacks recebidos:", data);
@@ -77,7 +77,7 @@ export default function Profile() {
   if (foto) formData.append('foto', foto); // 'foto' é o arquivo selecionado
 
   try {
-    const res = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
+    const res = await fetch(`https://backend-animosity.vercel.app/api/usuarios/${userId}`, {
       method: 'PUT',
       body: formData // NÃO setar headers 'Content-Type'
     });
@@ -127,7 +127,7 @@ export default function Profile() {
   useEffect(() => {
 
 
-    fetch(`http://localhost:3000/api/atualizacoes`)
+    fetch(`https://backend-animosity.vercel.app/api/atualizacoes`)
       .then(res => res.json())
       .then(data => {
         console.log(" recebidos:", data);
@@ -142,7 +142,7 @@ export default function Profile() {
   const abrirLink = async () => {
     try {
 
-      const response = await axios.get(`http://localhost:3000/api/downloads`);
+      const response = await axios.get(`https://backend-animosity.vercel.app/api/downloads`);
       const url = response.data;
 
       if (url) {

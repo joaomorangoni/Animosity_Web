@@ -20,14 +20,14 @@ export default function Register() {
  async function handleRegister(e) {
   e.preventDefault(); // evita reload da página
   try {
-    const res = await api.post("/usuarios", { nome, email, senha });
+    const res = await api.post("https://backend-animosity.vercel.app/usuarios", { nome, email, senha });
 
     // salvar dados no localStorage
     localStorage.setItem("userId", res.data.user.insertId); // ou id retornado pelo backend
     localStorage.setItem("userName", nome);
     localStorage.setItem("userEmail", email);
-    // Dentro do handleLogin após salvar no localStorage
-navigate("/login"); // leva o usuário para a página de perfil
+
+navigate("/login"); 
 
     setMensagem(`✅ Usuário ${nome} registrado com sucesso!`);
   } catch (err) {
