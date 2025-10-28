@@ -25,13 +25,16 @@ export default function Login() {
   
     try {
       const res = await api.post("https://backend-animosity.vercel.app/usuarios/login", { email, senha });
+      const res1 = await api.post("https://backend-animosity.vercel.app/usuarios/verify", {email, adm });
       const { user, redirect, message } = res.data;
   
       
       localStorage.setItem("userId", user.id);
       localStorage.setItem("userName", user.nome);
       localStorage.setItem("userEmail", user.email);
-      localStorage.setItem("userAdm", user.adm);
+      localStorage;setItem("userAdm", user.adm)
+
+      
   
       
       if (redirect) {
