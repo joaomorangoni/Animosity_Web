@@ -28,7 +28,7 @@ export default function Login() {
       const res1 = await api.post("https://backend-animosity.vercel.app/usuarios/verify", {params: email, adm}) ;
       const { user, redirect, message } = res.data;
   
-      console.log(user.adm);
+      console.log(res.data);
       localStorage.setItem("userId", user.id);
       localStorage.setItem("userName", user.nome);
       localStorage.setItem("userEmail", user.email);
