@@ -76,7 +76,7 @@ export default function Login() {
       if(adm==1){
         navigate('/dev')
       }else{
-
+        navigate('/profile')
       }
     } catch (err) {
       console.error(err.response?.data || err.message);
