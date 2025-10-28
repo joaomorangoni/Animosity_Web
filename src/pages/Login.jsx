@@ -24,7 +24,7 @@ export default function Login() {
     e.preventDefault();
   
     try {
-      const res = await api.post("https://backend-animosity.vercel.app//usuarios/login", { email, senha });
+      const res = await api.post("https://backend-animosity.vercel.app/usuarios/login", { email, senha });
       const { user, redirect, message } = res.data;
   
       
