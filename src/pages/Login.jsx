@@ -69,17 +69,17 @@ export default function Login() {
   
       const { nome, email, id, adm } = res.data.user;
   
-      // salva no localStorage
+  
       localStorage.setItem("userName", nome);
       localStorage.setItem("userEmail", email);
       localStorage.setItem("userId", id);
       localStorage.setItem("userAdm", adm);
   
-      // redireciona baseado no adm
+ 
       if (adm === 1) {
-        navigate("/dev"); // rota admin
+        navigate("/dev"); 
       } else {
-        navigate("/profile"); // rota comum
+        navigate("/profile"); 
       }
   
     } catch (err) {
