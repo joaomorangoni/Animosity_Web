@@ -77,9 +77,10 @@ export default function Login() {
   
  
       if (adm === 1) {
-        navigate("/dev"); 
+        window.location.href = '/dev';
+        // navigate("/dev"); 
       } else {
-        navigate("/profile"); 
+        window.location.href = '/profile';
       }
   
     } catch (err) {
