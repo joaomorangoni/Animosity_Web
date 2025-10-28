@@ -74,7 +74,8 @@ export default function Login() {
         { credential: credentialResponse.credential}
       )
   
-      const { nome, email, id, adm } = res.data.user;
+      const { nome, email, id } = res.data.user;
+      const { adm } = res1.data.user;
       console.log(res.data.user);
   
       localStorage.setItem("userName", nome);
