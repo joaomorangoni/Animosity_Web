@@ -22,7 +22,7 @@ export default function App() {
         <Route path="/comunidade" element={<Community />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Rotas protegidas corretamente */}
+
         <Route
           path="/dev"
           element={

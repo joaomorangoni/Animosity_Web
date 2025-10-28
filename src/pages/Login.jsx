@@ -61,45 +61,32 @@ export default function Login() {
   
   }
   async function handleGoogleLoginSuccess(credentialResponse) {
-
-
-    
-
     try {
       const res = await axios.post(
         "https://backend-animosity.vercel.app/usuarios/login/google",
         { credential: credentialResponse.credential }
       );
-
-      
-      localStorage.setItem("userName", res.data.user.nome);
-      localStorage.setItem("userEmail", res.data.user.email);
-      localStorage.setItem("userId", res.data.user.id);
-      localStorage.setItem("userAdm", res.data.user.adm)
-
-      navigate("/profile");
+  
+      const { nome, email, id, adm } = res.data.user;
+  
+      // salva no localStorage
+      localStorage.setItem("userName", nome);
+      localStorage.setItem("userEmail", email);
+      localStorage.setItem("userId", id);
+      localStorage.setItem("userAdm", adm);
+  
+      // redireciona baseado no adm
+      if (adm === 1) {
+        navigate("/dev"); // rota admin
+      } else {
+        navigate("/profile"); // rota comum
+      }
+  
     } catch (err) {
       console.error(err.response?.data || err.message);
       setMensagem("Erro no login com Google");
     }
-
-    try{
-      const res = await api.get( "https://backend-animosity.vercel.app/usuarios/verify", {params: { email, adm}});
-      const{adm} = res.data
-      if(adm == 1){
-        navigate("/dev")
-      } else{
-        navigate("/profile")
-      }
-
-    }catch (err) {
-      console.error("Erro no login:", err);
-      setMensagem(err.response?.data?.erro || "Erro no servidor");
   }
-  
-    
-  }
-
 
 
   
