@@ -24,17 +24,14 @@ export default function Login() {
     e.preventDefault();
   
     try {
-      const res = await api.post("https://backend-animosity.vercel.app/usuarios/login", {params: email, senha });
-      const res1 = await api.get("https://backend-animosity.vercel.app/usuarios/verify", {params: email, adm}) ;
+      const res = await api.post("https://backend-animosity.vercel.app/usuarios/login", { email, senha });
       const { user, redirect, message } = res.data;
   
-      console.log(res.data);
+      
       localStorage.setItem("userId", user.id);
       localStorage.setItem("userName", user.nome);
       localStorage.setItem("userEmail", user.email);
-      localStorage;setItem("userAdm", user.adm)
-
-      
+      localStorage.setItem("userAdm", user.adm);
   
       
       if (redirect) {
@@ -69,28 +66,35 @@ export default function Login() {
         "https://backend-animosity.vercel.app/usuarios/login/google",
         { credential: credentialResponse.credential }
       );
-  
-      const { nome, email, id, adm } = res.data.user;
-      console.log(res.data.user);
-  
-      localStorage.setItem("userName", nome);
-      localStorage.setItem("userEmail", email);
-      localStorage.setItem("userId", id);
-      localStorage.setItem("userAdm", adm);
-  
- 
-      if (adm === 1) {
-        window.location.href = '/dev';
-        // navigate("/dev"); 
-      } else {
-        window.location.href = '/profile';
-      }
-  
+
+      
+      localStorage.setItem("userName", res.data.user.nome);
+      localStorage.setItem("userEmail", res.data.user.email);
+      localStorage.setItem("userId", res.data.user.id);
+
+      navigate("/profile");
     } catch (err) {
       console.error(err.response?.data || err.message);
       setMensagem("Erro no login com Google");
     }
+
+    try{
+      const res = await api.get( "https://backend-animosity.vercel.app/usuarios/verify", {params: { email, adm}});
+      const{adm} = res.data
+      if(adm == 1){
+        navigate("/dev")
+      } else{
+        navigate("/profile")
+      }
+
+    }catch (err) {
+      console.error("Erro no login:", err);
+      setMensagem(err.response?.data?.erro || "Erro no servidor");
   }
+  
+    
+  }
+
 
 
   
