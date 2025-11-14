@@ -111,7 +111,7 @@ export default function Contact() {
     if (foto) formData.append('foto', foto);
 
     try {
-      const res = await fetch(`/api/usuarios/${user.id}`, {
+      const res = await fetch(`https://backend-animosity.vercel.app/api/usuarios/${user.id}`, {
         method: 'PUT',
         body: formData
       });
@@ -147,7 +147,7 @@ const [selectedVersion, setSelectedVersion] = useState(feedback.versao || "");
   useEffect(() => {
   const fetchVersoes = async () => {
     try {
-      const res = await fetch("/api/versoes");
+      const res = await fetch("https://backend-animosity.vercel.app/api/versoes");
       if (!res.ok) throw new Error("Erro ao buscar versões");
       const data = await res.json();
       setVersoes(data);
