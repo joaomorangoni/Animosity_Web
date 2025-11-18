@@ -156,6 +156,12 @@ export default function Profile() {
     }
   };
 
+  const logout = async () =>{
+    localStorage.removeItem("userId"),
+    localStorage.removeItem("userName"),
+    localStorage.removeItem("userEmail")
+  }
+
 
 
   return (
@@ -169,7 +175,7 @@ export default function Profile() {
       >
         <ul>
           <li><a href="/contact">Feedback</a></li>
-          <li><a href="/">sair</a></li>
+          <li><a onClick={logout} href="/">sair</a></li>
         </ul>
       </motion.nav>
 
