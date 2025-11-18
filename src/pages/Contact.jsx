@@ -162,23 +162,18 @@ const [selectedVersion, setSelectedVersion] = useState(feedback.versao || "");
   return (
     <div className="conteudo">
       {/* Navbar */}
-      <AnimatePresence>
-              {showNavbar && (
-                <motion.nav
-                  className="navbar-round"
-                  initial={{ opacity: 0, y: -25, scale: 0.9 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -25, scale: 0.9 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                >
-                  <ul>
-                    <li><a href="/">Início</a></li>
-                    <li><a href="/profile">Perfil</a></li>
-                    <li><a href="/contato">Sair</a></li>
-                  </ul>
-                </motion.nav>
-              )}
-              </AnimatePresence>
+      
+      <motion.nav
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 2 }}
+
+      >
+        <ul>
+          <li><a href="/contact">Feedback</a></li>
+          <li><a href="/home">sair</a></li>
+        </ul>
+      </motion.nav>
 
       {/* Banner + Perfil */}
       <div className="banner-profile">
