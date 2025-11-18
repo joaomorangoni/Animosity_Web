@@ -13,12 +13,12 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Profile() {
   // Pega dados do usuário do localStorage
-   const [showNavbar, setShowNavbar] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(false);
   const user = {
     id: localStorage.getItem("userId"),
     nome: localStorage.getItem("userName"),
     email: localStorage.getItem("userEmail")
-    
+
   };
   const [atualizacoes, setAtualizacoes] = useState([]);
 
@@ -65,50 +65,50 @@ export default function Profile() {
   };
 
   // Salva alterações
- const handleSave = async () => {
-  const userId = user.id; // pega do localStorage
-  if (!userId) {
-    setModal({ show: true, message: 'Usuário não encontrado.' });
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append('nome', nome);
-  if (foto) formData.append('foto', foto); // 'foto' é o arquivo selecionado
-
-  try {
-    const res = await fetch(`https://backend-animosity.vercel.app/api/usuarios/${userId}`, {
-      method: 'PUT',
-      body: formData // NÃO setar headers 'Content-Type'
-    });
-
-    // DEBUG: log status e body raw
-    console.log('Status da resposta:', res.status);
-    const data = await res.json();
-
-    if (!res.ok) {
-      console.error('Erro do servidor:', data);
-      setModal({ show: true, message: data.erro || 'Erro ao atualizar perfil' });
+  const handleSave = async () => {
+    const userId = user.id; // pega do localStorage
+    if (!userId) {
+      setModal({ show: true, message: 'Usuário não encontrado.' });
       return;
     }
 
-    console.log('Resposta do servidor:', data);
-    setModal({ show: true, message: data.mensagem || 'Atualizado' });
+    const formData = new FormData();
+    formData.append('nome', nome);
+    if (foto) formData.append('foto', foto); // 'foto' é o arquivo selecionado
 
-    // atualizar localStorage e UI
-    if (data.foto) {
-      // foto salva no servidor: caminho público /uploads/...
-      localStorage.setItem('userPhoto', data.foto);
-      setAvatarPreview(window.location.origin + data.foto); // ou só data.foto dependendo de como você usa
+    try {
+      const res = await fetch(`https://backend-animosity.vercel.app/api/usuarios/${userId}`, {
+        method: 'PUT',
+        body: formData // NÃO setar headers 'Content-Type'
+      });
+
+      // DEBUG: log status e body raw
+      console.log('Status da resposta:', res.status);
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.error('Erro do servidor:', data);
+        setModal({ show: true, message: data.erro || 'Erro ao atualizar perfil' });
+        return;
+      }
+
+      console.log('Resposta do servidor:', data);
+      setModal({ show: true, message: data.mensagem || 'Atualizado' });
+
+      // atualizar localStorage e UI
+      if (data.foto) {
+        // foto salva no servidor: caminho público /uploads/...
+        localStorage.setItem('userPhoto', data.foto);
+        setAvatarPreview(window.location.origin + data.foto); // ou só data.foto dependendo de como você usa
+      }
+      localStorage.setItem('userName', nome);
+      setNome(nome);
+      closeModal();
+    } catch (err) {
+      console.error('Erro no fetch:', err);
+      setModal({ show: true, message: 'Erro ao atualizar perfil!' });
     }
-    localStorage.setItem('userName', nome);
-    setNome(nome);
-    closeModal();
-  } catch (err) {
-    console.error('Erro no fetch:', err);
-    setModal({ show: true, message: 'Erro ao atualizar perfil!' });
-  }
-};
+  };
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -160,24 +160,21 @@ export default function Profile() {
 
   return (
     <div className="conteudo">
-       <AnimatePresence>
-        {showNavbar && (
-          <motion.nav
-            className="navbar-round"
-            initial={{ opacity: 0, y: -25, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -25, scale: 0.9 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-          >
-            <ul>
-              <li><a href="/">Início</a></li>
-              <li><a href="/contact">Feedback</a></li>
-              <li><a href="/">Sair</a></li>
-            </ul>
-          </motion.nav>
-        )}
-      </AnimatePresence>
-      
+
+      <motion.nav
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 2 }}
+
+      >
+        <ul>
+          <li><a href="">Início</a></li>
+          <li><a href="">Agendar</a></li>
+          <li><a href="">Projetos</a></li>
+          <li><a href="">Login</a></li>
+        </ul>
+      </motion.nav>
+
 
       {/* Banner */}
       <div className="banner-profile">
@@ -214,70 +211,70 @@ export default function Profile() {
 
       {/* Modal de edição */}
       <AnimatePresence>
-  {showModal && (
-    <motion.div
-      className="edit-modal"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-    >
-      <motion.div
-        className="edit-modal-content"
-        initial={{ scale: 0.8, opacity: 0, y: -20 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.8, opacity: 0, y: -20 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
-        <h3>Editar Perfil</h3>
+        {showModal && (
+          <motion.div
+            className="edit-modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            <motion.div
+              className="edit-modal-content"
+              initial={{ scale: 0.8, opacity: 0, y: -20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: -20 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
+              <h3>Editar Perfil</h3>
 
-        <label>Nome:</label>
-        <input
-          type="text"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-        />
+              <label>Nome:</label>
+              <input
+                type="text"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
 
-        <label>Foto de Perfil:</label>
-        <label className="file-button">
-  <input 
-    type="file" 
-    accept="image/*" 
-    onChange={handleFotoChange} 
-    style={{ display: "none" }}
-  />
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    fill="none" 
-    viewBox="0 0 24 24" 
-    stroke="currentColor" 
-    width="24" 
-    height="24"
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-  </svg>
-  <span>Adicionar Foto</span>
-</label>
+              <label>Foto de Perfil:</label>
+              <label className="file-button">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFotoChange}
+                  style={{ display: "none" }}
+                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  width="24"
+                  height="24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+                <span>Adicionar Foto</span>
+              </label>
 
 
-        {avatarPreview && (
-          <img
-            src={avatarPreview}
-            alt="Preview"
-            className="avatar-preview"
-          />
+              {avatarPreview && (
+                <img
+                  src={avatarPreview}
+                  alt="Preview"
+                  className="avatar-preview"
+                />
+              )}
+
+              <div className="modal-buttons">
+                <button onClick={handleSave}>Salvar</button>
+                <button onClick={closeModal}>Cancelar</button>
+              </div>
+            </motion.div>
+          </motion.div>
         )}
+      </AnimatePresence>
 
-        <div className="modal-buttons">
-          <button onClick={handleSave}>Salvar</button>
-          <button onClick={closeModal}>Cancelar</button>
-        </div>
-      </motion.div>
-    </motion.div>
-  )}
-</AnimatePresence>
 
-      {/* Conteúdo inferior */}
       <div className="conteudo_baixo">
         <div className="feedbackdouser">
           <h2>Meus Feedbacks</h2>
@@ -305,7 +302,7 @@ export default function Profile() {
                       Nenhum feedback encontrado.
                     </td>
                   </tr>
-                  
+
                 )}
               </tbody>
             </table>
@@ -316,7 +313,7 @@ export default function Profile() {
           <h2>Jogue Agora!</h2>
           <p>Clique em instalar para começar sua aventura única e incrível</p>
           <p>Ao clicar, seu download iniciará em 5 segundos.</p>
-          
+
           <button className="button" onClick={abrirLink}>
             <svg
               strokeLinejoin="round"
@@ -342,34 +339,34 @@ export default function Profile() {
         <div className="feedbackdouser">
           <h2>Atualizações</h2>
           {atualizacoes.length > 0 ? (
-    <table>
-      <thead>
-        <tr>
-          <th>Título</th>
-          <th>Descrição</th>
-          <th>Versão</th>
-        </tr>
-      </thead>
-      <tbody>
-        {atualizacoes.map((a, idx) => (
-          <tr key={idx}>
-            <td>{a.titulo}</td>
-            <td>{a.descricao}</td>
-            <td>{a.versao}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  ) : (
-    <p style={{ textAlign: "center" }}>Nenhuma atualização encontrada.</p>
-  )}
-          
+            <table>
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Descrição</th>
+                  <th>Versão</th>
+                </tr>
+              </thead>
+              <tbody>
+                {atualizacoes.map((a, idx) => (
+                  <tr key={idx}>
+                    <td>{a.titulo}</td>
+                    <td>{a.descricao}</td>
+                    <td>{a.versao}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p style={{ textAlign: "center" }}>Nenhuma atualização encontrada.</p>
+          )}
+
         </div>
       </div>
 
       {/* Modal de mensagens */}
       <Modal show={modal.show} message={modal.message} onClose={() => setModal({ ...modal, show: false })} />
-      <Footer/>
+      <Footer />
     </div>
   );
 }
