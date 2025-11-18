@@ -168,8 +168,8 @@ export default function Profile() {
 
       >
         <ul>
-          <li><a href="">Feedback</a></li>
-          <li><a href="">sair</a></li>
+          <li><a href="/contact">Feedback</a></li>
+          <li><a href="/home">sair</a></li>
         </ul>
       </motion.nav>
 
