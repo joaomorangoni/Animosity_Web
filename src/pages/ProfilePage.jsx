@@ -244,7 +244,7 @@ export default function Profile() {
     type="file" 
     accept="image/*" 
     onChange={handleFotoChange} 
-    style={{ display: "none" }} // escondemos o input real
+    style={{ display: "none" }}
   />
   <svg 
     xmlns="http://www.w3.org/2000/svg" 

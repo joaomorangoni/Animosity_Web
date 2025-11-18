@@ -58,7 +58,7 @@ export default function Contact() {
 
     const payload = { ...feedback, id_usuario: user.id };
 
-    fetch("https://backend-animosity.vercel.app//api/feedback", {
+    fetch("https://backend-animosity.vercel.app/api/feedback", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -79,7 +79,7 @@ export default function Contact() {
 
   useEffect(() => {
     if (!user.id) return;
-    fetch(`https://backend-animosity.vercel.app//api/feedback/${user.id}`)
+    fetch(`https://backend-animosity.vercel.app/api/feedback/${user.id}`)
       .then(res => res.json())
       .then(data => setFeedbacks(data))
       .catch(err => setFeedbackModal({ show: true, message: "Erro ao carregar feedbacks!" }));
