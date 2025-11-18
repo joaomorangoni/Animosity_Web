@@ -60,7 +60,7 @@ nav ul {
 nav a {
     position: relative;
     text-decoration: none;
-    color: #B6A7B5;
+    color: #a7bed2;
     font-family: 'galter';
     letter-spacing: 2px;
     font-size: 16px;
@@ -76,7 +76,7 @@ nav a::after {
     transform: translateX(-50%);
     width: 0%;
     height: 2px;
-    background: linear-gradient(90deg, #b78be0, #f7c8ff);
+    background: linear-gradient(90deg, #294354, #172630);
     border-radius: 2px;
     transition: width 0.4s ease;
 }
