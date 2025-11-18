@@ -84,7 +84,7 @@ nav a::after {
 
 nav a:hover {
     color: #ffffff;
-    text-shadow: 0 0 6px #b78be0;
+    text-shadow: 0 0 6px #598aa9;
 }
 
 nav a:hover::after {
