@@ -159,6 +159,13 @@ const [selectedVersion, setSelectedVersion] = useState(feedback.versao || "");
   fetchVersoes();
 }, []);
 
+
+const logout = async () =>{
+  localStorage.removeItem("userId"),
+  localStorage.removeItem("userName"),
+  localStorage.removeItem("userEmail")
+}
+
   return (
     <div className="conteudo">
       {/* Navbar */}
@@ -171,7 +178,7 @@ const [selectedVersion, setSelectedVersion] = useState(feedback.versao || "");
       >
         <ul>
           <li><a href="/contact">Feedback</a></li>
-          <li><a href="/home">sair</a></li>
+          <li><a onClick={logout} href="/home">sair</a></li>
         </ul>
       </motion.nav>
 
